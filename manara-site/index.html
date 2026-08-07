@@ -719,6 +719,21 @@
     .footer { background: var(--bg-soft); border-top: 1px solid var(--border); padding: 26px 0; text-align: center; font-size: 13px; color: var(--text-muted); }
     .footer .logo { justify-content: center; margin-bottom: 8px; font-size: 18px; }
 
+    /* ============================================
+       الملف الشخصي للمستخدم
+       ============================================ */
+    .nav-actions { display: flex; gap: 8px; align-items: center; }
+    .nav-actions .btn { margin-right: 2px; }
+    .profile-id { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border: 1px solid var(--border); border-radius: 14px; background: var(--bg-soft); margin-bottom: 14px; }
+    .profile-id small { display: block; color: var(--text-muted); margin-top: 3px; }
+    .profile-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .profile-table th, .profile-table td { border: 1px solid var(--border); padding: 8px 10px; text-align: right; }
+    .profile-table th { background: var(--bg-soft); color: var(--text-muted); font-weight: 700; }
+    .profile-table-wrap { max-height: 280px; overflow: auto; border-radius: 12px; border: 1px solid var(--border); }
+    .report-user { border: 1px solid var(--border); border-radius: 14px; padding: 14px 16px; margin-bottom: 12px; background: var(--bg-soft); }
+    .report-user-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 10px; }
+    .report-count { margin-right: auto; font-size: 12.5px; font-weight: 800; color: var(--primary); background: var(--primary-soft); padding: 4px 12px; border-radius: 999px; }
+
     #toast-box { position: fixed; bottom: 24px; right: 24px; z-index: 99999; display: flex; flex-direction: column; gap: 10px; }
     .toast-el { color: #fff; padding: 14px 22px; border-radius: 12px; font-weight: 700; font-size: 14px; box-shadow: 0 10px 30px rgba(0,0,0,.2); animation: slideUp .35s ease; direction: rtl; }
 
@@ -763,6 +778,10 @@
         </span>
         <span id="hdrBrandName">المنارة<small id="hdrBrandTag">للتعليم والتدريب</small></span>
       </a>
+      <div class="nav-actions" id="navActions">
+        <button type="button" class="btn btn-outline btn-sm" id="profileBtn" style="display:none;">ملفي</button>
+        <button type="button" class="btn btn-outline btn-sm" id="logoutBtn" style="display:none;">خروج</button>
+      </div>
     </div>
   </header>
 
@@ -1512,6 +1531,20 @@
           <p style="font-size:13px;color:var(--text-muted);margin:0 0 14px;">المعلمون المتقدمون بانتظار الموافقة — راجع شهادة التخصص ثم اعتمد أو ارفض.</p>
           <div id="teacherReqList"></div>
         </div>
+
+        <!-- سجل المستخدمين والحصص — للمراجعة -->
+        <div class="panel panel-wide">
+          <h3>
+            <span class="p-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/><path d="M12 11v6"/><path d="M9 14h6"/></svg></span>
+            سجل المستخدمين والحصص — للمراجعة
+          </h3>
+          <p style="font-size:13px;color:var(--text-muted);margin:0 0 14px;">ملف خاص يعرض كل مستخدم مسجل وحصصه المحجوزة. استخدم زر التنزيل لحفظ نسخة المراجعة (HTML) في مجلد خاص بك على جهازك.</p>
+          <div id="reportUsers"></div>
+          <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;">
+            <button type="button" class="btn btn-primary btn-sm" id="reportDownloadBtn">تنزيل ملف المراجعة</button>
+            <button type="button" class="btn btn-outline btn-sm" id="reportRefreshBtn">تحديث السجل</button>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -1595,6 +1628,28 @@
       </div>
 
       <div id="moyasarHost"></div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       نافذة الملف الشخصي
+       ============================================================ -->
+  <div class="pay-modal" id="profileModal" aria-hidden="true">
+    <div class="pay-overlay" data-pclose></div>
+    <div class="pay-box" role="dialog" aria-modal="true" aria-labelledby="profileTitle">
+      <button class="pay-close" data-pclose aria-label="إغلاق">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+      <div class="pay-head">
+        <span class="pay-lock">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </span>
+        <div>
+          <h3 id="profileTitle">الملف الشخصي</h3>
+          <p class="pay-sub">بياناتك وحصصك المسجلة</p>
+        </div>
+      </div>
+      <div class="profile-body" id="profileBody"></div>
     </div>
   </div>
 
@@ -1857,9 +1912,40 @@
         for (var i = 0; i < list.length; i++) if ((list[i].email || "").toLowerCase() === email) return list[i];
         return null;
       }
-      function loginSuccess(name, role) {
-        try { localStorage.setItem("manara-user", JSON.stringify({ name: name, role: role })); } catch (e) {}
+      function currentUser() {
+        try { return JSON.parse(localStorage.getItem("manara-user") || "null"); } catch (e) { return null; }
+      }
+      function getBookings() {
+        try { return JSON.parse(localStorage.getItem("manara-bookings") || "[]"); } catch (e) { return []; }
+      }
+      function saveBookings(list) {
+        try { localStorage.setItem("manara-bookings", JSON.stringify(list)); } catch (e) {}
+      }
+      function saveBookingRecord() {
+        var u = currentUser();
+        var pr = planPrice(planKey);
+        var rec = {
+          name: (u && u.name) || $("#email").value || "مستخدم",
+          email: (u && u.email) || "",
+          subject: $("#subject").value,
+          grade: $("#grade").value,
+          teacher: $("#teacher").value,
+          time: $("#time").value,
+          classType: classType,
+          plan: SETTINGS.plans[planKey].name,
+          planKey: planKey,
+          price: pr.price,
+          paid: pr.price > 0,
+          at: new Date().toISOString()
+        };
+        var list = getBookings();
+        list.push(rec);
+        saveBookings(list);
+      }
+      function loginSuccess(name, email, role) {
+        try { localStorage.setItem("manara-user", JSON.stringify({ name: name, email: (email || "").toLowerCase(), role: role })); } catch (e) {}
         toast("تم تسجيل الدخول بنجاح — أهلاً بك في " + SETTINGS.brand.name + " 🎉", "success");
+        refreshNavUser();
         initBooking();
         goScreen("booking");
       }
@@ -1908,7 +1994,7 @@
             if (acc.role === "teacher" && acc.status === "rejected") {
               toast("عذراً، تم رفض طلبك من قبل الإدارة", "error"); return;
             }
-            loginSuccess(acc.name, acc.role);
+            loginSuccess(acc.name, acc.email, acc.role);
             return;
           }
           /* تسجيل حساب جديد */
@@ -1964,7 +2050,7 @@
             createdAt: new Date().toISOString()
           });
           saveAccounts(list2);
-          loginSuccess(fullName, "student");
+          loginSuccess(fullName, email.value.trim().toLowerCase(), "student");
         });
       });
 
@@ -1982,6 +2068,63 @@
         signupRole = "student";
         $("#certGroup").style.display = "none";
       }
+
+      /* ============================================
+         الملف الشخصي: عرض البيانات والحصص + الخروج
+         ============================================ */
+      function refreshNavUser() {
+        var u = currentUser();
+        var pf = $("#profileBtn");
+        var lo = $("#logoutBtn");
+        if (pf) pf.style.display = u ? "" : "none";
+        if (lo) lo.style.display = u ? "" : "none";
+      }
+      function openProfile() {
+        var u = currentUser();
+        var body = $("#profileBody");
+        var modal = $("#profileModal");
+        if (!body || !modal) return;
+        if (!u) { toast("سجّل الدخول أولاً لعرض ملفك", "error"); return; }
+        var mine = getBookings().filter(function (b) {
+          return b.email && u.email && b.email.toLowerCase() === u.email.toLowerCase();
+        });
+        var rows = mine.length
+          ? mine.map(function (b, i) {
+              var d = new Date(b.at);
+              return "<tr><td>" + (i + 1) + "</td><td>" + esc(b.subject) + "</td><td>" + esc(b.grade) + "</td><td>" + esc(b.teacher) + "</td><td>" + esc(b.time) + "</td><td>" + esc(b.plan) + "</td><td>" + (b.paid ? "مدفوع 💳" : "مجاني 🎁") + "</td><td>" + d.toLocaleDateString("ar-SA") + "</td></tr>";
+            }).join("")
+          : '<tr><td colspan="8" style="text-align:center;color:var(--text-muted);padding:18px;">لا توجد حصص مسجلة بعد — احجز حصتك الأولى.</td></tr>';
+        body.innerHTML =
+          '<div class="profile-id">' +
+            '<span class="tr-avatar">' + esc((u.name || "م").charAt(0)) + "</span>" +
+            '<div><b>' + esc(u.name) + "</b><small>" + esc(u.email) + "</small></div>" +
+          "</div>" +
+          '<p style="font-size:13px;color:var(--text-muted);margin:0 0 10px;">الدور: ' + (u.role === "teacher" ? "معلم 🧑‍🏫" : "طالب 🎓") + "</p>" +
+          '<h4 style="margin:4px 0 10px;">حصصي المسجلة (' + mine.length + ")</h4>" +
+          '<div class="profile-table-wrap"><table class="profile-table"><thead><tr><th>#</th><th>المادة</th><th>الصف</th><th>المعلم</th><th>الموعد</th><th>الباقة</th><th>الحالة</th><th>التاريخ</th></tr></thead><tbody>' + rows + "</tbody></table></div>";
+        modal.classList.add("open");
+      }
+      function closeProfile() {
+        $("#profileModal").classList.remove("open");
+      }
+      var profileModal = $("#profileModal");
+      if (profileModal) {
+        $$("[data-pclose]", profileModal).forEach(function (el) {
+          el.addEventListener("click", closeProfile);
+        });
+      }
+      var profileBtn = $("#profileBtn");
+      if (profileBtn) profileBtn.addEventListener("click", openProfile);
+      var logoutBtn = $("#logoutBtn");
+      if (logoutBtn) logoutBtn.addEventListener("click", function () {
+        try { localStorage.removeItem("manara-user"); } catch (e) {}
+        refreshNavUser();
+        toast("تم تسجيل الخروج — نراك قريباً 👋", "info");
+        goScreen("login");
+      });
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && profileModal && profileModal.classList.contains("open")) closeProfile();
+      });
 
       /* ============================================
          الصفوف والمواد حسب المرحلة (من الإعدادات)
@@ -2281,12 +2424,14 @@
           $("#payBtn").style.display = "none";
           $("#paySuccess").style.display = "";
           payDone = true;
+          saveBookingRecord();
         }, 1600);
       }
 
       $("#goPayBtn").addEventListener("click", function () {
         if (planPrice(planKey).price === 0) {
           toast("تم حجز حصتك الأولى المجانية 🎁 — نلتقي في القاعة", "success");
+          saveBookingRecord();
           startRoom();
           goScreen("room");
           return;
@@ -3350,6 +3495,7 @@
         fillThemeFields();
         renderOffers();
         renderTeacherRequests();
+        renderUsersReport();
       }
 
       /* ============================================
@@ -3409,6 +3555,88 @@
 
       function esc(str) {
         return String(str == null ? "" : str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+      }
+
+      /* ============================================
+         سجل المستخدمين والحصص — منطقة مراجعة المالك
+         ============================================ */
+      function renderUsersReport() {
+        var wrap = $("#reportUsers");
+        if (!wrap) return;
+        var accounts = getAccounts();
+        var bookings = getBookings();
+        if (!accounts.length && !bookings.length) {
+          wrap.innerHTML = '<p class="tr-empty">لا يوجد مستخدمون أو حصص بعد.</p>';
+          return;
+        }
+        var html = '<div class="report-users">';
+        accounts.forEach(function (acc) {
+          var mine = bookings.filter(function (b) { return b.email && (b.email || "").toLowerCase() === (acc.email || "").toLowerCase(); });
+          var when = acc.createdAt ? new Date(acc.createdAt).toLocaleDateString("ar-SA") : "—";
+          var badge = acc.status === "rejected" ? '<span class="tr-badge rejected">مرفوض</span>'
+            : acc.status === "pending" ? '<span class="tr-badge pending">بانتظار الموافقة</span>'
+            : '<span class="tr-badge approved">نشط</span>';
+          html += '<div class="report-user">' +
+            '<div class="report-user-head"><span class="tr-avatar">' + esc((acc.name || "م").charAt(0)) + "</span>" +
+            '<span class="tr-info"><b>' + esc(acc.name) + "</b><small>" + esc(acc.email) + " • " + (acc.role === "teacher" ? "معلم" : "طالب") + " • سجل في " + when + " • " + badge + "</small></span>" +
+            '<span class="report-count">' + mine.length + " حصة</span></div>";
+          if (mine.length) {
+            html += '<div class="profile-table-wrap"><table class="profile-table"><thead><tr><th>#</th><th>المادة</th><th>الصف</th><th>المعلم</th><th>الموعد</th><th>الباقة</th><th>الحالة</th><th>التاريخ</th></tr></thead><tbody>';
+            mine.forEach(function (b, i) {
+              var d = new Date(b.at);
+              html += "<tr><td>" + (i + 1) + "</td><td>" + esc(b.subject) + "</td><td>" + esc(b.grade) + "</td><td>" + esc(b.teacher) + "</td><td>" + esc(b.time) + "</td><td>" + esc(b.plan) + "</td><td>" + (b.paid ? "مدفوع" : "مجاني") + "</td><td>" + d.toLocaleDateString("ar-SA") + "</td></tr>";
+            });
+            html += "</tbody></table></div>";
+          } else {
+            html += '<p class="tr-empty" style="padding:8px 0;">لا توجد حصص محجوزة بعد.</p>';
+          }
+          html += "</div>";
+        });
+        html += "</div>";
+        wrap.innerHTML = html;
+      }
+
+      function buildReportDoc() {
+        var accounts = getAccounts();
+        var bookings = getBookings();
+        var dateStr = new Date().toLocaleDateString("ar-SA");
+        var brandName = SETTINGS.brand.name;
+        var rows = "";
+        accounts.forEach(function (acc) {
+          var mine = bookings.filter(function (b) { return b.email && (b.email || "").toLowerCase() === (acc.email || "").toLowerCase(); });
+          var when = acc.createdAt ? new Date(acc.createdAt).toLocaleDateString("ar-SA") : "—";
+          rows += '<div class="u"><div class="uh"><strong>' + esc(acc.name) + "</strong><span>" + esc(acc.email) + " • " + (acc.role === "teacher" ? "معلم" : "طالب") + " • سجل في " + when + "</span></div>";
+          if (mine.length) {
+            rows += '<table><tr><th>#</th><th>المادة</th><th>الصف</th><th>المعلم</th><th>الموعد</th><th>الباقة</th><th>الحالة</th><th>التاريخ</th></tr>';
+            mine.forEach(function (b, i) {
+              rows += "<tr><td>" + (i + 1) + "</td><td>" + esc(b.subject) + "</td><td>" + esc(b.grade) + "</td><td>" + esc(b.teacher) + "</td><td>" + esc(b.time) + "</td><td>" + esc(b.plan) + "</td><td>" + (b.paid ? "مدفوع" : "مجاني") + "</td><td>" + new Date(b.at).toLocaleDateString("ar-SA") + "</td></tr>";
+            });
+            rows += "</table>";
+          } else {
+            rows += '<p class="none">لا توجد حصص محجوزة بعد.</p>';
+          }
+          rows += "</div>";
+        });
+        if (!accounts.length) rows = '<p class="none">لا يوجد مستخدمون بعد.</p>';
+        return '<!DOCTYPE html><html dir="rtl" lang="ar"><head><meta charset="utf-8"><title>مراجعة المستخدمين والحصص — ' + esc(brandName) + " — " + dateStr + '</title><style>body{font-family:"Segoe UI",Tahoma,Arial,sans-serif;background:#f4f6fb;margin:0;padding:24px;color:#1e293b}h1{font-size:22px;margin:0 0 4px}.meta{color:#64748b;font-size:13px;margin-bottom:20px}.u{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;margin-bottom:14px}.uh{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;margin-bottom:8px}.uh span{color:#64748b;font-size:13px}table{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}th,td{border:1px solid #e2e8f0;padding:6px 10px;text-align:right}th{background:#f1f5f9}.none{color:#94a3b8;font-size:13px}</style></head><body><h1>📁 ملف المراجعة — المستخدمون والحصص</h1><div class="meta">المنصة: ' + esc(brandName) + " • تاريخ التقرير: " + dateStr + " • إجمالي المستخدمين: " + accounts.length + " • إجمالي الحصص: " + bookings.length + "</div>" + rows + "</body></html>";
+      }
+
+      function downloadReport() {
+        var blob = new Blob([buildReportDoc()], { type: "text/html;charset=utf-8" });
+        var a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "مراجعة-المستخدمين-والحصص-" + new Date().toISOString().slice(0, 10) + ".html";
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+        toast("تم إنشاء ملف المراجعة وتنزيله 📁", "success");
+      }
+
+      function bindReportButtons() {
+        var dl = $("#reportDownloadBtn");
+        if (dl) dl.addEventListener("click", downloadReport);
+        var rf = $("#reportRefreshBtn");
+        if (rf) rf.addEventListener("click", function () { renderUsersReport(); toast("تم تحديث سجل المراجعة", "success"); });
       }
 
       /* ============================================
@@ -3628,6 +3856,7 @@
         setTimeout(function () {
           if (st === "paid") {
             toast("تم الدفع بنجاح ✔ — حظاً موفقاً في حصتك", "success");
+            saveBookingRecord();
             goScreen("booking");
           } else if (st === "failed") {
             toast("عذراً، فشلت عملية الدفع — حاول مرة أخرى", "error");
@@ -3640,6 +3869,8 @@
 
       /* تهيئة أولية للصفحة الثانية عند العرض */
       initBooking();
+      refreshNavUser();
+      bindReportButtons();
       /* تطبيق مظهر المالك المخصص بعد اكتمال جميع التعريفات */
       applyCustomTheme();
     })();

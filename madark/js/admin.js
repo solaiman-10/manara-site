@@ -286,6 +286,16 @@
       "    <div class='panel-head'><h3>بيانات المالك</h3></div>" +
       ownerRows +
       "  </section>" +
+
+      '  <section class="panel">' +
+      "    <div class='panel-head'><h3>سجل المستخدمين والحصص — للمراجعة</h3></div>" +
+      "    <p class='admin-hint'>ملف خاص يعرض كل مستخدم مسجل وجلساته المحجوزة. استخدم زر التنزيل لحفظ نسخة المراجعة (HTML) في مجلد خاص بك.</p>" +
+      '    <div id="ad-report-users"></div>' +
+      '    <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">' +
+      '      <button type="button" class="btn btn-primary btn-sm" id="adReportDownloadBtn">تنزيل ملف المراجعة</button>' +
+      '      <button type="button" class="btn btn-outline btn-sm" id="adReportRefreshBtn">تحديث السجل</button>' +
+      "    </div>" +
+      "  </section>" +
       "</div>" +
 
       '<div class="admin-actions">' +
@@ -314,6 +324,100 @@
         list.appendChild(row);
         bindMethodRow(row);
       });
+    }
+
+    var repDl = $("#adReportDownloadBtn", target);
+    var repRf = $("#adReportRefreshBtn", target);
+    if (repDl) repDl.addEventListener("click", downloadReport);
+    if (repRf) repRf.addEventListener("click", function () { renderUsersReport(); toast("تم تحديث سجل المراجعة", "success"); });
+    renderUsersReport();
+  }
+
+  /* ---------- سجل المستخدمين والحصص — منطقة مراجعة المالك ---------- */
+  function esc(str) {
+    return String(str == null ? "" : str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+  function getAccounts() {
+    try { return JSON.parse(localStorage.getItem("madark-accounts") || "[]"); } catch (e) { return []; }
+  }
+  function getBookings() {
+    try { return JSON.parse(localStorage.getItem("madark-bookings") || "[]"); } catch (e) { return []; }
+  }
+  function roleLabel(role) {
+    return role === "teacher" ? "معلم" : "طالب";
+  }
+  function renderUsersReport() {
+    var wrap = $("#ad-report-users");
+    if (!wrap) return;
+    var accounts = getAccounts();
+    var bookings = getBookings();
+    if (!accounts.length && !bookings.length) {
+      wrap.innerHTML = '<p class="admin-hint" style="text-align:center;padding:14px 0;">لا يوجد مستخدمون أو حجوزات بعد.</p>';
+      return;
+    }
+    var html = "";
+    accounts.forEach(function (acc) {
+      var mine = bookings.filter(function (b) { return b.by && (b.by || "").toLowerCase() === (acc.email || "").toLowerCase(); });
+      var when = acc.at ? new Date(acc.at).toLocaleDateString("ar-SA") : "—";
+      var badge = acc.status === "pending"
+        ? '<span style="background:rgba(245,158,11,.15);color:#b45309;font-size:11px;font-weight:800;padding:3px 10px;border-radius:999px;">بانتظار الموافقة</span>'
+        : acc.status === "rejected"
+          ? '<span style="background:rgba(239,68,68,.15);color:#b91c1c;font-size:11px;font-weight:800;padding:3px 10px;border-radius:999px;">مرفوض</span>'
+          : '<span style="background:rgba(16,185,129,.15);color:#047857;font-size:11px;font-weight:800;padding:3px 10px;border-radius:999px;">نشط</span>';
+      html += '<div class="profile-id" style="flex-wrap:wrap;">' +
+        '<span class="avatar" style="width:42px;height:42px;font-size:16px;">' + esc((acc.name || "م").charAt(0)) + "</span>" +
+        '<span style="flex:1;min-width:180px;"><b style="display:block;">' + esc(acc.name) + '</b><small style="color:var(--text-muted);">' + esc(acc.email) + " • " + roleLabel(acc.role) + " • سجل في " + when + " • " + badge + "</small></span>" +
+        '<b style="color:var(--primary);font-size:13px;">' + mine.length + " حجز</b></div>";
+      if (mine.length) {
+        html += '<div class="profile-table-wrap" style="margin-bottom:14px;"><table class="profile-table"><thead><tr><th>#</th><th>المعلم</th><th>التاريخ</th><th>الوقت</th><th>النوع</th><th>تاريخ الحجز</th></tr></thead><tbody>';
+        mine.forEach(function (b, i) {
+          var parts = b.date ? b.date.split("-") : [];
+          var dateLabel = parts.length === 3 ? parts[2] + "/" + parts[1] + "/" + parts[0] : b.date || "—";
+          html += "<tr><td>" + (i + 1) + "</td><td>" + esc(b.teacher) + "</td><td>" + dateLabel + "</td><td>" + esc(b.time || "") + "</td><td>" + (b.type === "group" ? "جماعية" : "فردية") + "</td><td>" + new Date(b.at).toLocaleDateString("ar-SA") + "</td></tr>";
+        });
+        html += "</tbody></table></div>";
+      } else {
+        html += '<p style="font-size:13px;color:var(--text-muted);margin:0 0 14px 8px;">لا توجد جلسات محجوزة بعد.</p>';
+      }
+    });
+    wrap.innerHTML = html;
+  }
+  function downloadReport() {
+    var accounts = getAccounts();
+    var bookings = getBookings();
+    var dateStr = new Date().toLocaleDateString("ar-SA");
+    var brandName = (settings.brand && settings.brand.name) || "مدارك";
+    var rows = "";
+    accounts.forEach(function (acc) {
+      var mine = bookings.filter(function (b) { return b.by && (b.by || "").toLowerCase() === (acc.email || "").toLowerCase(); });
+      var when = acc.at ? new Date(acc.at).toLocaleDateString("ar-SA") : "—";
+      rows += '<div class="u"><div class="uh"><strong>' + esc(acc.name) + "</strong><span>" + esc(acc.email) + " • " + roleLabel(acc.role) + " • سجل في " + when + "</span></div>";
+      if (mine.length) {
+        rows += '<table><tr><th>#</th><th>المعلم</th><th>التاريخ</th><th>الوقت</th><th>النوع</th><th>تاريخ الحجز</th></tr>';
+        mine.forEach(function (b, i) {
+          var parts = b.date ? b.date.split("-") : [];
+          var dateLabel = parts.length === 3 ? parts[2] + "/" + parts[1] + "/" + parts[0] : b.date || "—";
+          rows += "<tr><td>" + (i + 1) + "</td><td>" + esc(b.teacher) + "</td><td>" + dateLabel + "</td><td>" + esc(b.time || "") + "</td><td>" + (b.type === "group" ? "جماعية" : "فردية") + "</td><td>" + new Date(b.at).toLocaleDateString("ar-SA") + "</td></tr>";
+        });
+        rows += "</table>";
+      } else {
+        rows += '<p class="none">لا توجد جلسات محجوزة بعد.</p>';
+      }
+      rows += "</div>";
+    });
+    if (!accounts.length) rows = '<p class="none">لا يوجد مستخدمون بعد.</p>';
+    var doc = '<!DOCTYPE html><html dir="rtl" lang="ar"><head><meta charset="utf-8"><title>مراجعة المستخدمين والحصص — ' + esc(brandName) + " — " + dateStr + '</title><style>body{font-family:"Segoe UI",Tahoma,Arial,sans-serif;background:#f4f6fb;margin:0;padding:24px;color:#1e293b}h1{font-size:22px;margin:0 0 4px}.meta{color:#64748b;font-size:13px;margin-bottom:20px}.u{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;margin-bottom:14px}.uh{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;margin-bottom:8px}.uh span{color:#64748b;font-size:13px}table{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}th,td{border:1px solid #e2e8f0;padding:6px 10px;text-align:right}th{background:#f1f5f9}.none{color:#94a3b8;font-size:13px}</style></head><body><h1>📁 ملف المراجعة — المستخدمون والحصص</h1><div class="meta">المنصة: ' + esc(brandName) + " • تاريخ التقرير: " + dateStr + " • إجمالي المستخدمين: " + accounts.length + " • إجمالي الحجوزات: " + bookings.length + "</div>" + rows + "</body></html>";
+    try {
+      var blob = new Blob([doc], { type: "text/html;charset=utf-8" });
+      var a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "مراجعة-المستخدمين-والحصص-" + new Date().toISOString().slice(0, 10) + ".html";
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+      toast("تم إنشاء ملف المراجعة وتنزيله 📁", "success");
+    } catch (e) {
+      toast("تعذر إنشاء ملف المراجعة", "error");
     }
   }
 

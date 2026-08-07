@@ -128,6 +128,14 @@
         </div>
       </div>
 
+      <!-- الملف الشخصي -->
+      <div class="panel reveal" style="margin-bottom:24px;">
+        <div class="panel-head">
+          <h3>ملفي الشخصي</h3>
+        </div>
+        <div id="myProfileBody"></div>
+      </div>
+
       <div class="dash-grid-2">
         <!-- الكورسات قيد التنفيذ -->
         <div class="panel reveal">
@@ -311,5 +319,38 @@
   </div>
 
   <script src="js/main.js"></script>
+  <script>
+    (function () {
+      function esc(str) {
+        return String(str == null ? "" : str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+      }
+      var user = null;
+      try { user = JSON.parse(localStorage.getItem("madark-user")); } catch (e) {}
+      var roleEl = document.querySelector(".dp-role");
+      if (roleEl) roleEl.textContent = (user && user.role === "teacher" ? "معلّم" : "طالب") + " — " + (user && user.email ? user.email : "");
+      var body = document.getElementById("myProfileBody");
+      if (!body) return;
+      if (!user) {
+        body.innerHTML = '<p style="color:var(--text-muted);margin:0;">لم تسجّل دخولك بعد — <a href="auth.html" style="color:var(--primary);font-weight:800;">سجّل دخولك</a> لعرض ملفك وحصصك.</p>';
+        return;
+      }
+      var bookings = [];
+      try { bookings = JSON.parse(localStorage.getItem("madark-bookings") || "[]"); } catch (e) {}
+      var mine = bookings.filter(function (b) {
+        return b.by && user.email && b.by.toLowerCase() === user.email.toLowerCase();
+      });
+      var rows = mine.length ? mine.map(function (b, i) {
+        var parts = b.date ? b.date.split("-") : [];
+        var dateLabel = parts.length === 3 ? parts[2] + "/" + parts[1] + "/" + parts[0] : b.date || "—";
+        return "<tr><td>" + (i + 1) + "</td><td>" + esc(b.teacher) + "</td><td>" + dateLabel + "</td><td>" + esc(b.time || "") + "</td><td>" + (b.type === "group" ? "جماعية" : "فردية") + "</td><td>" + new Date(b.at).toLocaleDateString("ar-SA") + "</td></tr>";
+      }).join("") : '<tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:18px;">لا توجد جلسات محجوزة بعد — احجز جلستك من صفحة المعلمين.</td></tr>';
+      body.innerHTML =
+        '<div class="profile-id">' +
+          '<div class="avatar">' + esc((user.name || "م").charAt(0)) + "</div>" +
+          '<div><b>' + esc(user.name) + "</b><small>" + esc(user.email) + " • " + (user.role === "teacher" ? "معلّم" : "طالب") + "</small></div>" +
+        "</div>" +
+        '<div class="profile-table-wrap"><table class="profile-table"><thead><tr><th>#</th><th>المعلم</th><th>التاريخ</th><th>الوقت</th><th>النوع</th><th>تاريخ الحجز</th></tr></thead><tbody>' + rows + "</tbody></table></div>";
+    })();
+  </script>
 </body>
 </html>

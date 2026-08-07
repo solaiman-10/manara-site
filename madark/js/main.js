@@ -263,7 +263,7 @@
         try { localStorage.setItem(idKey, id); } catch (e) {}
       }
       const email = id + "@" + provider + ".com";
-      const user = { name, email, role, provider, at: Date.now() };
+      const user = { name, email, role, provider, status: "active", at: Date.now() };
       try {
         const accounts = JSON.parse(localStorage.getItem("madark-accounts") || "[]");
         const existing = accounts.find(a => a.email === email);
@@ -319,23 +319,69 @@
       /* الدخول إلى المنصة بعد تسجيل الدخول أو إنشاء حساب */
       if (kind === "login" || kind === "signup") {
         e.preventDefault();
+        const brand = (window.MadarkConfig && window.MadarkConfig.brand && window.MadarkConfig.brand.name) || "مدارك";
         const nameInput = $("input[type=text], #name", form);
         const roleInput = $("#reg-role");
+        const emailClean = emailVal.toLowerCase();
+
+        /* تسجيل الدخول: التحقق من وجود الحساب وكلمة المرور */
+        if (kind === "login") {
+          let accounts = [];
+          try { accounts = JSON.parse(localStorage.getItem("madark-accounts") || "[]"); } catch (err) {}
+          const acc = accounts.find(a => (a.email || "").toLowerCase() === emailClean);
+          if (!acc) {
+            toast("لا يوجد حساب بهذا البريد — أنشئ حساباً جديداً أولاً", "error");
+            email.focus();
+            return;
+          }
+          if (acc.password && acc.password !== pass.value) {
+            toast("كلمة المرور غير صحيحة", "error");
+            pass.focus();
+            return;
+          }
+          if (acc.role === "teacher" && acc.status === "pending") {
+            toast("حسابك قيد المراجعة — بانتظار موافقة إدارة المنصة ⏳", "info");
+            return;
+          }
+          const user = {
+            name: acc.name || emailClean.split("@")[0],
+            email: acc.email,
+            role: acc.role || "student",
+            provider: acc.provider || "email",
+            at: Date.now()
+          };
+          try { localStorage.setItem("madark-user", JSON.stringify(user)); } catch (err) {}
+          toast("أهلاً بك في " + brand + " — جارٍ الدخول… 🎉", "success");
+          setTimeout(() => { window.location.href = "dashboard.html"; }, 450);
+          return;
+        }
+
+        /* إنشاء حساب جديد: حفظ كلمة مرور حقيقية مرتبطة بالبريد */
+        const fullName = (nameInput && nameInput.value.trim()) || emailClean.split("@")[0];
+        const role = (roleInput && roleInput.value) || "student";
+        let accounts = [];
+        try { accounts = JSON.parse(localStorage.getItem("madark-accounts") || "[]"); } catch (err) {}
+        if (accounts.some(a => (a.email || "").toLowerCase() === emailClean)) {
+          toast("هذا البريد مسجل مسبقاً — سجّل دخولك", "error");
+          email.focus();
+          return;
+        }
         const user = {
-          name: (nameInput && nameInput.value.trim()) || emailVal.split("@")[0],
-          email: emailVal,
-          role: (roleInput && roleInput.value) || "student",
+          name: fullName,
+          email: emailClean,
+          password: pass.value,
+          role: role,
+          status: role === "teacher" ? "pending" : "active",
+          provider: "email",
           at: Date.now()
         };
-        try {
-          if (kind === "signup") {
-            const accounts = JSON.parse(localStorage.getItem("madark-accounts") || "[]");
-            accounts.push(user);
-            localStorage.setItem("madark-accounts", JSON.stringify(accounts));
-          }
-          localStorage.setItem("madark-user", JSON.stringify(user));
-        } catch (err) {}
-        const brand = (window.MadarkConfig && window.MadarkConfig.brand && window.MadarkConfig.brand.name) || "مدارك";
+        accounts.push(user);
+        try { localStorage.setItem("madark-accounts", JSON.stringify(accounts)); } catch (err) {}
+        if (role === "teacher") {
+          toast("تم إنشاء حسابك كمعلّم — سيتم تفعيله بعد مراجعة الإدارة ⏳", "info");
+          return;
+        }
+        try { localStorage.setItem("madark-user", JSON.stringify(user)); } catch (err) {}
         toast("أهلاً بك في " + brand + " — جارٍ الدخول… 🎉", "success");
         setTimeout(() => { window.location.href = "dashboard.html"; }, 450);
         return;
