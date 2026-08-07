@@ -321,6 +321,8 @@
     .plan-info small { color: var(--text-muted); font-size: 12.5px; }
     .plan-price { font-family: var(--font-head); font-weight: 900; font-size: 17px; color: var(--primary); white-space: nowrap; }
     .plan-price small { font-size: 12px; color: var(--text-soft); font-weight: 600; display: block; text-align: left; }
+    .plan-badge { display: inline-block; margin-top: 4px; background: var(--accent); color: #fff; font-size: 10.5px; font-weight: 800; padding: 2px 8px; border-radius: 20px; }
+    .plan-old { color: var(--danger) !important; text-decoration: line-through; font-size: 12px !important; margin-right: 4px; display: inline !important; }
 
     .summary {
       position: sticky; top: 92px;
@@ -384,6 +386,33 @@
     .cfg-stages { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
     .cfg-stages label { display: block; font-weight: 700; font-size: 13px; margin-bottom: 6px; }
     .methods-cfg { display: grid; gap: 10px; margin-bottom: 18px; padding-bottom: 16px; border-bottom: 1px dashed var(--border-strong); }
+
+    .admin-grid .input-wrap select {
+      width: 100%; padding: 11px 14px; border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm); background: var(--bg); color: var(--text);
+      outline: none; font-size: 14px; cursor: pointer;
+    }
+    .admin-grid .input-wrap select:focus { border-color: var(--primary); box-shadow: 0 0 0 4px var(--ring); }
+    .theme-cfg { display: grid; gap: 12px; }
+    .color-input { display: flex; align-items: center; gap: 10px; }
+    .color-input input[type="color"] {
+      width: 46px; height: 42px; padding: 3px; border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm); background: var(--bg); cursor: pointer;
+    }
+    .color-input input[type="text"] { flex: 1; }
+    .theme-live { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+    .offer-row {
+      display: grid; grid-template-columns: 1.2fr 1fr 1fr .7fr auto auto; gap: 10px;
+      align-items: center; padding: 12px; margin-bottom: 10px;
+      background: var(--bg); border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+    }
+    .offer-row input, .offer-row select { width: 100%; }
+    .offer-row .form-check { display: flex; align-items: center; gap: 6px; font-size: 13px; white-space: nowrap; }
+    .offer-del { border: none; background: var(--danger); color: #fff; width: 34px; height: 34px; border-radius: var(--radius-sm); cursor: pointer; font-size: 15px; line-height: 1; }
+    .offer-hint { margin-top: 12px; color: var(--text-muted); font-size: 13px; }
+    @media (max-width: 860px) {
+      .offer-row { grid-template-columns: 1fr 1fr; }
+    }
 
     /* ============================================
        قاعة الدرس — مكالمات ومشاركة
@@ -1055,6 +1084,7 @@
             <span class="t-label">الإجمالي</span>
             <span class="t-price" id="sumTotal">200 ر.س</span>
           </div>
+          <div class="sum-old-wrap"><span id="sumOld" style="display:none;color:var(--danger);font-size:13px;font-weight:700;"></span></div>
           <button type="button" class="btn btn-primary btn-lg btn-block" id="goPayBtn">المتابعة للدفع</button>
           <div class="sum-hint">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
@@ -1348,6 +1378,65 @@
           </div>
         </div>
 
+        <!-- المظهر والألوان والخطوط -->
+        <div class="panel">
+          <h3>
+            <span class="p-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg></span>
+            المظهر والألوان والخطوط
+          </h3>
+          <div class="theme-cfg">
+            <div class="form-group">
+              <label for="cfgColorPrimary">اللون الأساسي</label>
+              <div class="color-input"><input type="color" id="cfgColorPrimary" value="#2563eb"><input type="text" id="cfgColorPrimaryHex" placeholder="#2563eb"></div>
+            </div>
+            <div class="form-group">
+              <label for="cfgColorPrimaryDark">اللون الأساسي (داكن)</label>
+              <div class="color-input"><input type="color" id="cfgColorPrimaryDark" value="#1e3a8a"><input type="text" id="cfgColorPrimaryDarkHex" placeholder="#1e3a8a"></div>
+            </div>
+            <div class="form-group">
+              <label for="cfgColorPrimaryDeeper">اللون الأساسي (أغمق)</label>
+              <div class="color-input"><input type="color" id="cfgColorPrimaryDeeper" value="#0f1e47"><input type="text" id="cfgColorPrimaryDeeperHex" placeholder="#0f1e47"></div>
+            </div>
+            <div class="form-group">
+              <label for="cfgColorPrimaryLight">اللون الأساسي (فاتح)</label>
+              <div class="color-input"><input type="color" id="cfgColorPrimaryLight" value="#3b82f6"><input type="text" id="cfgColorPrimaryLightHex" placeholder="#3b82f6"></div>
+            </div>
+            <div class="form-group">
+              <label for="cfgColorPrimarySoft">اللون الأساسي (خلفيات ناعمة)</label>
+              <div class="color-input"><input type="color" id="cfgColorPrimarySoft" value="#eff6ff"><input type="text" id="cfgColorPrimarySoftHex" placeholder="#eff6ff"></div>
+            </div>
+            <div class="form-group">
+              <label for="cfgColorAccent">اللون المميز (الشارات)</label>
+              <div class="color-input"><input type="color" id="cfgColorAccent" value="#f59e0b"><input type="text" id="cfgColorAccentHex" placeholder="#f59e0b"></div>
+            </div>
+            <div class="form-group">
+              <label for="cfgFontBody">الخط الرئيسي</label>
+              <div class="input-wrap"><select id="cfgFontBody"><option value="">الافتراضي (Tajawal)</option></select></div>
+            </div>
+            <div class="form-group" style="margin-bottom:0;">
+              <label for="cfgFontHead">خط العناوين</label>
+              <div class="input-wrap"><select id="cfgFontHead"><option value="">الافتراضي (Cairo)</option></select></div>
+            </div>
+          </div>
+          <div class="theme-live">
+            <button type="button" class="btn btn-outline btn-sm" id="themeLiveBtn">معاينة مباشرة</button>
+            <button type="button" class="btn btn-outline btn-sm" id="themeResetBtn">إعادة الافتراضي</button>
+          </div>
+        </div>
+
+        <!-- العروض والتخفيضات -->
+        <div class="panel panel-wide">
+          <h3>
+            <span class="p-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg></span>
+            العروض والتخفيضات
+          </h3>
+          <div id="offersList"></div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;">
+            <button type="button" class="btn btn-outline btn-sm" id="addOfferBtn">+ إضافة عرض</button>
+          </div>
+          <div class="offer-hint">تُطبق العروض تلقائياً على السعر المعروض للمستفيدين عند اختيار الخطة، ويظهر السعر قبل الخصم مشطوباً.</div>
+        </div>
+
         <!-- المراحل والمواد -->
         <div class="panel panel-wide">
           <h3>
@@ -1476,6 +1565,7 @@
           <span class="pay-item-type" id="payItemType">—</span>
         </div>
         <div class="pay-amount" id="payPrice">0</div>
+        <div id="payOld" style="display:none;color:var(--danger);font-size:13px;font-weight:700;text-align:center;margin-top:4px;"></div>
       </div>
 
       <div id="paySim">
@@ -1604,11 +1694,19 @@
         times: ["السبت — 4:00 عصراً", "السبت — 6:00 مساءً", "الأحد — 5:00 عصراً", "الاثنين — 7:00 مساءً", "الثلاثاء — 5:30 عصراً", "الأربعاء — 6:30 مساءً", "الخميس — 4:30 عصراً"],
         teachers: ["أ. خالد الحربي — الرياضيات", "د. منى الشريف — العلوم", "أ. سارة القحطاني — اللغة العربية", "م. عمر السبيعي — الفيزياء", "أ. نورة العتيبي — اللغة الإنجليزية"],
         methods: ["mada", "visa", "applepay", "stcpay"],
-        gateway: { moyasarKey: "", callbackUrl: "" }
+        gateway: { moyasarKey: "", callbackUrl: "" },
+        /* تخصيص المظهر: اترك القيمة فارغة لاستخدام ثيم التطبيق الافتراضي */
+        theme: {
+          colors: { primary: "", primaryDark: "", primaryDeeper: "", primaryLight: "", primarySoft: "", accent: "" },
+          fonts: { body: "", head: "" }
+        },
+        /* العروض والتخفيضات: array من كائنات العرض */
+        offers: []
       };
 
       var SETTINGS = loadSettings();
       applyTheme(savedTheme || SETTINGS.themeDefault);
+      applyCustomTheme();
 
       function deepMerge(base, extra) {
         var out = JSON.parse(JSON.stringify(base));
@@ -1639,6 +1737,76 @@
         $("#hdrBrandName").innerHTML = name + "<small>" + tag + "</small>";
         $("#ftrBrandName").innerHTML = name + "<small>" + tag + "</small>";
         $("#loginGreet").textContent = "مرحباً بك في " + name;
+      }
+
+      /* ============================================
+         تخصيص المظهر: ألوان وخطوط المالك
+         تُطبق فوق الثيم الافتراضي عبر متغيرات CSS
+         ============================================ */
+      var THEME_VARS = ["--primary", "--primary-dark", "--primary-deeper", "--primary-soft", "--accent", "--gradient", "--gradient-soft", "--shadow-primary", "--ring", "--font", "--font-head"];
+      function toRgba(hex, alpha) {
+        var h = String(hex || "").replace("#", "");
+        if (h.length === 3) h = h.split("").map(function (x) { return x + x; }).join("");
+        var n = parseInt(h, 16);
+        if (isNaN(n) || h.length !== 6) return "rgba(37, 99, 235, " + alpha + ")";
+        return "rgba(" + ((n >> 16) & 255) + ", " + ((n >> 8) & 255) + ", " + (n & 255) + ", " + alpha + ")";
+      }
+      function applyCustomTheme() {
+        THEME_VARS.forEach(function (v) { root.style.removeProperty(v); });
+        var th = SETTINGS.theme || {};
+        var c = th.colors || {};
+        var f = th.fonts || {};
+        function setV(n, v) { if (v) root.style.setProperty(n, v); }
+        setV("--primary", c.primary);
+        setV("--primary-dark", c.primaryDark);
+        setV("--primary-deeper", c.primaryDeeper);
+        setV("--primary-soft", c.primarySoft);
+        setV("--accent", c.accent);
+        if (c.primary) {
+          var light = c.primaryLight || c.primary;
+          var dark = c.primaryDark || c.primary;
+          setV("--gradient", "linear-gradient(135deg, " + c.primary + " 0%, " + light + " 55%, " + dark + " 100%)");
+          setV("--gradient-soft", "linear-gradient(135deg, " + (c.primarySoft || c.primary) + " 0%, rgba(255,255,255,.25) 100%)");
+          setV("--shadow-primary", "0 10px 30px " + toRgba(c.primary, 0.30));
+          setV("--ring", "0 0 0 3px " + toRgba(c.primary, 0.15));
+        }
+        if (f.body) setV("--font", "'" + f.body + "', 'Tajawal', 'Cairo', system-ui, sans-serif");
+        if (f.head) setV("--font-head", "'" + f.head + "', 'Cairo', 'Tajawal', system-ui, sans-serif");
+        var known = ["Cairo", "Tajawal", "Almarai", "Rubik", "Noto Kufi Arabic", "Amiri", "El Messiri", "Alexandria", "IBM Plex Sans Arabic", "Reem Kufi"];
+        var needed = [];
+        [f.body, f.head].forEach(function (name) {
+          if (name && known.indexOf(name) !== -1 && needed.indexOf(name) === -1) needed.push(name);
+        });
+        needed.forEach(function (name) {
+          if (document.querySelector('link[data-font="' + name + '"]')) return;
+          var link = document.createElement("link");
+          link.rel = "stylesheet";
+          link.setAttribute("data-font", name);
+          link.href = "https://fonts.googleapis.com/css2?family=" + encodeURIComponent(name) + ":wght@400;500;700;800;900&display=swap";
+          document.head.appendChild(link);
+        });
+      }
+
+      /* ============================================
+         العروض والتخفيضات: حساب السعر الفعلي بعد الخصم
+         ============================================ */
+      function planPrice(key) {
+        var p = SETTINGS.plans[key];
+        if (!p) return { price: 0, oldPrice: 0, badge: "", discount: 0 };
+        if (p.price === 0) return { price: 0, oldPrice: 0, badge: "", discount: 0 };
+        var best = null;
+        (SETTINGS.offers || []).forEach(function (o) {
+          if (!o.active || !o.plans || o.plans.indexOf(key) === -1) return;
+          var value = Math.max(0, Number(o.value) || 0);
+          if (value <= 0) return;
+          var discount = o.type === "percent" ? Math.round(p.price * value / 100) : value;
+          var newPrice = Math.max(0, p.price - discount);
+          if (!best || newPrice < best.price) {
+            best = { price: newPrice, discount: discount, badge: o.badge || o.title || "" };
+          }
+        });
+        if (!best) return { price: p.price, oldPrice: 0, badge: "", discount: 0 };
+        return { price: best.price, oldPrice: p.price, badge: best.badge, discount: best.discount };
       }
 
       /* ============================================
@@ -1851,10 +2019,13 @@
           b.className = "plan" + (key === planKey ? " active" : "");
           b.setAttribute("data-plan", key);
           var per = p.duration ? p.duration : (p.sessions > 1 ? "اشتراك " + p.sessions + " حصص" : "لحصة واحدة");
+          var pr = planPrice(key);
           b.innerHTML =
             '<span class="plan-ico">' + planIcons[key] + "</span>" +
-            '<span class="plan-info"><b>' + p.name + "</b><small>" + p.desc + "</small></span>" +
-            '<span class="plan-price">' + (p.price === 0 ? "مجاناً" : p.price + ' ر.س') + "<small>" + per + "</small></span>";
+            '<span class="plan-info"><b>' + p.name + "</b><small>" + p.desc + "</small>" + (pr.badge ? '<span class="plan-badge">' + pr.badge + "</span>" : "") + "</span>" +
+            '<span class="plan-price">' + (pr.price === 0 ? "مجاناً" : pr.price + ' ر.س') +
+            (pr.oldPrice ? ' <small class="plan-old">' + pr.oldPrice + ' ر.س</small>' : "") +
+            "<small>" + per + "</small></span>";
           b.addEventListener("click", function () {
             $$("#planList .plan").forEach(function (x) { x.classList.remove("active"); });
             b.classList.add("active");
@@ -1938,12 +2109,18 @@
 
       function updateSummary() {
         var plan = SETTINGS.plans[planKey];
+        var pr = planPrice(planKey);
         $("#sumGrade").textContent = $("#grade").value;
         $("#sumSubject").textContent = $("#subject").value;
         $("#sumTeacher").textContent = $("#teacher").value ? $("#teacher").value.split(" — ")[0] : "يُحدد لاحقاً";
         $("#sumTime").textContent = $("#time").value;
-        $("#sumPlan").textContent = plan.name + (plan.duration ? " (" + plan.duration + ")" : "");
-        $("#sumTotal").textContent = plan.price === 0 ? "مجاناً" : plan.price + " ر.س";
+        $("#sumPlan").textContent = plan.name + (plan.duration ? " (" + plan.duration + ")" : "") + (pr.badge ? " — " + pr.badge : "");
+        $("#sumTotal").textContent = pr.price === 0 ? "مجاناً" : pr.price + " ر.س";
+        var sumOld = $("#sumOld");
+        if (sumOld) {
+          sumOld.style.display = pr.oldPrice ? "" : "none";
+          if (pr.oldPrice) sumOld.textContent = "بدلاً من " + pr.oldPrice + " ر.س";
+        }
       }
 
       /* ============================================
@@ -2000,7 +2177,7 @@
       }
 
       function updatePayBtnLabel() {
-        $("#payBtn .pay-btn-label").textContent = "ادفع " + SETTINGS.plans[planKey].price + " ر.س";
+        $("#payBtn .pay-btn-label").textContent = "ادفع " + planPrice(planKey).price + " ر.س";
       }
 
       var moyasarScriptLoading = false;
@@ -2036,7 +2213,7 @@
           if (SETTINGS.methods.indexOf("visa") !== -1) networks.push("visa", "mastercard");
           Moyasar.init({
             element: host,
-            amount: SETTINGS.plans[planKey].price * 100,
+            amount: planPrice(planKey).price * 100,
             currency: "SAR",
             description: $("#subject").value + " — " + $("#grade").value + " (" + (classType === "group" ? "حصة جماعية — " : "حصة فردية — ") + SETTINGS.plans[planKey].name + ")",
             publishable_api_key: SETTINGS.gateway.moyasarKey,
@@ -2050,9 +2227,15 @@
 
       function openPay() {
         payDone = false;
+        var pr = planPrice(planKey);
         $("#payItemName").textContent = $("#subject").value + " — " + $("#grade").value;
-        $("#payItemType").textContent = (classType === "group" ? "حصة جماعية — " : "حصة فردية — ") + SETTINGS.plans[planKey].name;
-        $("#payPrice").textContent = SETTINGS.plans[planKey].price + " ر.س";
+        $("#payItemType").textContent = (classType === "group" ? "حصة جماعية — " : "حصة فردية — ") + SETTINGS.plans[planKey].name + (pr.badge ? " — " + pr.badge : "");
+        $("#payPrice").textContent = pr.price + " ر.س";
+        var payOld = $("#payOld");
+        if (payOld) {
+          payOld.style.display = pr.oldPrice ? "" : "none";
+          if (pr.oldPrice) payOld.textContent = "بدلاً من " + pr.oldPrice + " ر.س";
+        }
         var sim = $("#paySim"), host = $("#moyasarHost");
         if (SETTINGS.gateway.moyasarKey) {
           sim.style.display = "none";
@@ -2103,7 +2286,7 @@
       }
 
       $("#goPayBtn").addEventListener("click", function () {
-        if (SETTINGS.plans[planKey].price === 0) {
+        if (planPrice(planKey).price === 0) {
           toast("تم حجز حصتك الأولى المجانية 🎁 — نلتقي في القاعة", "success");
           startRoom();
           goScreen("room");
@@ -3165,6 +3348,8 @@
         });
         $("#cfgMoyasarKey").value = SETTINGS.gateway.moyasarKey;
         $("#cfgCallbackUrl").value = SETTINGS.gateway.callbackUrl;
+        fillThemeFields();
+        renderOffers();
         renderTeacherRequests();
       }
 
@@ -3227,6 +3412,121 @@
         return String(str == null ? "" : str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
       }
 
+      /* ============================================
+         المظهر في لوحة الإعدادات: الخطوط والألوان
+         ============================================ */
+      var FONT_OPTIONS = ["Cairo", "Tajawal", "Almarai", "Rubik", "Noto Kufi Arabic", "Amiri", "El Messiri", "Alexandria", "IBM Plex Sans Arabic", "Reem Kufi"];
+      var THEME_COLOR_FIELDS = [
+        ["cfgColorPrimary", "primary"],
+        ["cfgColorPrimaryDark", "primaryDark"],
+        ["cfgColorPrimaryDeeper", "primaryDeeper"],
+        ["cfgColorPrimaryLight", "primaryLight"],
+        ["cfgColorPrimarySoft", "primarySoft"],
+        ["cfgColorAccent", "accent"]
+      ];
+      function populateFontSelects() {
+        [["cfgFontBody", SETTINGS.theme.fonts.body], ["cfgFontHead", SETTINGS.theme.fonts.head]].forEach(function (pair) {
+          var s = $("#" + pair[0]);
+          s.innerHTML = '<option value="">الافتراضي</option>' + FONT_OPTIONS.map(function (f) { return '<option value="' + f + '">' + f + "</option>"; }).join("");
+          s.value = pair[1];
+        });
+      }
+      function bindColorInput(colorId, hexId) {
+        var c = $("#" + colorId), h = $("#" + hexId);
+        c.addEventListener("input", function () { h.value = c.value; });
+        h.addEventListener("input", function () {
+          var v = h.value.trim();
+          if (/^#([0-9a-f]{6})$/i.test(v)) c.value = v;
+        });
+      }
+      function fillThemeFields() {
+        var tc = (SETTINGS.theme && SETTINGS.theme.colors) || {};
+        THEME_COLOR_FIELDS.forEach(function (pair) {
+          $("#" + pair[0]).value = tc[pair[1]] || "#ffffff";
+          $("#" + pair[0] + "Hex").value = tc[pair[1]] || "";
+        });
+        populateFontSelects();
+      }
+      function collectThemeFromForm() {
+        var colors = {};
+        THEME_COLOR_FIELDS.forEach(function (pair) {
+          var v = $("#" + pair[0] + "Hex").value.trim();
+          colors[pair[1]] = /^#([0-9a-f]{6})$/i.test(v) ? v : "";
+        });
+        SETTINGS.theme = SETTINGS.theme || {};
+        SETTINGS.theme.colors = colors;
+        SETTINGS.theme.fonts = { body: $("#cfgFontBody").value, head: $("#cfgFontHead").value };
+      }
+      THEME_COLOR_FIELDS.forEach(function (pair) { bindColorInput(pair[0], pair[0] + "Hex"); });
+      $("#themeLiveBtn").addEventListener("click", function () {
+        collectThemeFromForm();
+        applyTheme(SETTINGS.themeDefault);
+        applyCustomTheme();
+        toast("معاينة مباشرة — احفظ الإعدادات لتثبيت التغيير", "info");
+      });
+      $("#themeResetBtn").addEventListener("click", function () {
+        SETTINGS.theme = { colors: {}, fonts: {} };
+        fillThemeFields();
+        applyTheme(SETTINGS.themeDefault);
+        applyCustomTheme();
+        toast("تمت إعادة المظهر للافتراضي", "success");
+      });
+
+      /* ============================================
+         العروض والتخفيضات في لوحة الإعدادات
+         ============================================ */
+      function renderOffers() {
+        var list = $("#offersList");
+        if (!list) return;
+        list.innerHTML = "";
+        (SETTINGS.offers || []).forEach(function (o, idx) {
+          var plans = (o.plans || []).join(",");
+          var row = document.createElement("div");
+          row.className = "offer-row";
+          row.innerHTML =
+            '<input type="text" class="offer-title" data-idx="' + idx + '" placeholder="اسم العرض (يظهر للمستفيدين)" value="' + esc(o.title || "") + '">' +
+            '<select class="offer-type" data-idx="' + idx + '">' +
+            '<option value="percent"' + (o.type === "percent" ? " selected" : "") + '>خصم نسبة %</option>' +
+            '<option value="fixed"' + (o.type === "fixed" ? " selected" : "") + '>خصم مبلغ (ر.س)</option>' +
+            "</select>" +
+            '<input type="number" class="offer-value" data-idx="' + idx + '" min="0" placeholder="القيمة" value="' + (o.value || 0) + '">' +
+            '<input type="text" class="offer-plans" data-idx="' + idx + '" placeholder="single,pack4,pack8" value="' + esc(plans) + '">' +
+            '<label class="form-check"><input type="checkbox" class="offer-active" data-idx="' + idx + '"' + (o.active === false ? "" : " checked") + '> فعال</label>' +
+            '<button type="button" class="offer-del" data-idx="' + idx + '" title="حذف العرض">✕</button>';
+          list.appendChild(row);
+        });
+        if (!(SETTINGS.offers || []).length) {
+          list.innerHTML = '<p class="offer-hint" style="margin:0;">لا توجد عروض حالياً. اضغط «+ إضافة عرض» لإنشاء تخفيض للمستفيدين.</p>';
+        }
+      }
+      $("#offersList").addEventListener("input", function (e) {
+        var t = e.target;
+        if (!t.dataset || !t.hasAttribute("data-idx")) return;
+        var o = SETTINGS.offers[Number(t.getAttribute("data-idx"))];
+        if (!o) return;
+        if (t.classList.contains("offer-title")) o.title = t.value;
+        else if (t.classList.contains("offer-value")) o.value = Number(t.value) || 0;
+        else if (t.classList.contains("offer-plans")) o.plans = t.value.split(",").map(function (s) { return s.trim(); }).filter(function (s) { return s.length; });
+        else if (t.classList.contains("offer-type")) o.type = t.value;
+      });
+      $("#offersList").addEventListener("change", function (e) {
+        var t = e.target;
+        if (t.classList.contains("offer-active")) {
+          var o = SETTINGS.offers[Number(t.getAttribute("data-idx"))];
+          if (o) o.active = t.checked;
+        }
+      });
+      $("#offersList").addEventListener("click", function (e) {
+        var del = e.target.closest ? e.target.closest(".offer-del") : null;
+        if (!del) return;
+        SETTINGS.offers.splice(Number(del.getAttribute("data-idx")), 1);
+        renderOffers();
+      });
+      $("#addOfferBtn").addEventListener("click", function () {
+        SETTINGS.offers.push({ title: "عرض جديد", type: "percent", value: 10, plans: ["single", "pack4", "pack8"], active: true });
+        renderOffers();
+      });
+
       /* الثيم الافتراضي في لوحة الإعدادات */
       $$("[data-theme-opt]").forEach(function (btn) {
         btn.addEventListener("click", function () {
@@ -3267,11 +3567,13 @@
         SETTINGS.methods = $$(".methods-cfg input[type=checkbox]").filter(function (c) { return c.checked; }).map(function (c) { return c.value; });
         SETTINGS.gateway.moyasarKey = $("#cfgMoyasarKey").value.trim();
         SETTINGS.gateway.callbackUrl = $("#cfgCallbackUrl").value.trim();
+        collectThemeFromForm();
 
         saveSettings();
         applyBrand();
         applyBookingData();
         applyTheme(SETTINGS.themeDefault);
+        applyCustomTheme();
         toast("تم حفظ الإعدادات بنجاح ✔", "success");
       }
 
@@ -3283,6 +3585,7 @@
         SETTINGS = loadSettings();
         applyBrand();
         applyBookingData();
+        applyCustomTheme();
         populateAdminForm();
         toast("تمت استعادة الإعدادات الافتراضية", "success");
       });
