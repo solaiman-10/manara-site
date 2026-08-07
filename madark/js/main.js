@@ -225,6 +225,63 @@
     });
   });
 
+  /* ---------- اختيار الدور (طالب / معلّم) ---------- */
+  const roleTabs = $$("[data-role-tab]");
+  roleTabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      roleTabs.forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
+      const roleInput = $("#reg-role");
+      if (roleInput) roleInput.value = tab.getAttribute("data-role-tab");
+      if (tab.getAttribute("data-role-tab") === "teacher") {
+        toast("سيتم إنشاء حسابك كمعلّم — سيمرّ مراجعة الإدارة", "info");
+      }
+    });
+  });
+
+  /* ---------- الدخول عبر جوجل / أبل ---------- */
+  const SOCIAL_LABELS = { google: "جوجل", apple: "أبل" };
+  $$(".social-btn[data-social]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const provider = btn.getAttribute("data-social");
+      const label = SOCIAL_LABELS[provider] || provider;
+      const roleInput = $("#reg-role");
+      const role = (roleInput && roleInput.value) || "student";
+      let name = "";
+      try { name = localStorage.getItem("madark-social-name") || ""; } catch (e) {}
+      if (!name.trim()) {
+        name = prompt("ما اسمك الكامل؟", "") || "";
+        name = name.trim();
+        if (name) { try { localStorage.setItem("madark-social-name", name); } catch (e) {} }
+      }
+      if (!name) name = provider === "google" ? "مستخدم جوجل" : "مستخدم أبل";
+      const idKey = "madark-social-id-" + provider;
+      let id = "";
+      try { id = localStorage.getItem(idKey) || ""; } catch (e) {}
+      if (!id) {
+        id = Date.now().toString(36) + Math.floor(Math.random() * 1e8).toString(36);
+        try { localStorage.setItem(idKey, id); } catch (e) {}
+      }
+      const email = id + "@" + provider + ".com";
+      const user = { name, email, role, provider, at: Date.now() };
+      try {
+        const accounts = JSON.parse(localStorage.getItem("madark-accounts") || "[]");
+        const existing = accounts.find(a => a.email === email);
+        if (!existing) {
+          accounts.push(user);
+          localStorage.setItem("madark-accounts", JSON.stringify(accounts));
+        } else if (existing.name !== name) {
+          existing.name = name;
+          localStorage.setItem("madark-accounts", JSON.stringify(accounts));
+        }
+        localStorage.setItem("madark-user", JSON.stringify(user));
+      } catch (err) {}
+      const brand = (window.MadarkConfig && window.MadarkConfig.brand && window.MadarkConfig.brand.name) || "مدارك";
+      toast("أهلاً بك في " + brand + " — جارٍ الدخول… 🎉", "success");
+      setTimeout(() => { window.location.href = "dashboard.html"; }, 450);
+    });
+  });
+
   /* ---------- إظهار/إخفاء كلمة المرور ---------- */
   $$(".toggle-pass").forEach(btn => {
     btn.addEventListener("click", () => {
@@ -263,9 +320,11 @@
       if (kind === "login" || kind === "signup") {
         e.preventDefault();
         const nameInput = $("input[type=text], #name", form);
+        const roleInput = $("#reg-role");
         const user = {
           name: (nameInput && nameInput.value.trim()) || emailVal.split("@")[0],
           email: emailVal,
+          role: (roleInput && roleInput.value) || "student",
           at: Date.now()
         };
         try {
