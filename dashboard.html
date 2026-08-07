@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوحة التحكم — Madark للتدريب والتعليم</title>
+  <meta name="description" content="لوحة تحكم الطالب: تقدمك الدراسي، جدول الحصص، الكورسات المكتملة ولوحة المتصدرين.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8C%99%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+
+  <div class="dash-layout">
+    <!-- ======= الشريط الجانبي ======= -->
+    <aside class="dash-side">
+      <a href="index.html" class="logo" style="padding:0 12px;margin-bottom:22px;">
+        <span class="logo-mark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11h18l-1.5-4.5A2 2 0 0 0 17.56 5H6.44a2 2 0 0 0-1.94 1.5L3 11z"/><circle cx="7.5" cy="16.5" r="1.5"/><circle cx="16.5" cy="16.5" r="1.5"/><path d="M2 11h20v4a1 1 0 0 1-1 1h-1"/><path d="M5.5 16.5h13"/></svg>
+        </span>
+        <span>Madark<small>للتدريب والتعليم</small></span>
+      </a>
+
+      <div class="dash-profile">
+        <div class="avatar">س</div>
+        <div>
+          <div class="dp-name">سلامة أحمد</div>
+          <div class="dp-role">طالب — باقة المتفوق</div>
+        </div>
+        <button id="themeToggle" class="icon-btn" style="margin-right:auto;width:36px;height:36px;" aria-label="تبديل الوضع الليلي">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        </button>
+      </div>
+
+      <nav class="dash-nav">
+        <a href="dashboard.html" class="active">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+          لوحة التحكم
+        </a>
+        <a href="courses.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          كورساتي
+        </a>
+        <a href="course-details.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="3"/><path d="M11 9v6l5-3-5-3z"/></svg>
+          الحصص المباشرة
+          <span class="nav-badge">2</span>
+        </a>
+        <a href="#">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          الواجبات
+          <span class="nav-badge">3</span>
+        </a>
+        <a href="#">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          الرسائل
+        </a>
+        <a href="#">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.47 12.89L17 22l-5-3-5 3 1.53-9.11"/></svg>
+          شهاداتي
+        </a>
+        <a href="#">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          الإعدادات
+        </a>
+      </nav>
+
+      <div style="margin-top:24px;padding:16px;background:var(--gradient);border-radius:var(--radius);color:#fff;">
+        <b style="font-size:15px;">ترقية الباقة 🚀</b>
+        <p style="font-size:12px;opacity:.9;margin:6px 0 12px;">افتح جميع الكورسات والمزايا المتقدمة.</p>
+        <a href="index.html#pricing" class="btn btn-light btn-sm btn-block">عرض الباقات</a>
+      </div>
+    </aside>
+
+    <!-- ======= المحتوى ======= -->
+    <main class="dash-main">
+      <div class="dash-head">
+        <div>
+          <h1>أهلاً، سلامة 👋</h1>
+          <p>إليك ملخص نشاطك الدراسي لهذا الأسبوع.</p>
+        </div>
+        <a href="auth.html" class="btn btn-outline btn-sm" data-logout>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5M21 12H9"/></svg>
+          تسجيل الخروج
+        </a>
+      </div>
+
+      <!-- بطاقات الإحصائيات -->
+      <div class="stat-cards">
+        <div class="stat-card reveal">
+          <div class="stat-ico a">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
+          </div>
+          <div>
+            <b data-count="8">0</b>
+            <span>كورسات مسجلة</span>
+          </div>
+        </div>
+        <div class="stat-card reveal d1">
+          <div class="stat-ico b">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <div>
+            <b data-count="42">0</b>
+            <span>ساعة دراسة</span>
+          </div>
+        </div>
+        <div class="stat-card reveal d2">
+          <div class="stat-ico c">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.47 12.89L17 22l-5-3-5 3 1.53-9.11"/></svg>
+          </div>
+          <div>
+            <b data-count="3">0</b>
+            <span>شهادات مكتملة</span>
+          </div>
+        </div>
+        <div class="stat-card reveal d3">
+          <div class="stat-ico d">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div>
+            <b>12</b>
+            <span>الترتيب الأسبوعي</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="dash-grid-2">
+        <!-- الكورسات قيد التنفيذ -->
+        <div class="panel reveal">
+          <div class="panel-head">
+            <h3>كورساتي الحالية</h3>
+            <a href="courses.html">عرض الكل</a>
+          </div>
+          <div class="lesson-row">
+            <div class="lesson-ico" style="background:linear-gradient(135deg,#8b5cf6,#c026d3);color:#fff;">📊</div>
+            <div class="lesson-info">
+              <b>أساسيات الرياضيات المتقدمة</b>
+              <span>الوحدة 3 من 6 — التفاضل والتكامل</span>
+            </div>
+            <div style="width:140px;flex-shrink:0;">
+              <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text-muted);margin-bottom:5px;"><span>التقدم</span><b style="color:var(--primary);">86%</b></div>
+              <div class="progress"><span data-progress="86"></span></div>
+            </div>
+          </div>
+          <div class="lesson-row">
+            <div class="lesson-ico" style="background:linear-gradient(135deg,#0d9488,#06b6d4);color:#fff;">💻</div>
+            <div class="lesson-info">
+              <b>مقدمة في البرمجة بلغة بايثون</b>
+              <span>الوحدة 2 من 5 — الحلقات والدوال</span>
+            </div>
+            <div style="width:140px;flex-shrink:0;">
+              <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text-muted);margin-bottom:5px;"><span>التقدم</span><b style="color:var(--primary);">62%</b></div>
+              <div class="progress"><span data-progress="62"></span></div>
+            </div>
+          </div>
+          <div class="lesson-row">
+            <div class="lesson-ico" style="background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;">🚀</div>
+            <div class="lesson-info">
+              <b>مهارات القيادة وإدارة الفرق</b>
+              <span>الوحدة 1 من 4 — أساسيات القيادة</span>
+            </div>
+            <div style="width:140px;flex-shrink:0;">
+              <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text-muted);margin-bottom:5px;"><span>التقدم</span><b style="color:var(--primary);">45%</b></div>
+              <div class="progress"><span data-progress="45"></span></div>
+            </div>
+          </div>
+          <div class="lesson-row">
+            <div class="lesson-ico" style="background:linear-gradient(135deg,#059669,#10b981);color:#fff;">🗣️</div>
+            <div class="lesson-info">
+              <b>الإنجليزية لأعمالك اليومية</b>
+              <span>الوحدة 1 من 6 — أساسيات المحادثة</span>
+            </div>
+            <div style="width:140px;flex-shrink:0;">
+              <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text-muted);margin-bottom:5px;"><span>التقدم</span><b style="color:var(--primary);">28%</b></div>
+              <div class="progress"><span data-progress="28"></span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- التقدم العام -->
+        <div class="panel reveal d1">
+          <div class="panel-head">
+            <h3>التقدم العام</h3>
+            <a href="#">التفاصيل</a>
+          </div>
+          <div class="donut-wrap">
+            <div>
+              <canvas id="donut"></canvas>
+            </div>
+            <ul class="donut-legend">
+              <li><span class="dot" style="background:#8b5cf6;"></span> مكتمل <b>46%</b></li>
+              <li><span class="dot" style="background:#06b6d4;"></span> قيد التنفيذ <b>28%</b></li>
+              <li><span class="dot" style="background:#f59e0b;"></span> مستجد <b>18%</b></li>
+              <li><span class="dot" style="background:#e2e8f0;"></span> لم يبدأ <b>8%</b></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="dash-grid-2">
+        <!-- الجدول الأسبوعي -->
+        <div class="panel reveal">
+          <div class="panel-head">
+            <h3>جدول الحصص المباشرة</h3>
+            <a href="#">الجدول الكامل</a>
+          </div>
+          <div class="schedule-item">
+            <div class="schedule-date"><b>12</b><span>أغسطس</span></div>
+            <div class="schedule-info">
+              <b>الرياضيات المتقدمة — د. منى</b>
+              <p>اليوم • 6:00 مساءً • عبر الغرفة الصوتية</p>
+            </div>
+            <span class="schedule-tag">الآن</span>
+          </div>
+          <div class="schedule-item">
+            <div class="schedule-date" style="background:var(--gradient);"><b>13</b><span>أغسطس</span></div>
+            <div class="schedule-info">
+              <b>البرمجة بلغة بايثون — م. أحمد</b>
+              <p>غداً • 8:00 مساءً • بث مباشر</p>
+            </div>
+            <span class="schedule-tag wait">قريباً</span>
+          </div>
+          <div class="schedule-item">
+            <div class="schedule-date" style="background:var(--gradient);"><b>15</b><span>أغسطس</span></div>
+            <div class="schedule-info">
+              <b>مهارات القيادة — أ. سارة</b>
+              <p>السبت • 5:00 مساءً • ورشة تفاعلية</p>
+            </div>
+            <span class="schedule-tag wait">قريباً</span>
+          </div>
+          <div class="schedule-item">
+            <div class="schedule-date" style="background:var(--gradient);"><b>17</b><span>أغسطس</span></div>
+            <div class="schedule-info">
+              <b>الإنجليزية لأعمالك — أ. ريم</b>
+              <p>الاثنين • 9:00 صباحاً • جلسة نقاش</p>
+            </div>
+            <span class="schedule-tag wait">قريباً</span>
+          </div>
+        </div>
+
+        <!-- المتصدرون -->
+        <div class="panel reveal d1">
+          <div class="panel-head">
+            <h3>لوحة المتصدرين — هذا الأسبوع</h3>
+            <a href="#">المزيد</a>
+          </div>
+          <div class="leader-row">
+            <span class="leader-rank">1</span>
+            <div class="leader-avatar" style="background:linear-gradient(135deg,#8b5cf6,#c026d3);">م</div>
+            <div class="leader-info">
+              <b>ماجد العلي</b>
+              <small>12.8 ساعة دراسة</small>
+            </div>
+            <span class="leader-points">2,450</span>
+          </div>
+          <div class="leader-row">
+            <span class="leader-rank">2</span>
+            <div class="leader-avatar" style="background:linear-gradient(135deg,#0d9488,#06b6d4);">ل</div>
+            <div class="leader-info">
+              <b>لمى الغامدي</b>
+              <small>11.2 ساعة دراسة</small>
+            </div>
+            <span class="leader-points">2,310</span>
+          </div>
+          <div class="leader-row">
+            <span class="leader-rank">3</span>
+            <div class="leader-avatar" style="background:linear-gradient(135deg,#f97316,#eab308);">ي</div>
+            <div class="leader-info">
+              <b>يوسف النجار</b>
+              <small>10.6 ساعة دراسة</small>
+            </div>
+            <span class="leader-points">2,180</span>
+          </div>
+          <div class="leader-row">
+            <span class="leader-rank" style="background:var(--primary-soft);color:var(--primary);">12</span>
+            <div class="leader-avatar" style="background:var(--gradient);">س</div>
+            <div class="leader-info">
+              <b>سلامة أحمد (أنت)</b>
+              <small>7.1 ساعة دراسة</small>
+            </div>
+            <span class="leader-points">1,540</span>
+          </div>
+          <div class="leader-row">
+            <span class="leader-rank">13</span>
+            <div class="leader-avatar" style="background:linear-gradient(135deg,#475569,#0f172a);">ن</div>
+            <div class="leader-info">
+              <b>نوف الشمري</b>
+              <small>6.8 ساعة دراسة</small>
+            </div>
+            <span class="leader-points">1,480</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- دعوة للاستمرار -->
+      <div class="cta-band" style="border-radius:var(--radius-lg);margin-top:6px;padding:40px 32px;">
+        <div class="cta-blob c1" style="width:220px;height:220px;"></div>
+        <div class="cta-inner" style="text-align:right;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;">
+          <div>
+            <h2 style="font-size:24px;margin-bottom:6px;">واصل التقدم — أنت تبلي بلاءً رائعاً!</h2>
+            <p style="font-size:15px;margin:0;">لديك واجبان مستحقان في الرياضيات المتقدمة. أكملهما لتحافظ على ترتيبك.</p>
+          </div>
+          <a href="course-details.html" class="btn btn-light btn-lg">انتقل إلى الكورس</a>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

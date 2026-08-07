@@ -1,0 +1,295 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>المعلمون — Madark للتدريب والتعليم</title>
+  <meta name="description" content="تعرّف على نخبة معلمي Madark: خبراء معتمدون في الرياضيات، البرمجة، الذكاء الاصطناعي، العلوم والمهارات.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8C%99%3C/text%3E%3C/svg%3E">
+  <style>
+    .book-input {
+      width: 100%; padding: 11px 14px;
+      border: 1.5px solid var(--border); border-radius: 12px;
+      background: var(--bg); color: var(--text); font-weight: 700; font-size: 14px;
+      outline: none; transition: border-color .2s; font-family: inherit;
+    }
+    .book-input:focus { border-color: var(--primary); }
+  </style>
+</head>
+<body>
+
+  <div data-slot="header" data-active="teachers"></div>
+
+  <!-- ======= ترويسة الصفحة ======= -->
+  <section class="page-hero">
+    <div class="container page-hero-inner">
+      <span class="badge reveal">نخبة المعلمين</span>
+      <h1 class="reveal d1">تعلم من <span style="background:var(--gradient);-webkit-background-clip:text;background-clip:text;color:transparent;">أفضل الخبراء</span></h1>
+      <p class="reveal d2">أكثر من 1200 معلم معتمد بخبرات محلية وعالمية — اختر معلمك وابدأ رحلتك.</p>
+      <div class="crumbs reveal d3">
+        <a href="index.html">الرئيسية</a>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        <span>المعلمون</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= قائمة المعلمين ======= -->
+  <section class="section" style="padding-top:48px;">
+    <div class="container">
+      <div class="filter-bar reveal">
+        <div class="filter-search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          <input type="text" placeholder="ابحث عن معلم...">
+        </div>
+        <button class="filter-chip active" data-filter="all">الكل</button>
+        <button class="filter-chip" data-filter="math">الرياضيات</button>
+        <button class="filter-chip" data-filter="programming">البرمجة</button>
+        <button class="filter-chip" data-filter="science">العلوم</button>
+        <button class="filter-chip" data-filter="ai">الذكاء الاصطناعي</button>
+        <button class="filter-chip" data-filter="language">اللغات</button>
+        <button class="filter-chip" data-filter="skills">المهارات</button>
+      </div>
+
+      <div class="grid grid-4">
+        <div class="teacher-card reveal" data-category="math" data-title="د منى الشريف">
+          <div class="teacher-avatar" style="background:linear-gradient(135deg,#8b5cf6,#c026d3);">م</div>
+          <h3>د. منى الشريف</h3>
+          <div class="t-role">أستاذة الرياضيات</div>
+          <p>دكتوراه في الرياضيات التطبيقية مع 15 عاماً من الخبرة التدريسية.</p>
+          <div class="teacher-stats">
+            <div><b>4.9</b> التقييم</div>
+            <div><b>12.4k</b> طالب</div>
+            <div><b>320</b> كورس</div>
+          </div>
+          <a href="auth.html" class="btn btn-outline btn-sm btn-block">حجز جلسة</a>
+        </div>
+
+        <div class="teacher-card reveal d1" data-category="programming" data-title="م أحمد الحسن">
+          <div class="teacher-avatar" style="background:linear-gradient(135deg,#0d9488,#06b6d4);">أ</div>
+          <h3>م. أحمد الحسن</h3>
+          <div class="t-role">مهندس برمجيات</div>
+          <p>مهندس برمجيات بشركة تقنية عالمية، خبير في بناء التطبيقات الحديثة.</p>
+          <div class="teacher-stats">
+            <div><b>4.8</b> التقييم</div>
+            <div><b>18.2k</b> طالب</div>
+            <div><b>245</b> كورس</div>
+          </div>
+          <a href="auth.html" class="btn btn-outline btn-sm btn-block">حجز جلسة</a>
+        </div>
+
+        <div class="teacher-card reveal d2" data-category="ai" data-title="د خالد العمري">
+          <div class="teacher-avatar" style="background:linear-gradient(135deg,#2563eb,#7c3aed);">خ</div>
+          <h3>د. خالد العمري</h3>
+          <div class="t-role">خبير الذكاء الاصطناعي</div>
+          <p>باحث في تعلم الآلة، نشر أبحاثاً علمية محكمة ودرّب آلاف المهندسين.</p>
+          <div class="teacher-stats">
+            <div><b>4.9</b> التقييم</div>
+            <div><b>9.8k</b> طالب</div>
+            <div><b>180</b> كورس</div>
+          </div>
+          <a href="auth.html" class="btn btn-outline btn-sm btn-block">حجز جلسة</a>
+        </div>
+
+        <div class="teacher-card reveal d3" data-category="skills" data-title="أ سارة القحطاني">
+          <div class="teacher-avatar" style="background:linear-gradient(135deg,#f97316,#eab308);">س</div>
+          <h3>أ. سارة القحطاني</h3>
+          <div class="t-role">مدربة المهارات</div>
+          <p>مدربة معتمدة في القيادة ومهارات التواصل مع خبرة تدريب تتجاوز 10 سنوات.</p>
+          <div class="teacher-stats">
+            <div><b>4.9</b> التقييم</div>
+            <div><b>15.6k</b> طالب</div>
+            <div><b>210</b> كورس</div>
+          </div>
+          <a href="auth.html" class="btn btn-outline btn-sm btn-block">حجز جلسة</a>
+        </div>
+
+        <div class="teacher-card reveal" data-category="science" data-title="د فهد العبدالله">
+          <div class="teacher-avatar" style="background:linear-gradient(135deg,#059669,#10b981);">ف</div>
+          <h3>د. فهد العبدالله</h3>
+          <div class="t-role">أستاذ الفيزياء</div>
+          <p>دكتوراه في الفيزياء النظرية، اشتهر بأسلوبه المبسط في شرح أصعب المفاهيم.</p>
+          <div class="teacher-stats">
+            <div><b>4.7</b> التقييم</div>
+            <div><b>7.6k</b> طالب</div>
+            <div><b>140</b> كورس</div>
+          </div>
+          <a href="auth.html" class="btn btn-outline btn-sm btn-block">حجز جلسة</a>
+        </div>
+
+        <div class="teacher-card reveal d1" data-category="language" data-title="أ ريم الزهراني">
+          <div class="teacher-avatar" style="background:linear-gradient(135deg,#e11d48,#f97316);">ر</div>
+          <h3>أ. ريم الزهراني</h3>
+          <div class="t-role">مدربة اللغات</div>
+          <p>حاصلة على شهادة TESOL الدولية، متخصصة في تعليم الإنجليزية بمتعة وسهولة.</p>
+          <div class="teacher-stats">
+            <div><b>4.8</b> التقييم</div>
+            <div><b>21k</b> طالب</div>
+            <div><b>165</b> كورس</div>
+          </div>
+          <a href="auth.html" class="btn btn-outline btn-sm btn-block">حجز جلسة</a>
+        </div>
+
+        <div class="teacher-card reveal d2" data-category="science" data-title="د ليلى المطيري">
+          <div class="teacher-avatar" style="background:linear-gradient(135deg,#0284c7,#06b6d4);">ل</div>
+          <h3>د. ليلى المطيري</h3>
+          <div class="t-role">أستاذة الكيمياء</div>
+          <p>باحثة في الكيمياء العضوية، تشرح المعادلات بطرق بصرية ممتعة وسهلة الحفظ.</p>
+          <div class="teacher-stats">
+            <div><b>4.6</b> التقييم</div>
+            <div><b>5.9k</b> طالب</div>
+            <div><b>98</b> كورس</div>
+          </div>
+          <a href="auth.html" class="btn btn-outline btn-sm btn-block">حجز جلسة</a>
+        </div>
+
+        <div class="teacher-card reveal d3" data-category="programming" data-title="م عمر الدوسري">
+          <div class="teacher-avatar" style="background:linear-gradient(135deg,#7c3aed,#c026d3);">ع</div>
+          <h3>م. عمر الدوسري</h3>
+          <div class="t-role">خبير أمن سيبراني</div>
+          <p>خبير في أمن المعلومات وحاصل على شهادات دولية من أهم المؤسسات العالمية.</p>
+          <div class="teacher-stats">
+            <div><b>4.8</b> التقييم</div>
+            <div><b>8.3k</b> طالب</div>
+            <div><b>112</b> كورس</div>
+          </div>
+          <a href="auth.html" class="btn btn-outline btn-sm btn-block">حجز جلسة</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= دعوة للانضمام ======= -->
+  <section class="cta-band">
+    <div class="cta-blob c1"></div>
+    <div class="cta-blob c2"></div>
+    <div class="container cta-inner reveal">
+      <h2>معلم متميز؟ شارك خبرتك معنا</h2>
+      <p>انضم لنخبة معلمي Madark وابنِ مسارك التعليمي الخاص مع آلاف الطلاب المتطلعين للتعلم.</p>
+      <a href="auth.html" class="btn btn-light btn-lg">انضم كمعلّم الآن</a>
+    </div>
+  </section>
+
+  <!-- ======= نافذة حجز جلسة ======= -->
+  <div class="pay-modal" id="bookModal" aria-hidden="true">
+    <div class="pay-overlay" data-book-close></div>
+    <div class="pay-box" role="dialog" aria-modal="true" aria-labelledby="bookModalTitle">
+      <button type="button" class="pay-close" data-book-close aria-label="إغلاق">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+      <div class="pay-head">
+        <span class="pay-lock" style="background:var(--primary-soft);color:var(--primary);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </span>
+        <div>
+          <h3 id="bookModalTitle" style="margin:0;font-size:18px;">حجز جلسة</h3>
+          <p id="bookTeacher" style="margin:4px 0 0;font-size:13px;color:var(--text-muted);"></p>
+        </div>
+      </div>
+      <form id="bookForm">
+        <div class="form-group">
+          <label for="bookDate">التاريخ</label>
+          <input type="date" id="bookDate" class="book-input" required>
+        </div>
+        <div class="form-group">
+          <label for="bookTime">الوقت</label>
+          <input type="time" id="bookTime" class="book-input" required>
+        </div>
+        <div class="form-group">
+          <label for="bookType">نوع الجلسة</label>
+          <select id="bookType" class="book-input">
+            <option value="individual">فردية (مع المعلم)</option>
+            <option value="group">جماعية (مع زملائك)</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg btn-block">تأكيد الحجز</button>
+        <p id="bookNote" style="margin:12px 0 0;font-size:13px;color:var(--text-muted);text-align:center;"></p>
+      </form>
+    </div>
+  </div>
+
+  <div data-slot="footer"></div>
+
+  <script src="js/site-config.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/payment.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    (function () {
+      var modal = document.getElementById("bookModal");
+      var teacherEl = document.getElementById("bookTeacher");
+      var note = document.getElementById("bookNote");
+      var form = document.getElementById("bookForm");
+      var currentTeacher = "";
+
+      function loggedIn() {
+        try { return !!localStorage.getItem("madark-user"); } catch (e) { return false; }
+      }
+      function openModal(name, role) {
+        currentTeacher = (name + (role ? " — " + role : "")).trim();
+        teacherEl.textContent = currentTeacher;
+        note.textContent = loggedIn() ? "" : "يجب تسجيل الدخول أولاً قبل تأكيد الحجز.";
+        modal.classList.add("open");
+        modal.setAttribute("aria-hidden", "false");
+      }
+      function closeModal() {
+        modal.classList.remove("open");
+        modal.setAttribute("aria-hidden", "true");
+      }
+
+      document.querySelectorAll(".teacher-card").forEach(function (card) {
+        var btn = card.querySelector("a[href='auth.html']");
+        if (!btn) return;
+        btn.addEventListener("click", function (e) {
+          e.preventDefault();
+          var nameEl = card.querySelector("h3");
+          var roleEl = card.querySelector(".t-role");
+          openModal(nameEl ? nameEl.textContent : "", roleEl ? roleEl.textContent : "");
+        });
+      });
+
+      document.querySelectorAll("[data-book-close]").forEach(function (el) {
+        el.addEventListener("click", closeModal);
+      });
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") closeModal();
+      });
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        if (!loggedIn()) {
+          window.location.href = "auth.html";
+          return;
+        }
+        var date = document.getElementById("bookDate").value;
+        var time = document.getElementById("bookTime").value;
+        if (!date || !time) {
+          note.textContent = "اختر التاريخ والوقت أولاً.";
+          return;
+        }
+        var user = {};
+        try { user = JSON.parse(localStorage.getItem("madark-user") || "{}"); } catch (err) {}
+        var bookings = [];
+        try { bookings = JSON.parse(localStorage.getItem("madark-bookings") || "[]"); } catch (err) {}
+        bookings.push({
+          teacher: currentTeacher,
+          date: date,
+          time: time,
+          type: document.getElementById("bookType").value,
+          by: user.email || "",
+          at: Date.now()
+        });
+        try { localStorage.setItem("madark-bookings", JSON.stringify(bookings)); } catch (err) {}
+        closeModal();
+        if (window.toast) {
+          window.toast("تم تأكيد حجزك — " + currentTeacher.split("—")[0] + " 🎉", "success");
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

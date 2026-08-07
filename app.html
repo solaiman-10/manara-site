@@ -1,0 +1,3344 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="green-cyan">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>المنارة للتعليم والتدريب — مساحة دروس إضافية لطلاب التعليم العام</title>
+  <meta name="description" content="المنارة للتعليم والتدريب: مساحة تعليمية لدروس إضافية لطلاب التعليم العام — حصص مباشرة صوتية ومرئية، مشاركة ملفات وصور، ودفع إلكتروني آمن.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%9A%3C/text%3E%3C/svg%3E">
+  <style>
+    /* ============================================
+       الثيمات — خيار أول: أبيض مع أخضر وسماوي
+       خيار ثاني: أبيض مع أزرق وبرتقالي
+       ============================================ */
+    :root {
+      --radius: 16px;
+      --radius-sm: 10px;
+      --radius-full: 999px;
+      --shadow-sm: 0 1px 3px rgba(15, 23, 42, .06);
+      --shadow: 0 8px 24px rgba(15, 23, 42, .08);
+      --shadow-md: 0 14px 40px rgba(15, 23, 42, .12);
+      --font: "Tajawal", "Cairo", system-ui, sans-serif;
+      --font-head: "Cairo", "Tajawal", system-ui, sans-serif;
+      --transition: .3s cubic-bezier(.4, 0, .2, 1);
+    }
+
+    html[data-theme="blue-orange"] {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --primary-deeper: #1e3a8a;
+      --primary-soft: #eff6ff;
+      --gradient: linear-gradient(135deg, #3b82f6 0%, #2563eb 55%, #1d4ed8 100%);
+      --gradient-soft: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+      --accent: #f97316;
+      --accent-soft: #ffedd5;
+      --success: #10b981;
+      --danger: #ef4444;
+      --info: #0284c7;
+      --text: #172554;
+      --text-muted: #64748b;
+      --text-soft: #94a3b8;
+      --bg: #ffffff;
+      --bg-soft: #f1f5f9;
+      --bg-softer: #e2e8f0;
+      --card: #ffffff;
+      --border: #dbeafe;
+      --border-strong: #bfdbfe;
+      --shadow-primary: 0 10px 30px rgba(37, 99, 235, .30);
+      --ring: rgba(37, 99, 235, .18);
+    }
+
+    html[data-theme="green-cyan"] {
+      --primary: #64748b;
+      --primary-dark: #475569;
+      --primary-deeper: #334155;
+      --primary-soft: #f1f5f9;
+      --gradient: linear-gradient(135deg, #94a3b8 0%, #64748b 55%, #475569 100%);
+      --gradient-soft: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      --accent: #06b6d4;
+      --accent-soft: #cffafe;
+      --success: #10b981;
+      --danger: #ef4444;
+      --info: #0ea5e9;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --text-soft: #94a3b8;
+      --bg: #ffffff;
+      --bg-soft: #f1f5f9;
+      --bg-softer: #e2e8f0;
+      --card: #ffffff;
+      --border: #e2e8f0;
+      --border-strong: #cbd5e1;
+      --shadow-primary: 0 10px 30px rgba(100, 116, 139, .30);
+      --ring: rgba(100, 116, 139, .18);
+    }
+
+    /* ============================================
+       إعادة الضبط
+       ============================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 16px;
+      transition: background .4s, color .4s;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+    input, select, textarea { font-family: inherit; font-size: inherit; }
+    h1, h2, h3, h4, h5, h6 { font-family: var(--font-head); line-height: 1.35; font-weight: 800; }
+    ::selection { background: var(--primary); color: #fff; }
+    ::-webkit-scrollbar { width: 9px; height: 9px; }
+    ::-webkit-scrollbar-track { background: var(--bg-soft); }
+    ::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 8px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
+
+    .container { width: min(1080px, 94%); margin-inline: auto; }
+
+    /* ============================================
+       الأزرار
+       ============================================ */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 13px 26px; border-radius: var(--radius-full);
+      font-weight: 700; font-size: 15px; line-height: 1.2;
+      border: 2px solid transparent; transition: all var(--transition); white-space: nowrap;
+    }
+    .btn svg { width: 18px; height: 18px; flex-shrink: 0; }
+    .btn-primary { background: var(--gradient); color: #fff; box-shadow: var(--shadow-primary); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 40px var(--ring); }
+    .btn-outline { border-color: var(--border-strong); color: var(--text); background: var(--card); }
+    .btn-outline:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-2px); }
+    .btn-light { background: #fff; color: var(--primary-dark); }
+    .btn-light:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+    .btn-sm { padding: 9px 18px; font-size: 14px; }
+    .btn-lg { padding: 16px 34px; font-size: 16px; }
+    .btn-block { width: 100%; }
+
+    .badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 14px; border-radius: var(--radius-full);
+      font-size: 13px; font-weight: 700;
+      background: var(--primary-soft); color: var(--primary);
+    }
+    .badge svg { width: 15px; height: 15px; }
+
+    /* ============================================
+       الهيدر
+       ============================================ */
+    .header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,.8);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav { height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+
+    .logo { display: flex; align-items: center; gap: 10px; font-family: var(--font-head); font-weight: 900; font-size: 21px; }
+    .logo .logo-mark {
+      width: 42px; height: 42px; border-radius: 13px;
+      background: var(--gradient); color: #fff;
+      display: grid; place-items: center;
+      box-shadow: var(--shadow-primary);
+    }
+    .logo .logo-mark svg { width: 24px; height: 24px; }
+    .logo small { display: block; font-size: 11px; font-weight: 600; color: var(--text-muted); line-height: 1.1; }
+
+    .theme-switch {
+      display: inline-flex; gap: 4px; padding: 4px;
+      background: var(--bg-soft); border: 1px solid var(--border);
+      border-radius: var(--radius-full);
+    }
+    .theme-switch button {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 34px; height: 34px; border-radius: 50%;
+      border: 1px solid var(--border-strong);
+      transition: var(--transition);
+    }
+    .theme-switch button .swatch { width: 18px; height: 18px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 0 1px var(--border-strong); }
+    .theme-switch button:hover { border-color: var(--primary); }
+    .theme-switch button.active { background: var(--bg-soft); box-shadow: 0 0 0 2px var(--primary); }
+    .theme-switch button.active .swatch { box-shadow: 0 0 0 1px rgba(255,255,255,.5); }
+    .swatch.blue-orange { background: linear-gradient(135deg, #2563eb 0%, #2563eb 60%, #f97316 60%); }
+    .swatch.green-cyan { background: linear-gradient(135deg, #64748b 0%, #64748b 60%, #06b6d4 60%); }
+
+    /* ============================================
+       الشاشات
+       ============================================ */
+    .screen { display: none; min-height: calc(100vh - 72px - 70px); }
+    .screen.active { display: block; animation: fadeIn .45s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+    .steps {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      padding: 26px 0 6px; flex-wrap: wrap;
+    }
+    .step {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 13px; font-weight: 700; color: var(--text-soft);
+    }
+    .step .s-num {
+      width: 26px; height: 26px; border-radius: 50%;
+      display: grid; place-items: center; font-size: 12px;
+      background: var(--bg-softer); color: var(--text-muted);
+      transition: var(--transition);
+    }
+    .step.active { color: var(--primary); }
+    .step.active .s-num { background: var(--gradient); color: #fff; box-shadow: var(--shadow-primary); }
+    .step.done .s-num { background: var(--success); color: #fff; }
+    .step-line { width: 44px; height: 2px; background: var(--border); border-radius: 2px; }
+
+    /* ============================================
+       الشاشة الأولى — التعريف وتسجيل الدخول
+       ============================================ */
+    .home-hero { position: relative; overflow: hidden; background: var(--gradient-soft); }
+    .home-hero::before {
+      content: ""; position: absolute; inset: 0;
+      background-image: radial-gradient(var(--border-strong) 1px, transparent 1px);
+      background-size: 30px 30px; opacity: .4;
+      mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+    }
+    .home-grid {
+      position: relative; z-index: 1;
+      display: grid; grid-template-columns: 1.1fr .9fr; gap: 48px; align-items: center;
+      padding: 60px 0 72px;
+    }
+    .home-hero h1 { font-size: clamp(30px, 4.6vw, 46px); font-weight: 900; margin: 18px 0 14px; line-height: 1.3; }
+    .home-hero h1 .grad-text { background: var(--gradient); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .home-hero .lead { color: var(--text-muted); font-size: 17px; max-width: 520px; margin-bottom: 26px; }
+
+    .chips { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 30px; }
+    .chip {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 9px 16px; border-radius: var(--radius-full);
+      background: var(--card); border: 1px solid var(--border);
+      font-size: 13.5px; font-weight: 700; color: var(--text);
+      box-shadow: var(--shadow-sm);
+    }
+    .chip svg { width: 17px; height: 17px; color: var(--primary); }
+
+    /* بطاقة تسجيل الدخول */
+    .login-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 22px; padding: 30px;
+      box-shadow: var(--shadow-md);
+    }
+    .login-card h2 { font-size: 22px; margin-bottom: 6px; }
+    .login-card .sub { color: var(--text-muted); font-size: 14px; margin-bottom: 22px; }
+
+    .auth-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; background: var(--bg-soft); padding: 6px; border-radius: var(--radius); margin-bottom: 22px; }
+    .auth-tab { padding: 11px; border-radius: var(--radius-sm); font-weight: 800; font-size: 15px; color: var(--text-muted); transition: var(--transition); }
+    .auth-tab.active { background: var(--card); color: var(--primary); box-shadow: var(--shadow); }
+    .cert-hint { display: block; font-size: 12px; color: var(--text-muted); margin-top: 6px; line-height: 1.5; }
+
+    .teacher-req { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border: 1px solid var(--border); border-radius: 14px; background: var(--bg-soft); margin-bottom: 10px; flex-wrap: wrap; }
+    .teacher-req .tr-avatar { width: 44px; height: 44px; border-radius: 12px; background: var(--gradient); color: #fff; display: grid; place-items: center; font-weight: 900; font-size: 17px; flex-shrink: 0; }
+    .teacher-req .tr-info { flex: 1; min-width: 200px; }
+    .teacher-req .tr-info b { display: block; font-size: 15px; }
+    .teacher-req .tr-info small { color: var(--text-muted); font-size: 12.5px; }
+    .teacher-req .tr-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    .teacher-req .tr-cert { color: var(--primary); font-weight: 700; font-size: 13px; text-decoration: none; display: inline-flex; align-items: center; gap: 5px; }
+    .teacher-req .tr-cert:hover { text-decoration: underline; }
+    .tr-empty { text-align: center; color: var(--text-muted); font-size: 14px; padding: 24px 0; }
+    .tr-badge { font-size: 11.5px; font-weight: 800; padding: 3px 10px; border-radius: 999px; }
+    .tr-badge.pending { background: rgba(245,158,11,.15); color: #b45309; }
+    .tr-badge.approved { background: rgba(16,185,129,.15); color: #047857; }
+    .tr-badge.rejected { background: rgba(239,68,68,.15); color: #b91c1c; }
+
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; font-weight: 700; font-size: 14px; margin-bottom: 7px; }
+    .input-wrap { position: relative; }
+    .input-wrap > svg { position: absolute; top: 50%; right: 14px; transform: translateY(-50%); width: 19px; height: 19px; color: var(--text-soft); pointer-events: none; }
+    .input-wrap input, .input-wrap select {
+      width: 100%; padding: 13px 44px 13px 16px;
+      border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+      background: var(--bg); color: var(--text); outline: none; transition: var(--transition);
+      appearance: none;
+    }
+    .input-wrap input:focus, .input-wrap select:focus { border-color: var(--primary); box-shadow: 0 0 0 4px var(--ring); }
+    .input-wrap .toggle-pass { position: absolute; top: 50%; left: 12px; transform: translateY(-50%); color: var(--text-soft); display: grid; place-items: center; }
+    .input-wrap .toggle-pass svg { width: 19px; height: 19px; }
+
+    .form-check { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--text-muted); cursor: pointer; }
+    .form-check input { accent-color: var(--primary); width: 16px; height: 16px; cursor: pointer; }
+    .auth-alt { text-align: center; margin: 18px 0; color: var(--text-muted); font-size: 14px; position: relative; }
+    .auth-alt::before, .auth-alt::after { content: ""; position: absolute; top: 50%; width: 34%; height: 1px; background: var(--border); }
+    .auth-alt::before { right: 0; } .auth-alt::after { left: 0; }
+
+    /* ============================================
+       الشاشة الثانية — اختيار الصف والمادة والوقت والاشتراك
+       ============================================ */
+    .book-wrap { padding: 34px 0 60px; }
+    .book-head { text-align: center; margin-bottom: 30px; }
+    .book-head h2 { font-size: clamp(24px, 3.6vw, 32px); margin-bottom: 8px; }
+    .book-head p { color: var(--text-muted); }
+
+    .book-layout { display: grid; grid-template-columns: 1.35fr .65fr; gap: 28px; align-items: start; }
+
+    .panel {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 20px; padding: 26px; box-shadow: var(--shadow-sm);
+    }
+    .panel + .panel { margin-top: 20px; }
+    .panel h3 { font-size: 17px; margin-bottom: 16px; display: flex; align-items: center; gap: 9px; }
+    .panel h3 .p-ico { width: 34px; height: 34px; border-radius: 10px; background: var(--primary-soft); color: var(--primary); display: grid; place-items: center; flex-shrink: 0; }
+    .panel h3 .p-ico svg { width: 18px; height: 18px; }
+
+    .seg { display: flex; gap: 8px; flex-wrap: wrap; }
+    .seg-opt {
+      flex: 1; min-width: 96px; padding: 11px 14px;
+      border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+      background: var(--bg); font-weight: 700; font-size: 14px; color: var(--text-muted);
+      transition: var(--transition); text-align: center;
+    }
+    .seg-opt:hover { border-color: var(--primary); color: var(--primary); }
+    .seg-opt.active { border-color: var(--primary); background: var(--primary-soft); color: var(--primary); box-shadow: 0 0 0 3px var(--ring); }
+
+    .plans { display: grid; gap: 12px; }
+    .plan {
+      display: flex; align-items: center; gap: 14px;
+      padding: 16px; border: 1.5px solid var(--border);
+      border-radius: var(--radius); background: var(--bg);
+      cursor: pointer; transition: var(--transition); text-align: right; width: 100%;
+    }
+    .plan:hover { border-color: var(--primary); }
+    .plan.active { border-color: var(--primary); background: var(--primary-soft); box-shadow: 0 0 0 3px var(--ring); }
+    .plan-ico { width: 46px; height: 46px; border-radius: 12px; background: var(--card); border: 1px solid var(--border); color: var(--primary); display: grid; place-items: center; flex-shrink: 0; }
+    .plan-ico svg { width: 22px; height: 22px; }
+    .plan-info { flex: 1; }
+    .plan-info b { display: block; font-size: 15px; }
+    .plan-info small { color: var(--text-muted); font-size: 12.5px; }
+    .plan-price { font-family: var(--font-head); font-weight: 900; font-size: 17px; color: var(--primary); white-space: nowrap; }
+    .plan-price small { font-size: 12px; color: var(--text-soft); font-weight: 600; display: block; text-align: left; }
+
+    .summary {
+      position: sticky; top: 92px;
+      background: var(--gradient-soft);
+      border: 1px solid var(--border); border-radius: 20px; padding: 24px;
+      box-shadow: var(--shadow);
+    }
+    .summary h3 { font-size: 18px; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+    .summary h3 svg { width: 20px; height: 20px; color: var(--primary); }
+    .sum-row { display: flex; justify-content: space-between; gap: 10px; padding: 9px 0; border-bottom: 1px dashed var(--border-strong); font-size: 14px; }
+    .sum-row:last-of-type { border-bottom: none; }
+    .sum-row span:first-child { color: var(--text-muted); }
+    .sum-row b { font-weight: 800; }
+    .sum-total { display: flex; justify-content: space-between; align-items: center; margin: 14px 0 16px; padding: 12px 14px; background: var(--card); border-radius: var(--radius); border: 1px solid var(--border); }
+    .sum-total .t-label { font-weight: 800; }
+    .sum-total .t-price { font-family: var(--font-head); font-weight: 900; font-size: 24px; color: var(--primary); }
+    .sum-hint { font-size: 12.5px; color: var(--text-muted); text-align: center; margin-top: 10px; display: flex; align-items: center; justify-content: center; gap: 6px; }
+    .sum-hint svg { width: 14px; height: 14px; }
+
+    /* ============================================
+       دخول المالك
+       ============================================ */
+    .owner-box { margin-top: 20px; border-top: 1px dashed var(--border-strong); padding-top: 16px; }
+    .owner-toggle {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      width: 100%; padding: 9px; font-size: 13px; font-weight: 700;
+      color: var(--text-muted); transition: var(--transition);
+    }
+    .owner-toggle:hover { color: var(--primary); }
+    .owner-toggle svg { width: 17px; height: 17px; }
+    .owner-form { display: none; margin-top: 14px; }
+    .owner-form.open { display: block; animation: fadeIn .3s ease; }
+
+    /* ============================================
+       لوحة إعدادات المالك
+       ============================================ */
+    .admin-wrap { padding: 40px 0 64px; }
+    #screen-admin { background: var(--bg-soft); }
+    #screen-admin .container { background: transparent; }
+    .admin-grid .panel { background: var(--card); border: 1px solid var(--border-strong); box-shadow: 0 1px 2px rgba(15,23,42,.04); }
+    .admin-head {
+      display: flex; align-items: flex-end; justify-content: space-between; gap: 18px; flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+    .admin-head h2 { font-size: clamp(24px, 3.4vw, 32px); margin: 12px 0 6px; }
+    .admin-head p { color: var(--text-muted); font-size: 15px; }
+
+    .admin-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; }
+    .admin-grid .panel { margin-top: 0; }
+    .panel-wide { grid-column: 1 / -1; }
+    .admin-grid .panel h3 { margin-bottom: 18px; }
+
+    .admin-grid textarea {
+      width: 100%; min-height: 96px; resize: vertical;
+      padding: 11px 14px; border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm); background: var(--bg); color: var(--text);
+      outline: none; transition: var(--transition); font-size: 14px;
+    }
+    .admin-grid textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 4px var(--ring); }
+
+    .cfg-stages { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .cfg-stages label { display: block; font-weight: 700; font-size: 13px; margin-bottom: 6px; }
+    .methods-cfg { display: grid; gap: 10px; margin-bottom: 18px; padding-bottom: 16px; border-bottom: 1px dashed var(--border-strong); }
+
+    /* ============================================
+       قاعة الدرس — مكالمات ومشاركة
+       ============================================ */
+    .room { padding: 30px 0 60px; }
+    .room-top {
+      display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 18px; padding: 14px 18px; box-shadow: var(--shadow-sm); margin-bottom: 22px;
+    }
+    .room-top .rt-info { flex: 1; min-width: 200px; }
+    .room-top .rt-info b { display: block; font-size: 16px; }
+    .room-top .rt-info small { color: var(--text-muted); font-size: 12.5px; }
+    .room-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 800; padding: 5px 12px; border-radius: var(--radius-full); background: var(--success-soft, #d1fae5); color: var(--success, #10b981); }
+    .room-badge .pulse { width: 8px; height: 8px; border-radius: 50%; background: currentColor; animation: pulse 1.4s ease infinite; }
+    @keyframes pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: .4; transform: scale(.75); } }
+
+    .room-grid { display: grid; grid-template-columns: 1fr 340px; gap: 22px; align-items: start; }
+    .video-area {
+      background: var(--primary-deeper); border-radius: 20px; overflow: hidden;
+      position: relative; min-height: 380px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4px;
+    }
+    .video-tile { position: relative; display: grid; place-items: center; min-height: 240px; overflow: hidden; }
+    .video-tile.t1 { background: linear-gradient(160deg, rgba(255,255,255,.06), rgba(255,255,255,0)); }
+    .video-tile.t2 { background: linear-gradient(160deg, rgba(255,255,255,.04), rgba(255,255,255,0)); }
+    .v-avatar {
+      width: 88px; height: 88px; border-radius: 50%;
+      display: grid; place-items: center; font-weight: 900; font-size: 34px; color: #fff;
+      background: linear-gradient(135deg, #6b7280, #111827);
+      box-shadow: 0 0 0 4px rgba(255,255,255,.12);
+    }
+    .video-tile.t2 .v-avatar { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
+    .v-name { position: absolute; bottom: 12px; right: 14px; color: #fff; background: rgba(0,0,0,.45); padding: 4px 12px; border-radius: var(--radius-full); font-size: 12px; font-weight: 700; }
+    .v-mic-off { position: absolute; top: 12px; left: 14px; width: 34px; height: 34px; border-radius: 50%; background: rgba(239,68,68,.85); color: #fff; display: none; place-items: center; }
+    .v-mic-off.show { display: grid; }
+    .v-mic-off svg { width: 16px; height: 16px; }
+    .muted-label { position: absolute; bottom: 12px; left: 14px; color: #fff; background: rgba(0,0,0,.5); padding: 4px 12px; border-radius: var(--radius-full); font-size: 11px; font-weight: 700; display: none; }
+    .muted-label.show { display: block; }
+
+    .call-bar {
+      position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%);
+      display: flex; gap: 12px; padding: 12px 16px; background: rgba(0,0,0,.55); border-radius: var(--radius-full);
+      backdrop-filter: blur(6px); z-index: 5;
+    }
+    .call-btn {
+      width: 48px; height: 48px; border-radius: 50%;
+      display: grid; place-items: center; color: #fff;
+      background: rgba(255,255,255,.16); transition: var(--transition);
+    }
+    .call-btn:hover { background: rgba(255,255,255,.28); transform: translateY(-2px); }
+    .call-btn svg { width: 20px; height: 20px; }
+    .call-btn.off { background: rgba(239,68,68,.9); }
+    .call-btn.off:hover { background: #dc2626; }
+    .call-btn.active-state { background: var(--primary); }
+    .call-btn.green { background: rgba(16,185,129,.9); }
+    .call-btn.green:hover { background: #059669; }
+
+    /* مؤشر جودة الصوت */
+    .aq-mini { display: inline-flex; align-items: center; gap: 7px; padding: 5px 12px; border-radius: var(--radius-full); background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.2); color: #fff; font-size: 11.5px; font-weight: 700; white-space: nowrap; }
+    .aq-mini-bars { display: inline-flex; align-items: flex-end; gap: 2px; height: 15px; }
+    .aq-mini-bars i { width: 3px; height: 6px; border-radius: 2px; background: rgba(255,255,255,.3); transition: all .15s ease; }
+    .aq-mini-bars i:nth-child(2) { height: 9px; }
+    .aq-mini-bars i:nth-child(3) { height: 12px; }
+    .aq-mini-bars i:nth-child(4) { height: 15px; }
+    .aq-mini-bars i.on { background: #34d399; }
+    .aq-mini.aq-off .aq-mini-bars i.on { background: #f87171; }
+
+    /* نافذة اختبار الصوت */
+    .aq-modal { position: fixed; inset: 0; z-index: 200; display: none; align-items: center; justify-content: center; padding: 20px; }
+    .aq-modal.open { display: flex; }
+    .aq-overlay { position: absolute; inset: 0; background: rgba(15,23,42,.55); backdrop-filter: blur(3px); }
+    .aq-box { position: relative; background: var(--card); border: 1px solid var(--border); border-radius: 20px; width: min(430px, 100%); padding: 26px; box-shadow: var(--shadow-md); animation: fadeIn .3s ease; }
+    .aq-head { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 18px; }
+    .aq-ico { width: 44px; height: 44px; flex-shrink: 0; border-radius: 12px; background: var(--gradient); color: #fff; display: grid; place-items: center; }
+    .aq-ico svg { width: 22px; height: 22px; }
+    .aq-head h3 { font-size: 18px; }
+    .aq-head p { font-size: 13px; color: var(--text-muted); }
+    .aq-close { margin-right: auto; width: 32px; height: 32px; border-radius: 50%; background: var(--bg-soft); color: var(--text-muted); font-size: 18px; line-height: 1; display: grid; place-items: center; }
+    .aq-close:hover { background: var(--bg-softer); }
+    .aq-meter { background: var(--bg-soft); border: 1px solid var(--border); border-radius: 14px; padding: 20px; text-align: center; }
+    .aq-bars { display: flex; align-items: flex-end; justify-content: center; gap: 5px; height: 40px; margin-bottom: 12px; }
+    .aq-bars i { width: 12px; border-radius: 4px; background: var(--border); transition: height .15s ease, background .2s ease; }
+    .aq-bars i:nth-child(1) { height: 8px; }
+    .aq-bars i:nth-child(2) { height: 12px; }
+    .aq-bars i:nth-child(3) { height: 16px; }
+    .aq-bars i:nth-child(4) { height: 20px; }
+    .aq-bars i:nth-child(5) { height: 24px; }
+    .aq-bars i:nth-child(6) { height: 28px; }
+    .aq-bars i:nth-child(7) { height: 32px; }
+    .aq-bars i:nth-child(8) { height: 36px; }
+    .aq-bars i.on { background: #34d399; }
+    .aq-bars i.on.dim { background: #f59e0b; }
+    .aq-meter b { display: block; font-size: 16px; }
+    .aq-meter b.aq-none, .aq-meter b.aq-weak { color: #ef4444; }
+    .aq-meter b.aq-fair { color: #f59e0b; }
+    .aq-meter b.aq-good { color: #0ea5e9; }
+    .aq-meter b.aq-great { color: #059669; }
+    .aq-tip { font-size: 12.5px; color: var(--text-muted); text-align: center; margin-top: 14px; }
+
+    .room-side { display: grid; gap: 16px; }
+    .chat-panel {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 18px; overflow: hidden; box-shadow: var(--shadow-sm);
+      display: flex; flex-direction: column; height: 420px;
+    }
+    .chat-head { display: flex; align-items: center; gap: 10px; padding: 14px 16px; border-bottom: 1px solid var(--border); font-weight: 800; font-size: 15px; }
+    .chat-head .c-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--success); }
+    .chat-body { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 10px; background: var(--bg-soft); }
+    .msg { max-width: 82%; padding: 10px 14px; border-radius: 14px; font-size: 13.5px; line-height: 1.6; }
+    .msg.me { align-self: flex-start; background: var(--gradient); color: #fff; border-bottom-right-radius: 4px; }
+    .msg.them { align-self: flex-end; background: var(--card); border: 1px solid var(--border); color: var(--text); border-bottom-left-radius: 4px; }
+    .msg .m-meta { display: block; font-size: 10.5px; opacity: .75; margin-top: 3px; }
+    .msg.file { display: flex; align-items: center; gap: 10px; }
+    .msg.file .f-ico { width: 36px; height: 36px; border-radius: 9px; display: grid; place-items: center; flex-shrink: 0; background: rgba(255,255,255,.2); }
+    .msg.file.them .f-ico { background: var(--primary-soft); color: var(--primary); }
+    .msg.file .f-ico svg { width: 18px; height: 18px; }
+    .msg.file b { display: block; font-size: 13px; }
+    .msg.file small { font-size: 11px; opacity: .8; }
+    .msg img { border-radius: 8px; max-width: 190px; }
+
+    .chat-input { display: flex; align-items: center; gap: 8px; padding: 12px; border-top: 1px solid var(--border); background: var(--card); }
+    .chat-input input { flex: 1; padding: 11px 14px; border: 1.5px solid var(--border); border-radius: var(--radius-full); background: var(--bg-soft); outline: none; color: var(--text); min-width: 0; transition: var(--transition); }
+    .chat-input input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--ring); }
+    .attach-btn {
+      width: 42px; height: 42px; border-radius: 50%; flex-shrink: 0;
+      display: grid; place-items: center; color: var(--text-muted);
+      background: var(--bg-soft); border: 1px solid var(--border); transition: var(--transition);
+      position: relative; overflow: hidden;
+    }
+    .attach-btn:hover { color: var(--primary); border-color: var(--primary); }
+    .attach-btn svg { width: 19px; height: 19px; }
+    .attach-btn input[type=file] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+
+    .side-tools { display: grid; gap: 10px; }
+    .tool-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .tool-btn {
+      display: flex; align-items: center; gap: 10px;
+      padding: 13px 16px; background: var(--card);
+      border: 1px solid var(--border); border-radius: var(--radius);
+      font-weight: 800; font-size: 14px; transition: var(--transition); text-align: right;
+    }
+    .tool-btn:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+    .tool-btn svg { width: 20px; height: 20px; color: var(--primary); }
+
+    /* شبكة الحصص الجماعية */
+    .video-area.video-area-group { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+    .video-area.video-area-group .t1 { display: none; }
+    #groupVideos { display: contents; }
+    .video-tile.dyn { background: linear-gradient(160deg, rgba(255,255,255,.06), rgba(255,255,255,0)); }
+    .video-tile.self-tile { box-shadow: inset 0 0 0 2px var(--primary); }
+    .video-tile .screen-flag {
+      position: absolute; top: 12px; right: 14px; color: #fff; background: rgba(220,38,38,.85);
+      padding: 4px 10px; border-radius: var(--radius-full); font-size: 10.5px; font-weight: 800;
+      display: none; align-items: center; gap: 5px;
+    }
+    .video-tile.screen-live .screen-flag { display: flex; }
+    .v-live-dot { position: absolute; bottom: 12px; left: 14px; color: #fff; background: rgba(0,0,0,.5); padding: 4px 10px; border-radius: var(--radius-full); font-size: 11px; font-weight: 700; display: none; align-items: center; gap: 6px; }
+    .v-live-dot.show { display: flex; }
+    .v-live-dot .pulse { width: 8px; height: 8px; border-radius: 50%; background: var(--success); animation: pulse 1.4s ease infinite; }
+
+    /* لوحة إدارة المعلم */
+    .mgmt-panel {
+      background: var(--card); border: 1px solid var(--border); border-radius: 18px;
+      padding: 16px; box-shadow: var(--shadow-sm); display: grid; gap: 12px;
+    }
+    .mgmt-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .mgmt-head b { font-size: 14.5px; display: flex; align-items: center; gap: 8px; }
+    .mgmt-head b svg { width: 19px; height: 19px; color: var(--primary); }
+    .roster { display: grid; gap: 8px; max-height: 180px; overflow-y: auto; }
+    .roster-item {
+      display: flex; align-items: center; gap: 10px; padding: 9px 12px;
+      background: var(--bg-soft); border: 1px solid var(--border); border-radius: var(--radius-sm);
+    }
+    .roster-item .r-avatar {
+      width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0;
+      display: grid; place-items: center; color: #fff; font-weight: 800; font-size: 13px;
+      background: var(--gradient);
+    }
+    .roster-item .r-info { flex: 1; min-width: 0; }
+    .roster-item .r-info b { display: block; font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .roster-item .r-info small { font-size: 11px; color: var(--text-muted); display: flex; align-items: center; gap: 4px; }
+    .roster-item .r-info small svg { width: 13px; height: 13px; }
+    .roster-item .r-mute {
+      width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0; display: grid; place-items: center;
+      color: var(--text-muted); background: var(--card); border: 1px solid var(--border); transition: var(--transition);
+    }
+    .roster-item .r-mute:hover { color: var(--danger); border-color: var(--danger); }
+    .roster-item .r-mute svg { width: 16px; height: 16px; }
+    .mgmt-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .mgmt-actions .btn { width: 100%; }
+    .roster-empty { font-size: 12.5px; color: var(--text-muted); text-align: center; padding: 6px 0; }
+
+    .call-banner {
+      display: none; align-items: center; gap: 12px;
+      background: var(--primary-soft); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 12px 16px; font-weight: 700; font-size: 14px;
+    }
+    .call-banner.show { display: flex; }
+    .call-banner .pulse { width: 10px; height: 10px; border-radius: 50%; background: var(--primary); animation: pulse 1.4s ease infinite; }
+    .call-banner b { color: var(--primary); }
+
+    .video-tile video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: none; background: #000; }
+
+    .invite-bar {
+      display: none; align-items: center; gap: 12px; flex-wrap: wrap;
+      background: var(--primary-soft); border: 1px solid var(--primary);
+      border-radius: var(--radius); padding: 12px 16px; margin-bottom: 18px;
+    }
+    .invite-bar.show { display: flex; }
+    .invite-bar b { display: block; font-size: 14.5px; }
+    .invite-bar p { font-size: 12.5px; color: var(--text-muted); margin: 2px 0 0; }
+    .invite-code {
+      flex: 1; min-width: 200px; font-family: var(--font-head); font-size: 13px; font-weight: 800;
+      background: var(--card); border: 1px dashed var(--primary); color: var(--primary);
+      border-radius: var(--radius-sm); padding: 9px 12px; direction: ltr; text-align: left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .invite-links { display: flex; flex-direction: column; gap: 8px; flex: 1; min-width: 220px; }
+    .invite-link { display: flex; align-items: center; gap: 8px; }
+    .invite-link small { font-size: 11px; font-weight: 800; color: var(--text-muted); flex-shrink: 0; }
+    .invite-link .btn { flex-shrink: 0; }
+    .wb-status { font-size: 12px; font-weight: 800; color: var(--success); display: inline-flex; align-items: center; gap: 6px; }
+    .wb-status.off { color: #ef4444; }
+    .wb-status .dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+
+    .whiteboard {
+      margin-top: 22px; background: var(--card); border: 1px solid var(--border);
+      border-radius: 18px; padding: 16px; box-shadow: var(--shadow-sm);
+    }
+    .wb-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
+    .wb-head > b { font-size: 15px; display: flex; align-items: center; gap: 8px; }
+    .wb-tools { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .wb-color { width: 28px; height: 28px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 0 1.5px var(--border-strong); cursor: pointer; transition: var(--transition); padding: 0; }
+    .wb-color.active { box-shadow: 0 0 0 3px var(--primary); transform: scale(1.12); }
+    .wb-size { padding: 7px 10px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--bg-soft); color: var(--text); font-family: inherit; font-weight: 700; font-size: 13px; }
+    .wb-canvas-wrap { position: relative; border-radius: 14px; overflow: hidden; border: 1px solid var(--border); }
+    #wbCanvas { display: block; width: 100%; height: 460px; background: #fff; cursor: crosshair; touch-action: none; }
+
+    /* ============================================
+       الدفع الإلكتروني
+       ============================================ */
+    .pay-modal {
+      position: fixed; inset: 0; z-index: 9999;
+      display: flex; align-items: center; justify-content: center; padding: 20px;
+      visibility: hidden; opacity: 0; transition: opacity .3s, visibility .3s;
+    }
+    .pay-modal.open { visibility: visible; opacity: 1; }
+    .pay-overlay { position: absolute; inset: 0; background: rgba(15,23,42,.55); backdrop-filter: blur(4px); }
+    .pay-box {
+      position: relative; width: 100%; max-width: 470px;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 22px; padding: 26px; box-shadow: var(--shadow-md);
+      transform: translateY(24px) scale(.98); transition: transform .35s cubic-bezier(.4,0,.2,1);
+      max-height: calc(100vh - 40px); overflow-y: auto;
+    }
+    .pay-modal.open .pay-box { transform: none; }
+    .pay-close { position: absolute; top: 16px; left: 16px; width: 34px; height: 34px; border-radius: 10px; border: 1px solid var(--border); background: var(--bg-soft); color: var(--text-muted); display: grid; place-items: center; transition: var(--transition); }
+    .pay-close:hover { color: var(--text); border-color: var(--primary); }
+    .pay-close svg { width: 18px; height: 18px; }
+    .pay-head { display: flex; gap: 14px; align-items: center; margin-bottom: 18px; }
+    .pay-lock { width: 46px; height: 46px; flex-shrink: 0; border-radius: 14px; background: var(--gradient); color: #fff; display: grid; place-items: center; }
+    .pay-lock svg { width: 22px; height: 22px; }
+    .pay-head h3 { font-size: 19px; margin-bottom: 2px; }
+    .pay-sub { font-size: 12.5px; color: var(--text-muted); }
+    .pay-item { display: flex; align-items: center; justify-content: space-between; gap: 12px; background: var(--bg-soft); border: 1px solid var(--border); border-radius: 14px; padding: 14px 16px; margin-bottom: 16px; }
+    .pay-item-name { display: block; font-size: 14.5px; margin-bottom: 3px; }
+    .pay-item-type { font-size: 12.5px; color: var(--text-muted); }
+    .pay-amount { font-size: 20px; font-weight: 900; font-family: var(--font-head); white-space: nowrap; color: var(--primary); }
+    .pay-methods { display: grid; gap: 9px; margin-bottom: 16px; }
+    .pay-method { display: flex; align-items: center; gap: 12px; width: 100%; text-align: right; background: var(--bg-soft); border: 1.5px solid var(--border); border-radius: 14px; padding: 11px 14px; transition: var(--transition); }
+    .pay-method:hover { border-color: var(--primary); }
+    .pay-method.active { border-color: var(--primary); background: var(--primary-soft); }
+    .pay-method-ico { width: 38px; height: 38px; flex-shrink: 0; border-radius: 10px; background: var(--card); border: 1px solid var(--border); display: grid; place-items: center; color: var(--primary); }
+    .pay-method-ico svg { width: 21px; height: 21px; }
+    .pay-method b { display: block; font-size: 13.5px; }
+    .pay-method small { font-size: 11.5px; color: var(--text-muted); }
+    .pay-method-check { margin-right: auto; width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--border); display: grid; place-items: center; color: transparent; transition: var(--transition); flex-shrink: 0; }
+    .pay-method.active .pay-method-check { background: var(--primary); border-color: var(--primary); color: #fff; }
+    .pay-method-check svg { width: 12px; height: 12px; }
+    .pay-fields { display: grid; gap: 12px; margin-bottom: 14px; }
+    .pay-fields label { display: grid; gap: 6px; font-size: 13px; font-weight: 700; }
+    .pay-fields input { width: 100%; padding: 11px 14px; border: 1.5px solid var(--border); border-radius: 12px; background: var(--bg-soft); color: var(--text); font-size: 14px; outline: none; transition: var(--transition); }
+    .pay-fields input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--ring); }
+    .pay-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    #payBtn { position: relative; overflow: hidden; }
+    .pay-btn-spin { display: none; width: 20px; height: 20px; border: 3px solid rgba(255,255,255,.4); border-top-color: #fff; border-radius: 50%; animation: spin .7s linear infinite; margin-inline: auto; }
+    #payBtn.loading .pay-btn-label { display: none; }
+    #payBtn.loading .pay-btn-spin { display: block; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .pay-secure { display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 12px; font-size: 12px; color: var(--text-muted); }
+    .pay-secure svg { width: 14px; height: 14px; }
+    .pay-success { display: none; text-align: center; padding: 14px 0 6px; }
+    .pay-success-ico { width: 68px; height: 68px; margin: 0 auto 16px; border-radius: 50%; background: #d1fae5; color: #059669; display: grid; place-items: center; animation: popIn .5s cubic-bezier(.34,1.56,.64,1); }
+    .pay-success-ico svg { width: 34px; height: 34px; }
+    .pay-success h4 { font-size: 20px; margin-bottom: 8px; }
+    .pay-success p { font-size: 14px; color: var(--text-muted); margin-bottom: 20px; }
+    @keyframes popIn { from { transform: scale(0); } to { transform: scale(1); } }
+    #moyasarHost .mysr-checkout, #moyasarHost [class*="mysr-"] { font-family: inherit !important; }
+    #moyasarHost { min-height: 120px; }
+
+    /* ============================================
+       الفوتر والتنبيهات
+       ============================================ */
+    .footer { background: var(--bg-soft); border-top: 1px solid var(--border); padding: 26px 0; text-align: center; font-size: 13px; color: var(--text-muted); }
+    .footer .logo { justify-content: center; margin-bottom: 8px; font-size: 18px; }
+
+    #toast-box { position: fixed; bottom: 24px; right: 24px; z-index: 99999; display: flex; flex-direction: column; gap: 10px; }
+    .toast-el { color: #fff; padding: 14px 22px; border-radius: 12px; font-weight: 700; font-size: 14px; box-shadow: 0 10px 30px rgba(0,0,0,.2); animation: slideUp .35s ease; direction: rtl; }
+
+    @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+    @keyframes slideDown { from { opacity: 1; transform: none; } to { opacity: 0; transform: translateY(20px); } }
+
+    /* ============================================
+       التجاوب
+       ============================================ */
+    @media (max-width: 920px) {
+      .home-grid { grid-template-columns: 1fr; padding: 40px 0 56px; }
+      .book-layout { grid-template-columns: 1fr; }
+      .summary { position: static; }
+      .room-grid { grid-template-columns: 1fr; }
+      .video-area { min-height: 320px; }
+      .admin-grid { grid-template-columns: 1fr; }
+      .panel-wide { grid-column: auto; }
+    }
+    @media (max-width: 560px) {
+      .video-area { grid-template-columns: 1fr; }
+      .video-tile { min-height: 180px; }
+      .theme-switch button span.txt { display: none; }
+      .nav .logo small { display: none; }
+      .tool-row { grid-template-columns: 1fr; }
+      .steps { gap: 6px; }
+      .step-line { width: 20px; }
+      .cfg-stages { grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ======= الهيدر ======= -->
+  <header class="header">
+    <div class="container nav">
+      <a href="#" class="logo" onclick="goScreen('login');return false;">
+        <span class="logo-mark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l9 4.9v5.2c0 4.7-3.6 8.6-9 10-5.4-1.4-9-5.3-9-10V6.9L12 2z"/><path d="M12 6v6M12 6l-4 4M12 6l4 4"/><path d="M8 16h8M8 18.5h8"/></svg>
+        </span>
+        <span id="hdrBrandName">المنارة<small id="hdrBrandTag">للتعليم والتدريب</small></span>
+      </a>
+
+      <div class="theme-switch" role="group" aria-label="اختيار ألوان التطبيق">
+        <button type="button" data-theme-btn="blue-orange" class="active" title="أبيض / أزرق / برتقالي" aria-label="أبيض / أزرق / برتقالي">
+          <span class="swatch blue-orange"></span>
+        </button>
+        <button type="button" data-theme-btn="green-cyan" title="أبيض / رمادي / سماوي" aria-label="أبيض / رمادي / سماوي">
+          <span class="swatch green-cyan"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       الشاشة الأولى: التعريف + تسجيل الدخول
+       ============================================================ -->
+  <section id="screen-login" class="screen active">
+    <div class="home-hero">
+      <div class="container home-grid">
+        <div>
+          <span class="badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l9 4.9v5.2c0 4.7-3.6 8.6-9 10-5.4-1.4-9-5.3-9-10V6.9L12 2z"/></svg>
+            مساحة تعليمية لدروس إضافية لطلاب التعليم العام
+          </span>
+          <h1>دروسك الإضافية بمعلمين معتمدين <span class="grad-text">أونلاين</span></h1>
+          <p class="lead">
+            المنارة مساحة تعليمية متخصصة تقدم حصصاً إضافية لدروس المواد الدراسية لطلاب وطالبات
+            التعليم العام (الابتدائية، المتوسطة، والثانوية) — حصص مباشرة صوتية ومرئية،
+            بمشاركة ملفات وصور بين الطالب والمعلم، ودفع إلكتروني آمن وسهل.
+          </p>
+
+          <div class="chips">
+            <span class="chip">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+              مكالمات صوتية وفيديو
+            </span>
+            <span class="chip">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+              مشاركة ملفات وصور
+            </span>
+            <span class="chip">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              دفع إلكتروني آمن
+            </span>
+            <span class="chip">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg>
+              معلمون معتمدون
+            </span>
+          </div>
+        </div>
+
+        <!-- بطاقة تسجيل الدخول -->
+        <div class="login-card">
+          <h2 id="loginGreet">مرحباً بك في المنارة</h2>
+          <p class="sub">سجّل دخولك لبدء حجز دروسك الإضافية</p>
+
+          <div class="auth-tabs">
+            <button type="button" class="auth-tab active" data-tab="login">تسجيل الدخول</button>
+            <button type="button" class="auth-tab" data-tab="signup">حساب جديد</button>
+          </div>
+
+          <!-- تسجيل الدخول -->
+          <form data-auth-form="login">
+            <div class="form-group">
+              <label for="email">البريد الإلكتروني</label>
+              <div class="input-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
+                <input type="email" id="email" placeholder="example@email.com" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="password">كلمة المرور</label>
+              <div class="input-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                <input type="password" id="password" placeholder="••••••••" required>
+                <button type="button" class="toggle-pass" data-target="password" aria-label="إظهار كلمة المرور">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
+              <label class="form-check"><input type="checkbox" checked> تذكرني</label>
+              <a href="#" style="color:var(--primary);font-weight:700;font-size:14px;">نسيت كلمة المرور؟</a>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg btn-block">تسجيل الدخول</button>
+
+            <div class="auth-alt">أو عبر</div>
+            <div class="social-row" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+              <button type="button" class="btn btn-outline">
+                <svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.27-4.74 3.27-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84A11 11 0 0 0 12 23z"/><path fill="#FBBC05" d="M5.84 14.1a6.6 6.6 0 0 1 0-4.2V7.06H2.18a11 11 0 0 0 0 9.88l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
+                جوجل
+              </button>
+              <button type="button" class="btn btn-outline">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.5.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.56 9.56 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85V21c0 .27.18.58.69.48A10 10 0 0 0 22 12c0-5.52-4.48-10-10-10z"/></svg>
+                أبل
+              </button>
+            </div>
+            <p style="text-align:center;font-size:14px;color:var(--text-muted);margin-top:18px;">
+              ليس لديك حساب؟
+              <a href="#" style="color:var(--primary);font-weight:800;" onclick="document.querySelector('[data-tab=signup]').click();return false;">أنشئ حساباً جديداً</a>
+            </p>
+
+          </form>
+
+          <!-- ======= دخول المالك ======= -->
+          <div class="owner-box" id="ownerBox">
+              <button type="button" class="owner-toggle" id="ownerToggle">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h.01a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h.01a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v.01a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                أنت المالك؟ دخول لوحة الإعدادات
+              </button>
+              <form class="owner-form" id="ownerForm">
+                <div class="form-group">
+                  <label for="ownerEmail">بريد المالك</label>
+                  <div class="input-wrap">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
+                    <input type="email" id="ownerEmail" placeholder="admin@manara.edu" required>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="ownerPassword">كلمة مرور المالك</label>
+                  <div class="input-wrap">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                    <input type="password" id="ownerPassword" placeholder="••••••••" required>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-outline btn-block">دخول لوحة الإعدادات</button>
+              </form>
+            </div>
+
+          <!-- حساب جديد -->
+          <form data-auth-form="signup" style="display:none;">
+            <div class="form-group">
+              <label for="name">الاسم الكامل</label>
+              <div class="input-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <input type="text" id="name" placeholder="اسمك الكامل" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>أنت...</label>
+              <div class="auth-tabs" style="margin-bottom:0;">
+                <button type="button" class="auth-tab active" data-signup-role="student">طالب</button>
+                <button type="button" class="auth-tab" data-signup-role="teacher">معلّم</button>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="reg-email">البريد الإلكتروني</label>
+              <div class="input-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
+                <input type="email" id="reg-email" placeholder="example@email.com" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="reg-password">كلمة المرور</label>
+              <div class="input-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                <input type="password" id="reg-password" placeholder="6 أحرف على الأقل" required>
+                <button type="button" class="toggle-pass" data-target="reg-password" aria-label="إظهار كلمة المرور">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+              </div>
+            </div>
+            <div class="form-group" id="certGroup" style="display:none;">
+              <label for="reg-cert">شهادة التخصص (صورة أو PDF)</label>
+              <div class="input-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8M16 17H8M10 9H8"/></svg>
+                <input type="file" id="reg-cert" accept="image/*,.pdf">
+              </div>
+              <small class="cert-hint">مطلوبة للتسجيل كمعلم — ستُراجع من قبل إدارة المنصة، وبعد الموافقة يمكنك الدخول.</small>
+            </div>
+            <div style="margin-bottom:18px;">
+              <label class="form-check"><input type="checkbox" required> أوافق على شروط الاستخدام وسياسة الخصوصية</label>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg btn-block">إنشاء الحساب مجاناً</button>
+            <p style="text-align:center;font-size:14px;color:var(--text-muted);margin-top:18px;">
+              لديك حساب بالفعل؟
+              <a href="#" style="color:var(--primary);font-weight:800;" onclick="document.querySelector('[data-tab=login]').click();return false;">سجّل دخولك</a>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       الشاشة الثانية: اختيار الصف والمادة والوقت ونوع الاشتراك
+       ============================================================ -->
+  <section id="screen-booking" class="screen">
+    <div class="container book-wrap">
+      <div class="steps">
+        <span class="step done"><span class="s-num">✓</span> الدخول</span>
+        <span class="step-line"></span>
+        <span class="step active"><span class="s-num">2</span> اختيار الدرس</span>
+        <span class="step-line"></span>
+        <span class="step"><span class="s-num">3</span> الدفع</span>
+        <span class="step-line"></span>
+        <span class="step"><span class="s-num">4</span> قاعة الدرس</span>
+      </div>
+
+      <div class="book-head">
+        <h2>احجز درسك الإضافي</h2>
+        <p>حدد الصف والمادة والوقت ونوع الاشتراك المناسب لك</p>
+      </div>
+
+      <div class="book-layout">
+        <div>
+          <!-- المرحلة الدراسية -->
+          <div class="panel">
+            <h3>
+              <span class="p-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg></span>
+              المرحلة الدراسية
+            </h3>
+            <div class="seg" id="stageSeg">
+              <button type="button" class="seg-opt" data-stage="primary">الابتدائية</button>
+              <button type="button" class="seg-opt" data-stage="middle">المتوسطة</button>
+              <button type="button" class="seg-opt active" data-stage="secondary">الثانوية</button>
+            </div>
+          </div>
+
+          <!-- الصف والمادة -->
+          <div class="panel">
+            <h3>
+              <span class="p-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>
+              الصف والمادة
+            </h3>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+              <div class="form-group" style="margin-bottom:0;">
+                <label for="grade">الصف الدراسي</label>
+                <div class="input-wrap">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+                  <select id="grade"></select>
+                </div>
+              </div>
+              <div class="form-group" style="margin-bottom:0;">
+                <label for="subject">المادة الدراسية</label>
+                <div class="input-wrap">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+                  <select id="subject"></select>
+                </div>
+              </div>
+            </div>
+            <div style="margin-top:14px;" class="form-group">
+              <label for="teacher">المعلم (اختياري)</label>
+              <div class="input-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg>
+                <select id="teacher">
+                  <option value="">اختر المعلم (سيتم تخصيصه لاحقاً)</option>
+                  <option>أ. خالد الحربي — الرياضيات</option>
+                  <option>د. منى الشريف — العلوم</option>
+                  <option>أ. سارة القحطاني — اللغة العربية</option>
+                  <option>م. عمر السبيعي — الفيزياء</option>
+                  <option>أ. نورة العتيبي — اللغة الإنجليزية</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- الموعد -->
+          <div class="panel">
+            <h3>
+              <span class="p-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></span>
+              موعد الحصة
+            </h3>
+            <div class="form-group" style="margin-bottom:0;">
+              <label for="time">اليوم والوقت</label>
+              <div class="input-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+                <select id="time">
+                  <option>السبت — 4:00 عصراً</option>
+                  <option>السبت — 6:00 مساءً</option>
+                  <option>الأحد — 5:00 عصراً</option>
+                  <option>الاثنين — 7:00 مساءً</option>
+                  <option>الثلاثاء — 5:30 عصراً</option>
+                  <option>الأربعاء — 6:30 مساءً</option>
+                  <option>الخميس — 4:30 عصراً</option>
+                </select>
+              </div>
+            </div>
+            <p style="font-size:12.5px;color:var(--text-muted);margin-top:10px;">مدة الحصة الواحدة: 60 دقيقة — بث مباشر صوتي ومرئي</p>
+          </div>
+
+          <!-- نوع الحصة -->
+          <div class="panel">
+            <h3>
+              <span class="p-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+              نوع الحصة
+            </h3>
+            <div class="seg" id="classTypeSeg">
+              <button type="button" class="seg-opt active" data-class-type="individual">حصة فردية (طالب + معلم)</button>
+              <button type="button" class="seg-opt" data-class-type="group">حصة جماعية (عدة طلاب)</button>
+            </div>
+            <p style="font-size:12.5px;color:var(--text-muted);margin-top:12px;" id="classTypeHint">
+              حصة خاصة 1:1 مع المعلم — بث صوتي ومرئي وسبورة ومشاركة ملفات بجودة عالية.
+            </p>
+          </div>
+
+          <!-- نوع الاشتراك -->
+          <div class="panel">
+            <h3>
+              <span class="p-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></span>
+              نوع الاشتراك
+            </h3>
+            <div class="plans" id="planList"></div>
+          </div>
+        </div>
+
+        <!-- الملخص -->
+        <aside class="summary">
+          <h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg>
+            ملخص الحجز
+          </h3>
+          <div class="sum-row"><span>الصف الدراسي</span><b id="sumGrade">الثالث الثانوي</b></div>
+          <div class="sum-row"><span>المادة</span><b id="sumSubject">الرياضيات</b></div>
+          <div class="sum-row"><span>المعلم</span><b id="sumTeacher">يُحدد لاحقاً</b></div>
+          <div class="sum-row"><span>الموعد</span><b id="sumTime">السبت — 4:00 عصراً</b></div>
+          <div class="sum-row"><span>نوع الحصة</span><b id="sumClassType">حصة فردية</b></div>
+          <div class="sum-row"><span>نوع الاشتراك</span><b id="sumPlan">مجموعة حصص — 4 حصص</b></div>
+          <div class="sum-total">
+            <span class="t-label">الإجمالي</span>
+            <span class="t-price" id="sumTotal">200 ر.س</span>
+          </div>
+          <button type="button" class="btn btn-primary btn-lg btn-block" id="goPayBtn">المتابعة للدفع</button>
+          <div class="sum-hint">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            دفع إلكتروني آمن — مدى، فيزا، Apple Pay، STC Pay
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       الشاشة الثالثة: قاعة الدرس (مكالمات + مشاركة)
+       ============================================================ -->
+  <section id="screen-room" class="screen">
+    <div class="container room">
+      <div class="steps">
+        <span class="step done"><span class="s-num">✓</span> الدخول</span>
+        <span class="step-line"></span>
+        <span class="step done"><span class="s-num">✓</span> اختيار الدرس</span>
+        <span class="step-line"></span>
+        <span class="step done"><span class="s-num">✓</span> الدفع</span>
+        <span class="step-line"></span>
+        <span class="step active"><span class="s-num">4</span> قاعة الدرس</span>
+      </div>
+
+      <div class="room-top">
+        <div class="rt-info">
+          <b id="roomTitle">الرياضيات — الثالث الثانوي</b>
+          <small id="roomSub">الحصة الإضافية المباشرة • أ. خالد الحربي</small>
+        </div>
+        <span class="room-badge"><span class="pulse"></span> الحصة جارية الآن</span>
+      </div>
+
+      <div class="call-banner" id="callBanner">
+        <span class="pulse"></span>
+        <span>جاري الاتصال... <b id="callState">مكالمة فيديو</b> مع <b id="callTeacher">أ. خالد الحربي</b></span>
+      </div>
+
+      <div class="invite-bar" id="inviteBar">
+        <div>
+          <b id="inviteTitle">دعوة المعلم للانضمام 📡</b>
+          <p id="inviteDesc">شارك هذا الرابط مع معلمك ليبدأ الحصة الحية (صوت + فيديو + سبورة + مشاركة).</p>
+        </div>
+        <span class="wb-status" id="roomConnStatus"><span class="dot"></span><span id="roomConnText">بانتظار المعلم...</span></span>
+        <div class="invite-links">
+          <div class="invite-link">
+            <small>رابط المعلم</small>
+            <code class="invite-code" id="inviteCode"></code>
+            <button type="button" class="btn btn-primary btn-sm" id="copyInvite">نسخ</button>
+          </div>
+          <div class="invite-link" id="studentLinkWrap" style="display:none;">
+            <small>رابط الطلاب</small>
+            <code class="invite-code" id="studentInviteCode"></code>
+            <button type="button" class="btn btn-outline btn-sm" id="copyStudentInvite">نسخ</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="room-grid">
+        <div class="video-area" id="videoArea">
+          <div class="video-tile t1">
+            <video id="teacherVideo" autoplay playsinline></video>
+            <span class="v-avatar">خ</span>
+            <span class="v-name">أ. خالد الحربي — المعلم</span>
+            <span class="v-mic-off"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg></span>
+            <span class="muted-label">مكتوم الميكروفون</span>
+          </div>
+          <div class="video-tile t2">
+            <video id="myVideo" autoplay playsinline muted></video>
+            <span class="v-avatar">أ</span>
+            <span class="v-name">أنا — الطالب</span>
+            <span class="v-mic-off" id="myMicBadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg></span>
+            <span class="muted-label" id="myMutedLabel">كتمت الميكروفون</span>
+          </div>
+
+          <!-- بلاطات الطلاب الديناميكية في الحصص الجماعية -->
+          <div id="groupVideos"></div>
+
+          <!-- أزرار التحكم بالمكالمة -->
+          <div class="call-bar">
+            <button class="call-btn active-state" id="micBtn" title="كتم/تشغيل الميكروفون" aria-label="الميكروفون">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+            </button>
+            <button class="call-btn active-state" id="camBtn" title="تشغيل/إيقاف الكاميرا" aria-label="الكاميرا">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+            </button>
+            <button class="call-btn" id="screenShareBtn" title="مشاركة الشاشة" aria-label="مشاركة الشاشة">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+            </button>
+            <button class="call-btn" id="testAudioBtn" title="اختبار جودة الصوت" aria-label="اختبار الصوت">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a9 9 0 0 1 0 14"/></svg>
+            </button>
+            <button class="call-btn off" id="endBtn" title="إنهاء المكالمة" aria-label="إنهاء المكالمة">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </button>
+            <span class="aq-mini" id="aqMini" title="جودة الميكروفون">
+              <span class="aq-mini-bars" id="aqMiniBars"><i></i><i></i><i></i><i></i></span>
+              <span id="aqMiniLabel">—</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="room-side">
+          <!-- أدوات: مكالمة صوتية / مكالمة فيديو / مشاركة -->
+          <div class="side-tools">
+            <div class="tool-row">
+              <button type="button" class="tool-btn" id="voiceCallBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                مكالمة صوتية
+              </button>
+              <button type="button" class="tool-btn active-state" id="videoCallBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+                مكالمة فيديو
+              </button>
+            </div>
+            <div class="tool-row">
+              <label class="tool-btn" for="fileShare" title="مشاركة ملف مع المعلم">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                مشاركة ملف
+              </label>
+              <label class="tool-btn" for="imageShare" title="مشاركة صورة مع المعلم">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+                مشاركة صورة
+              </label>
+            </div>
+          </div>
+
+          <!-- رفع اليد (للطلاب) -->
+          <div class="side-tools" id="raiseHandWrap">
+            <button type="button" class="tool-btn" id="raiseHandBtn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-4 0v5M14 10V4a2 2 0 0 0-4 0v6M10 10.5V6a2 2 0 0 0-4 0v8"/><path d="M18 8a2 2 0 0 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.9-5.5-2.5L2 14.5c-.8-1.2.5-2.8 1.8-2.2 1 .4 2.2 1 3 1.7V10"/></svg>
+              رفع اليد
+            </button>
+          </div>
+
+          <!-- لوحة إدارة المعلم -->
+          <div class="mgmt-panel" id="mgmtPanel">
+            <div class="mgmt-head">
+              <b>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
+                إدارة الحصة
+              </b>
+              <span class="badge" style="font-size:11.5px;">الحضور: <b id="rosterCount">1</b></span>
+            </div>
+            <div class="roster" id="rosterList">
+              <div class="roster-empty">لا يوجد مشاركون بعد — شارك رابط الدعوة</div>
+            </div>
+            <div class="mgmt-actions">
+              <button type="button" class="btn btn-outline btn-sm" id="muteAllBtn">كتم الجميع</button>
+              <button type="button" class="btn btn-outline btn-sm" id="unmuteAllBtn">إلغاء الكتم</button>
+              <button type="button" class="btn btn-outline btn-sm" id="wbClearAllBtn">مسح السبورة للجميع</button>
+              <button type="button" class="btn btn-outline btn-sm" id="endAllBtn">إنهاء الحصة للجميع</button>
+            </div>
+          </div>
+
+          <!-- الدردشة -->
+          <div class="chat-panel">
+            <div class="chat-head">
+              <span class="c-dot"></span> المحادثة مع المعلم
+            </div>
+            <div class="chat-body" id="chatBody">
+              <div class="msg them">أهلاً بك في حصتك الإضافية! 👋
+                <span class="m-meta">أ. خالد الحربي • 10:02</span>
+              </div>
+              <div class="msg me">شكراً أستاذ، جاهز للبدء
+                <span class="m-meta">أنا • 10:03</span>
+              </div>
+            </div>
+            <div class="chat-input">
+              <label class="attach-btn" for="fileShare" title="إرفاق ملف">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+                <input type="file" id="fileShare" hidden>
+              </label>
+              <label class="attach-btn" for="imageShare" title="إرفاق صورة">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+                <input type="file" id="imageShare" accept="image/*" hidden>
+              </label>
+              <input type="text" id="chatInput" placeholder="اكتب رسالتك...">
+              <button type="button" class="btn btn-primary btn-sm" id="chatSend">إرسال</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- السبورة التفاعلية -->
+      <div class="whiteboard">
+        <div class="wb-head">
+          <b>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
+            السبورة التفاعلية
+          </b>
+          <div class="wb-tools">
+            <button type="button" class="wb-color active" data-color="#111827" style="background:#111827;" aria-label="أسود"></button>
+            <button type="button" class="wb-color" data-color="#2563eb" style="background:#2563eb;" aria-label="أزرق"></button>
+            <button type="button" class="wb-color" data-color="#dc2626" style="background:#dc2626;" aria-label="أحمر"></button>
+            <button type="button" class="wb-color" data-color="#16a34a" style="background:#16a34a;" aria-label="أخضر"></button>
+            <button type="button" class="wb-color" data-color="#d97706" style="background:#d97706;" aria-label="برتقالي"></button>
+            <select class="wb-size" id="wbSize" aria-label="سمك القلم">
+              <option value="3">رفيع</option>
+              <option value="6" selected>متوسط</option>
+              <option value="12">سميك</option>
+            </select>
+            <button type="button" class="btn btn-outline btn-sm" id="wbClear">مسح</button>
+          </div>
+        </div>
+        <div class="wb-canvas-wrap">
+          <canvas id="wbCanvas"></canvas>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="screen-admin" class="screen">
+    <div class="container admin-wrap">
+      <div class="admin-head">
+        <div>
+          <span class="badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h.01a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h.01a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v.01a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            وضع المالك
+          </span>
+          <h2>لوحة إعدادات التطبيق</h2>
+          <p>عدّل الأسعار والمواد والمواعيد وطرق الدفع وبيانات التطبيق، ثم احفظ التغييرات.</p>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <button type="button" class="btn btn-outline btn-sm" id="adminResetBtn">إعادة التعيين</button>
+          <button type="button" class="btn btn-outline btn-sm" id="adminBackBtn">العودة للموقع</button>
+          <button type="button" class="btn btn-primary btn-sm" id="adminSaveBtn">حفظ الإعدادات</button>
+        </div>
+      </div>
+
+      <div class="admin-grid">
+        <!-- معلومات التطبيق -->
+        <div class="panel">
+          <h3>
+            <span class="p-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>
+            معلومات التطبيق
+          </h3>
+          <div class="form-group">
+            <label for="cfgAppName">اسم التطبيق</label>
+            <div class="input-wrap"><input type="text" id="cfgAppName"></div>
+          </div>
+          <div class="form-group">
+            <label for="cfgTagline">الشعار الفرعي</label>
+            <div class="input-wrap"><input type="text" id="cfgTagline"></div>
+          </div>
+          <div class="form-group">
+            <label>الثيم الافتراضي</label>
+            <div class="seg">
+              <button type="button" class="seg-opt" data-theme-opt="blue-orange">أبيض / أزرق / برتقالي</button>
+              <button type="button" class="seg-opt" data-theme-opt="green-cyan">أبيض / رمادي / سماوي</button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="cfgOwnerEmail">بريد المالك</label>
+            <div class="input-wrap"><input type="email" id="cfgOwnerEmail"></div>
+          </div>
+          <div class="form-group" style="margin-bottom:0;">
+            <label for="cfgOwnerPass">كلمة مرور المالك</label>
+            <div class="input-wrap"><input type="password" id="cfgOwnerPass"></div>
+          </div>
+        </div>
+
+        <!-- الأسعار -->
+        <div class="panel">
+          <h3>
+            <span class="p-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span>
+            الأسعار (ر.س)
+          </h3>
+          <div class="form-group">
+            <label for="cfgSingleName">اسم الحصة الواحدة</label>
+            <div class="input-wrap"><input type="text" id="cfgSingleName"></div>
+          </div>
+          <div class="form-group">
+            <label for="cfgSinglePrice">سعر الحصة الواحدة (ر.س)</label>
+            <div class="input-wrap"><input type="number" id="cfgSinglePrice" min="0"></div>
+          </div>
+          <div class="form-group">
+            <label for="cfgPack4Name">اسم مجموعة 4 حصص</label>
+            <div class="input-wrap"><input type="text" id="cfgPack4Name"></div>
+          </div>
+          <div class="form-group">
+            <label for="cfgPack4Price">سعر مجموعة 4 حصص (ر.س)</label>
+            <div class="input-wrap"><input type="number" id="cfgPack4Price" min="0"></div>
+          </div>
+          <div class="form-group">
+            <label for="cfgPack8Name">اسم مجموعة 8 حصص</label>
+            <div class="input-wrap"><input type="text" id="cfgPack8Name"></div>
+          </div>
+          <div class="form-group" style="margin-bottom:0;">
+            <label for="cfgPack8Price">سعر مجموعة 8 حصص (ر.س)</label>
+            <div class="input-wrap"><input type="number" id="cfgPack8Price" min="0"></div>
+          </div>
+        </div>
+
+        <!-- المراحل والمواد -->
+        <div class="panel panel-wide">
+          <h3>
+            <span class="p-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>
+            المراحل والمواد (اسم على كل سطر)
+          </h3>
+          <div class="cfg-stages">
+            <div>
+              <label>صفوف الابتدائية</label>
+              <textarea id="cfgGradesPrimary"></textarea>
+            </div>
+            <div>
+              <label>مواد الابتدائية</label>
+              <textarea id="cfgSubjectsPrimary"></textarea>
+            </div>
+            <div>
+              <label>صفوف المتوسطة</label>
+              <textarea id="cfgGradesMiddle"></textarea>
+            </div>
+            <div>
+              <label>مواد المتوسطة</label>
+              <textarea id="cfgSubjectsMiddle"></textarea>
+            </div>
+            <div>
+              <label>صفوف الثانوية</label>
+              <textarea id="cfgGradesSecondary"></textarea>
+            </div>
+            <div>
+              <label>مواد الثانوية</label>
+              <textarea id="cfgSubjectsSecondary"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- المواعيد والمعلمون -->
+        <div class="panel">
+          <h3>
+            <span class="p-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></span>
+            المواعيد والمعلمون
+          </h3>
+          <div class="form-group">
+            <label for="cfgTimes">مواعيد الحصص (موعد في كل سطر)</label>
+            <textarea id="cfgTimes"></textarea>
+          </div>
+          <div class="form-group" style="margin-bottom:0;">
+            <label for="cfgTeachers">المعلمون (اسم — التخصص في كل سطر)</label>
+            <textarea id="cfgTeachers"></textarea>
+          </div>
+        </div>
+
+        <!-- إعدادات الدفع (الطرق + البوابة) -->
+        <div class="panel">
+          <h3>
+            <span class="p-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+            إعدادات الدفع الإلكتروني
+          </h3>
+          <div class="methods-cfg">
+            <label class="form-check"><input type="checkbox" value="mada"> مدى</label>
+            <label class="form-check"><input type="checkbox" value="visa"> فيزا / ماستركارد</label>
+            <label class="form-check"><input type="checkbox" value="applepay"> Apple Pay</label>
+            <label class="form-check"><input type="checkbox" value="stcpay"> STC Pay</label>
+          </div>
+          <div class="form-group" style="margin-bottom:0;">
+            <label for="cfgMoyasarKey">بوابة الدفع (Moyasar) — مفتاح النشر</label>
+            <div class="input-wrap"><input type="text" id="cfgMoyasarKey" placeholder="pk_test_... أو pk_live_..." dir="ltr" style="text-align:left;"></div>
+          </div>
+          <div class="form-group" style="margin-bottom:0;">
+            <label for="cfgCallbackUrl">رابط العودة بعد الدفع (اختياري)</label>
+            <div class="input-wrap"><input type="text" id="cfgCallbackUrl" placeholder="https://manara-ksa.netlify.app" dir="ltr" style="text-align:left;"></div>
+          </div>
+          <p style="font-size:12.5px;color:var(--text-muted);margin-top:12px;">
+            عند تعطيل طريقة دفع تختفي من نافذة الدفع مباشرة. ضع مفتاح Moyasar لتفعيل الدفع الحقيقي، واتركه فارغاً للوضع التجريبي داخل التطبيق. عند تفريغ حقل العودة، يُستخدم موقعك الحالي تلقائياً.
+          </p>
+        </div>
+
+        <!-- طلبات المعلمين -->
+        <div class="panel panel-wide">
+          <h3>
+            <span class="p-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+            طلبات المعلمين
+          </h3>
+          <p style="font-size:13px;color:var(--text-muted);margin:0 0 14px;">المعلمون المتقدمون بانتظار الموافقة — راجع شهادة التخصص ثم اعتمد أو ارفض.</p>
+          <div id="teacherReqList"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       الفوتر
+       ============================================================ -->
+  <footer class="footer">
+    <div class="container">
+      <a href="#" class="logo" onclick="goScreen('login');return false;">
+        <span class="logo-mark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l9 4.9v5.2c0 4.7-3.6 8.6-9 10-5.4-1.4-9-5.3-9-10V6.9L12 2z"/><path d="M12 6v6M12 6l-4 4M12 6l4 4"/><path d="M8 16h8M8 18.5h8"/></svg>
+        </span>
+        <span id="ftrBrandName">المنارة<small id="ftrBrandTag">للتعليم والتدريب</small></span>
+      </a>
+      <p>مساحة تعليمية لدروس إضافية لطلاب التعليم العام — جميع الحقوق محفوظة © <span id="year"></span></p>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       نافذة الدفع الإلكتروني
+       ============================================================ -->
+  <div class="pay-modal" id="payModal" aria-hidden="true">
+    <div class="pay-overlay" data-close></div>
+    <div class="pay-box" role="dialog" aria-modal="true" aria-labelledby="payTitle">
+      <button class="pay-close" data-close aria-label="إغلاق">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+      <div class="pay-head">
+        <span class="pay-lock">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </span>
+        <div>
+          <h3 id="payTitle">إتمام الدفع الإلكتروني</h3>
+          <p class="pay-sub">دفع آمن ومشفر عبر مدى وفيزا و Apple Pay و STC Pay</p>
+        </div>
+      </div>
+
+      <div class="pay-item">
+        <div>
+          <b class="pay-item-name" id="payItemName">—</b>
+          <span class="pay-item-type" id="payItemType">—</span>
+        </div>
+        <div class="pay-amount" id="payPrice">0</div>
+      </div>
+
+      <div id="paySim">
+      <div class="pay-methods" id="payMethods"></div>
+
+      <div class="pay-fields" id="payFields">
+        <label>رقم البطاقة
+          <input type="text" id="payCard" inputmode="numeric" maxlength="19" placeholder="0000 0000 0000 0000" autocomplete="off">
+        </label>
+        <div class="pay-row">
+          <label>تاريخ الانتهاء
+            <input type="text" id="payExp" inputmode="numeric" maxlength="5" placeholder="MM/YY" autocomplete="off">
+          </label>
+          <label>رمز التحقق CVV
+            <input type="password" id="payCvv" inputmode="numeric" maxlength="4" placeholder="•••" autocomplete="off">
+          </label>
+        </div>
+        <label>اسم حامل البطاقة
+          <input type="text" id="payName" placeholder="الاسم كما يظهر على البطاقة" autocomplete="off">
+        </label>
+      </div>
+
+      <button class="btn btn-primary btn-lg btn-block" id="payBtn">
+        <span class="pay-btn-label">ادفع الآن</span>
+        <span class="pay-btn-spin"></span>
+      </button>
+
+      <div class="pay-success" id="paySuccess">
+        <span class="pay-success-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+        </span>
+        <h4>تم الدفع بنجاح 🎉</h4>
+        <p>تم تأكيد حجزك وسيظهر الدرس في جدولك.</p>
+        <button class="btn btn-primary btn-lg btn-block" id="enterRoomBtn">دخول قاعة الدرس</button>
+      </div>
+      </div>
+
+      <div id="moyasarHost"></div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       نافذة اختبار جودة الصوت
+       ============================================================ -->
+  <div class="aq-modal" id="aqModal" aria-hidden="true">
+    <div class="aq-overlay" data-aq-close></div>
+    <div class="aq-box" role="dialog" aria-modal="true" aria-labelledby="aqTitle">
+      <div class="aq-head">
+        <span class="aq-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a9 9 0 0 1 0 14"/></svg>
+        </span>
+        <div>
+          <h3 id="aqTitle">اختبار جودة الصوت</h3>
+          <p>تحدث الآن أمام الميكروفون لرؤية مستوى جودة الصوت</p>
+        </div>
+        <button class="aq-close" data-aq-close aria-label="إغلاق">×</button>
+      </div>
+      <div class="aq-meter">
+        <span class="aq-bars" id="aqMeterBars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+        <b id="aqMeterLabel">تحدث الآن...</b>
+      </div>
+      <p class="aq-tip" id="aqTip">إذا لم تظهر أعمدة الإشارة، تأكد من منح المتصفح إذن الميكروفون ومن أن الميكروفون غير مكتوم.</p>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+  <script>
+    (function () {
+      "use strict";
+
+      var $ = function (s, c) { return (c || document).querySelector(s); };
+      var $$ = function (s, c) { return Array.from((c || document).querySelectorAll(s)); };
+
+      var root = document.documentElement;
+
+      /* ============================================
+         الثيمات: أبيض/أزرق/برتقالي — أبيض/أحمر/أصفر
+         ============================================ */
+      var savedTheme = null;
+      try { savedTheme = localStorage.getItem("manara-theme"); } catch (e) {}
+      if (savedTheme !== "blue-orange" && savedTheme !== "green-cyan") savedTheme = null;
+
+      $$("[data-theme-btn]").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          applyTheme(btn.getAttribute("data-theme-btn"));
+        });
+      });
+
+      function applyTheme(theme) {
+        if (theme === "gray" || theme === "blue") theme = "blue-orange";
+        if (theme === "red-yellow") theme = "green-cyan";
+        root.setAttribute("data-theme", theme);
+        $$("[data-theme-btn]").forEach(function (b) {
+          b.classList.toggle("active", b.getAttribute("data-theme-btn") === theme);
+        });
+        try { localStorage.setItem("manara-theme", theme); } catch (e) {}
+      }
+
+      /* ============================================
+         نظام إعدادات المالك
+         ============================================ */
+      var DEFAULT_SETTINGS = {
+        owner: { email: "admin@manara.edu", password: "admin123" },
+        brand: { name: "المنارة", tagline: "للتعليم والتدريب" },
+        themeDefault: "green-cyan",
+        plans: {
+          free:   { name: "حصة أولى مجانية", desc: "جرب منارتك — أول حصة هدية", price: 0, sessions: 1, duration: "30 دقيقة" },
+          single: { name: "حصة واحدة", desc: "درس واحد فقط بمدة 60 دقيقة", price: 60, sessions: 1 },
+          pack4:  { name: "مجموعة حصص — 4 حصص", desc: "اشتراك شهري — حصة كل أسبوع", price: 200, sessions: 4 },
+          pack8:  { name: "مجموعة حصص — 8 حصص", desc: "اشتراك فصل دراسي — حصتان شهرياً", price: 360, sessions: 8 }
+        },
+        stages: {
+          primary: {
+            grades: ["الأول الابتدائي", "الثاني الابتدائي", "الثالث الابتدائي", "الرابع الابتدائي", "الخامس الابتدائي", "السادس الابتدائي"],
+            subjects: ["اللغة العربية", "الرياضيات", "العلوم", "اللغة الإنجليزية", "التربية الإسلامية"]
+          },
+          middle: {
+            grades: ["الأول المتوسط", "الثاني المتوسط", "الثالث المتوسط"],
+            subjects: ["الرياضيات", "العلوم", "الفيزياء", "الكيمياء", "الأحياء", "اللغة العربية", "اللغة الإنجليزية", "الدراسات الاجتماعية"]
+          },
+          secondary: {
+            grades: ["الأول الثانوي", "الثاني الثانوي", "الثالث الثانوي"],
+            subjects: ["الرياضيات", "الفيزياء", "الكيمياء", "الأحياء", "اللغة العربية", "اللغة الإنجليزية", "العلوم الطبيعية", "التفاضل والتكامل"]
+          }
+        },
+        times: ["السبت — 4:00 عصراً", "السبت — 6:00 مساءً", "الأحد — 5:00 عصراً", "الاثنين — 7:00 مساءً", "الثلاثاء — 5:30 عصراً", "الأربعاء — 6:30 مساءً", "الخميس — 4:30 عصراً"],
+        teachers: ["أ. خالد الحربي — الرياضيات", "د. منى الشريف — العلوم", "أ. سارة القحطاني — اللغة العربية", "م. عمر السبيعي — الفيزياء", "أ. نورة العتيبي — اللغة الإنجليزية"],
+        methods: ["mada", "visa", "applepay", "stcpay"],
+        gateway: { moyasarKey: "", callbackUrl: "" }
+      };
+
+      var SETTINGS = loadSettings();
+      applyTheme(savedTheme || SETTINGS.themeDefault);
+
+      function deepMerge(base, extra) {
+        var out = JSON.parse(JSON.stringify(base));
+        Object.keys(extra || {}).forEach(function (k) {
+          if (extra[k] && typeof extra[k] === "object" && !Array.isArray(extra[k]) && out[k] && typeof out[k] === "object" && !Array.isArray(out[k])) {
+            out[k] = deepMerge(out[k], extra[k]);
+          } else if (extra[k] !== undefined && extra[k] !== null && extra[k] !== "") {
+            out[k] = extra[k];
+          }
+        });
+        return out;
+      }
+
+      function loadSettings() {
+        var saved = null;
+        try { saved = JSON.parse(localStorage.getItem("manara-settings")); } catch (e) {}
+        return deepMerge(DEFAULT_SETTINGS, saved);
+      }
+
+      function saveSettings() {
+        try { localStorage.setItem("manara-settings", JSON.stringify(SETTINGS)); } catch (e) {}
+      }
+
+      /* تطبيق اسم التطبيق على الواجهة */
+      function applyBrand() {
+        var name = SETTINGS.brand.name, tag = SETTINGS.brand.tagline;
+        document.title = name + " للتعليم والتدريب — مساحة دروس إضافية لطلاب التعليم العام";
+        $("#hdrBrandName").innerHTML = name + "<small>" + tag + "</small>";
+        $("#ftrBrandName").innerHTML = name + "<small>" + tag + "</small>";
+        $("#loginGreet").textContent = "مرحباً بك في " + name;
+      }
+
+      /* ============================================
+         التنقل بين الشاشات
+         ============================================ */
+      window.goScreen = function (name) {
+        $$(".screen").forEach(function (s) { s.classList.remove("active"); });
+        $("#screen-" + name).classList.add("active");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      };
+
+      /* ============================================
+         تبويبات تسجيل الدخول
+         ============================================ */
+      var loginTabs = $$("[data-tab]");
+      loginTabs.forEach(function (tab) {
+        tab.addEventListener("click", function () {
+          var key = tab.getAttribute("data-tab");
+          $$("[data-tab]").forEach(function (t) { t.classList.remove("active"); });
+          tab.classList.add("active");
+          $$("[data-auth-form]").forEach(function (f) {
+            f.style.display = f.getAttribute("data-auth-form") === key ? "" : "none";
+          });
+        });
+      });
+
+      /* إظهار/إخفاء كلمة المرور */
+      $$(".toggle-pass").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          var input = $("#" + btn.getAttribute("data-target"));
+          if (!input) return;
+          var show = input.type === "password";
+          input.type = show ? "text" : "password";
+        });
+      });
+
+      /* ============================================
+         حسابات المستخدمين (تخزين محلي)
+         ============================================ */
+      function getAccounts() {
+        try { return JSON.parse(localStorage.getItem("manara-accounts") || "[]"); } catch (e) { return []; }
+      }
+      function saveAccounts(list) {
+        try { localStorage.setItem("manara-accounts", JSON.stringify(list)); } catch (e) {}
+      }
+      function findAccount(email) {
+        email = (email || "").trim().toLowerCase();
+        var list = getAccounts();
+        for (var i = 0; i < list.length; i++) if ((list[i].email || "").toLowerCase() === email) return list[i];
+        return null;
+      }
+      function loginSuccess(name, role) {
+        try { localStorage.setItem("manara-user", JSON.stringify({ name: name, role: role })); } catch (e) {}
+        toast("تم تسجيل الدخول بنجاح — أهلاً بك في " + SETTINGS.brand.name + " 🎉", "success");
+        initBooking();
+        goScreen("booking");
+      }
+
+      /* ============================================
+         اختيار الدور في التسجيل (طالب / معلّم)
+         ============================================ */
+      var signupRole = "student";
+      $$("[data-signup-role]").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          signupRole = btn.getAttribute("data-signup-role");
+          $$("[data-signup-role]").forEach(function (b) { b.classList.toggle("active", b === btn); });
+          var cert = $("#reg-cert");
+          $("#certGroup").style.display = signupRole === "teacher" ? "" : "none";
+          if (cert) cert.required = signupRole === "teacher";
+          if (signupRole === "teacher") cert && cert.focus();
+        });
+      });
+
+      /* ============================================
+         نماذج الدخول والتسجيل
+         ============================================ */
+      $$("[data-auth-form]").forEach(function (form) {
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+          var mode = form.getAttribute("data-auth-form");
+          var email = $("input[type=email]", form);
+          var pass = $("input[type=password]", form);
+          if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) {
+            toast("يرجى إدخال بريد إلكتروني صحيح", "error"); email.focus(); return;
+          }
+          if (pass && pass.value.trim().length < 6) {
+            toast("كلمة المرور يجب أن تكون 6 أحرف على الأقل", "error"); pass.focus(); return;
+          }
+          if (mode === "login") {
+            var acc = findAccount(email.value.trim());
+            if (!acc) {
+              toast("لا يوجد حساب بهذا البريد — أنشئ حساباً جديداً أولاً", "error"); email.focus(); return;
+            }
+            if (acc.password !== pass.value) {
+              toast("كلمة المرور غير صحيحة", "error"); pass.focus(); return;
+            }
+            if (acc.role === "teacher" && acc.status === "pending") {
+              toast("حسابك قيد المراجعة — بانتظار موافقة إدارة المنصة ⏳", "info"); return;
+            }
+            if (acc.role === "teacher" && acc.status === "rejected") {
+              toast("عذراً، تم رفض طلبك من قبل الإدارة", "error"); return;
+            }
+            loginSuccess(acc.name, acc.role);
+            return;
+          }
+          /* تسجيل حساب جديد */
+          if (getAccounts().some(function (a) { return (a.email || "").toLowerCase() === email.value.trim().toLowerCase(); })) {
+            toast("هذا البريد مسجل مسبقاً — سجّل دخولك", "error"); email.focus(); return;
+          }
+          var nameInput = $("input[type=text]", form);
+          var fullName = (nameInput && nameInput.value.trim()) || "مستخدم";
+          if (signupRole === "teacher") {
+            var certInput = $("#reg-cert");
+            if (!certInput.files || !certInput.files[0]) {
+              toast("يرجى إرفاق شهادة التخصص للموافقة على تسجيلك كمعلم", "error");
+              certInput && certInput.focus();
+              return;
+            }
+            var file = certInput.files[0];
+            if (file.size > 2 * 1024 * 1024) {
+              toast("حجم الشهادة كبير — يرجى اختيار ملف أصغر من 2 ميجابايت", "error"); return;
+            }
+            var reader = new FileReader();
+            reader.onload = function () {
+              var list = getAccounts();
+              list.push({
+                name: fullName,
+                email: email.value.trim().toLowerCase(),
+                password: pass.value,
+                role: "teacher",
+                status: "pending",
+                certName: file.name,
+                certData: reader.result,
+                createdAt: new Date().toISOString()
+              });
+              saveAccounts(list);
+              toast("تم إرسال طلبك — سيتم مراجعة شهادتك واعتمادك من قبل الإدارة ⏳", "success");
+              resetSignupForm();
+              $$("[data-tab]").forEach(function (t) {
+                if (t.getAttribute("data-tab") === "login") t.click();
+              });
+            };
+            reader.readAsDataURL(file);
+            return;
+          }
+          /* طالب */
+          var list2 = getAccounts();
+          list2.push({
+            name: fullName,
+            email: email.value.trim().toLowerCase(),
+            password: pass.value,
+            role: "student",
+            status: "active",
+            certName: "",
+            certData: "",
+            createdAt: new Date().toISOString()
+          });
+          saveAccounts(list2);
+          loginSuccess(fullName, "student");
+        });
+      });
+
+      function resetSignupForm() {
+        var nameIn = $("input[type=text]", $('form[data-auth-form="signup"]'));
+        var mailIn = $("input[type=email]", $('form[data-auth-form="signup"]'));
+        var pwIn = $("input[type=password]", $('form[data-auth-form="signup"]'));
+        if (nameIn) nameIn.value = "";
+        if (mailIn) mailIn.value = "";
+        if (pwIn) pwIn.value = "";
+        var cert = $("#reg-cert");
+        if (cert) { cert.value = ""; cert.required = false; }
+        var tabs = $$("[data-signup-role]");
+        tabs.forEach(function (b) { b.classList.toggle("active", b.getAttribute("data-signup-role") === "student"); });
+        signupRole = "student";
+        $("#certGroup").style.display = "none";
+      }
+
+      /* ============================================
+         الصفوف والمواد حسب المرحلة (من الإعدادات)
+         ============================================ */
+      var stage = "secondary";
+      var planKey = "pack4";
+      var classType = "individual";
+
+      var planIcons = {
+        free: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v10H4V12"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>',
+        single: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>',
+        pack4: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13M8 12h13M8 18h13"/><path d="M3 6h.01M3 12h.01M3 18h.01"/></svg>',
+        pack8: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13M8 12h13M8 18h13"/><path d="M3 6h.01M3 12h.01M3 18h.01"/><path d="M3 3h18v18H3z" opacity="0"/></svg>'
+      };
+
+      function fillSelect(sel, values, def) {
+        sel.innerHTML = "";
+        values.forEach(function (v) {
+          var o = document.createElement("option");
+          o.textContent = v;
+          o.selected = (v === def);
+          sel.appendChild(o);
+        });
+      }
+
+      /* بناء قائمة الاشتراكات من الإعدادات */
+      function buildPlans() {
+        var wrap = $("#planList");
+        wrap.innerHTML = "";
+        Object.keys(SETTINGS.plans).forEach(function (key, i) {
+          var p = SETTINGS.plans[key];
+          var b = document.createElement("button");
+          b.type = "button";
+          b.className = "plan" + (key === planKey ? " active" : "");
+          b.setAttribute("data-plan", key);
+          var per = p.duration ? p.duration : (p.sessions > 1 ? "اشتراك " + p.sessions + " حصص" : "لحصة واحدة");
+          b.innerHTML =
+            '<span class="plan-ico">' + planIcons[key] + "</span>" +
+            '<span class="plan-info"><b>' + p.name + "</b><small>" + p.desc + "</small></span>" +
+            '<span class="plan-price">' + (p.price === 0 ? "مجاناً" : p.price + ' ر.س') + "<small>" + per + "</small></span>";
+          b.addEventListener("click", function () {
+            $$("#planList .plan").forEach(function (x) { x.classList.remove("active"); });
+            b.classList.add("active");
+            planKey = b.getAttribute("data-plan");
+            updateSummary();
+          });
+          wrap.appendChild(b);
+        });
+      }
+
+      /* بناء المواعيد والمعلمين من الإعدادات */
+      function applyBookingData() {
+        buildPlans();
+        var timeSel = $("#time");
+        var curTime = timeSel.value;
+        timeSel.innerHTML = "";
+        SETTINGS.times.forEach(function (t) {
+          var o = document.createElement("option");
+          o.textContent = t;
+          timeSel.appendChild(o);
+        });
+        if (curTime && SETTINGS.times.indexOf(curTime) !== -1) timeSel.value = curTime;
+
+        var teacherSel = $("#teacher");
+        var curTeacher = teacherSel.value;
+        teacherSel.innerHTML = '<option value="">اختر المعلم (سيتم تخصيصه لاحقاً)</option>';
+        SETTINGS.teachers.forEach(function (t) {
+          var o = document.createElement("option");
+          o.textContent = t;
+          teacherSel.appendChild(o);
+        });
+        if (curTeacher && SETTINGS.teachers.indexOf(curTeacher) !== -1) teacherSel.value = curTeacher;
+
+        fillGradeSubject();
+      }
+
+      function fillGradeSubject() {
+        var seg = SETTINGS.stages[stage];
+        var gradeSel = $("#grade"), subjectSel = $("#subject");
+        var curGrade = gradeSel.value, curSubject = subjectSel.value;
+        fillSelect(gradeSel, seg.grades, seg.grades[seg.grades.length - 1]);
+        fillSelect(subjectSel, seg.subjects, seg.subjects[0]);
+        if (curGrade && seg.grades.indexOf(curGrade) !== -1) gradeSel.value = curGrade;
+        if (curSubject && seg.subjects.indexOf(curSubject) !== -1) subjectSel.value = curSubject;
+        updateSummary();
+      }
+
+      function initBooking() {
+        applyBookingData();
+        updateSummary();
+      }
+
+      /* اختيار المرحلة */
+      $$("#stageSeg .seg-opt").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          $$("#stageSeg .seg-opt").forEach(function (b) { b.classList.remove("active"); });
+          btn.classList.add("active");
+          stage = btn.getAttribute("data-stage");
+          fillGradeSubject();
+        });
+      });
+
+      /* اختيار نوع الحصة */
+      $$("#classTypeSeg .seg-opt").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          $$("#classTypeSeg .seg-opt").forEach(function (b) { b.classList.remove("active"); });
+          btn.classList.add("active");
+          classType = btn.getAttribute("data-class-type");
+          $("#sumClassType").textContent = classType === "group" ? "حصة جماعية" : "حصة فردية";
+          $("#classTypeHint").textContent = classType === "group"
+            ? "حصة تفاعلية لعدة طلاب مع المعلم — بث صوتي ومرئي وسبورة ومشاركة ملفات وإدارة كاملة من المعلم."
+            : "حصة خاصة 1:1 مع المعلم — بث صوتي ومرئي وسبورة ومشاركة ملفات بجودة عالية.";
+        });
+      });
+
+      /* تحديث الملخص */
+      ["#grade", "#subject", "#time"].forEach(function (selSel) {
+        $(selSel).addEventListener("change", updateSummary);
+      });
+      $("#teacher").addEventListener("change", updateSummary);
+
+      function updateSummary() {
+        var plan = SETTINGS.plans[planKey];
+        $("#sumGrade").textContent = $("#grade").value;
+        $("#sumSubject").textContent = $("#subject").value;
+        $("#sumTeacher").textContent = $("#teacher").value ? $("#teacher").value.split(" — ")[0] : "يُحدد لاحقاً";
+        $("#sumTime").textContent = $("#time").value;
+        $("#sumPlan").textContent = plan.name + (plan.duration ? " (" + plan.duration + ")" : "");
+        $("#sumTotal").textContent = plan.price === 0 ? "مجاناً" : plan.price + " ر.س";
+      }
+
+      /* ============================================
+         الدفع الإلكتروني
+         ============================================ */
+      var ALL_METHODS = [
+        { id: "mada", label: "مدى", desc: "بطاقة مدى المصرفية", card: true },
+        { id: "visa", label: "فيزا / ماستركارد", desc: "بطاقة ائتمانية دولية", card: true },
+        { id: "applepay", label: "Apple Pay", desc: "الدفع بلمسة واحدة", card: false },
+        { id: "stcpay", label: "STC Pay", desc: "محفظة إلكترونية", card: false }
+      ];
+      var methodIcons = {
+        mada: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="3"/><path d="M2 10h20M7 15h3"/></svg>',
+        visa: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 15.5l1.5-7h3l-1.5 7H5zm6.5 0l2-7h3l-2 7h-3zm7.5-6.5c-1-.5-2.5-.5-3.5 0-1 .5-1 1.5 0 2s3 1 3 2-.5 2-2 2c-.5 0-1 0-1.5-.5l.5-1c.5.5 1 .5 1.5.5.5 0 1-.5 1-1s-.5-1-1.5-1.5c-1-.5-2-1-2-2s.5-2 2-2c.5 0 1 .5 1.5 1l-.5.5z"/></svg>',
+        applepay: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 12.54c-.03-2.53 2.07-3.74 2.16-3.8-1.17-1.72-3-1.96-3.65-1.98-1.56-.16-3.04.92-3.83.92-.79 0-2.01-.9-3.3-.87-1.7.02-3.26.99-4.14 2.51-1.77 3.07-.45 7.62 1.27 10.11.84 1.22 1.84 2.59 3.15 2.54 1.26-.05 1.74-.81 3.26-.81s1.95.81 3.29.79c1.36-.03 2.22-1.24 3.06-2.47.96-1.4 1.35-2.77 1.38-2.84-.03-.02-2.65-1.02-2.68-4.04zM14.62 5.46c.7-.85 1.17-2.03 1.04-3.2-1.01.04-2.23.67-2.95 1.51-.65.75-1.21 1.95-1.06 3.1 1.12.09 2.27-.57 2.97-1.41z"/></svg>',
+        stcpay: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 0 1 7.07 17.07A10 10 0 0 1 4.93 4.93A9.95 9.95 0 0 1 12 2z"/><path d="M8 12l4-4 4 4M12 8v8"/></svg>'
+      };
+
+      var payModal = $("#payModal");
+      var selectedMethod = null;
+      var payDone = false;
+
+      function enabledMethods() {
+        return ALL_METHODS.filter(function (m) {
+          return SETTINGS.methods.indexOf(m.id) !== -1;
+        });
+      }
+
+      function buildMethods() {
+        var wrap = $("#payMethods");
+        wrap.innerHTML = "";
+        var list = enabledMethods();
+        if (!list.length) {
+          wrap.innerHTML = '<p style="font-size:13px;color:var(--text-muted);text-align:center;">لا توجد طرق دفع مفعّلة — راجع إعدادات المالك</p>';
+          return;
+        }
+        if (list.every(function (m) { return m.id !== selectedMethod; })) selectedMethod = list[0].id;
+        list.forEach(function (m) {
+          var b = document.createElement("button");
+          b.type = "button";
+          b.className = "pay-method" + (selectedMethod === m.id ? " active" : "");
+          b.innerHTML =
+            '<span class="pay-method-ico">' + methodIcons[m.id] + "</span>" +
+            "<span><b>" + m.label + '</b><small>' + m.desc + "</small></span>" +
+            '<span class="pay-method-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>';
+          b.addEventListener("click", function () {
+            selectedMethod = m.id;
+            buildMethods();
+            $("#payFields").style.display = m.card ? "" : "none";
+            updatePayBtnLabel();
+          });
+          wrap.appendChild(b);
+        });
+      }
+
+      function updatePayBtnLabel() {
+        $("#payBtn .pay-btn-label").textContent = "ادفع " + SETTINGS.plans[planKey].price + " ر.س";
+      }
+
+      var moyasarScriptLoading = false;
+
+      function loadMoyasarScript(cb) {
+        if (window.Moyasar) { cb(); return; }
+        if (moyasarScriptLoading) {
+          var t = setInterval(function () {
+            if (window.Moyasar) { clearInterval(t); cb(); }
+          }, 200);
+          return;
+        }
+        moyasarScriptLoading = true;
+        var s = document.createElement("script");
+        s.src = "https://cdn.jsdelivr.net/npm/moyasar-payment-form@2.2.10/dist/moyasar.umd.js";
+        s.onload = function () { cb(); };
+        s.onerror = function () {
+          moyasarScriptLoading = false;
+          toast("تعذر تحميل بوابة الدفع — تأكد من اتصالك بالإنترنت", "error");
+        };
+        document.head.appendChild(s);
+      }
+
+      function initMoyasarForm(host) {
+        loadMoyasarScript(function () {
+          if (host.innerHTML.trim()) return;
+          var methods = [];
+          if (SETTINGS.methods.indexOf("mada") !== -1 || SETTINGS.methods.indexOf("visa") !== -1) methods.push("creditcard");
+          if (SETTINGS.methods.indexOf("applepay") !== -1) methods.push("applepay");
+          if (SETTINGS.methods.indexOf("stcpay") !== -1) methods.push("stcpay");
+          var networks = [];
+          if (SETTINGS.methods.indexOf("mada") !== -1) networks.push("mada");
+          if (SETTINGS.methods.indexOf("visa") !== -1) networks.push("visa", "mastercard");
+          Moyasar.init({
+            element: host,
+            amount: SETTINGS.plans[planKey].price * 100,
+            currency: "SAR",
+            description: $("#subject").value + " — " + $("#grade").value + " (" + (classType === "group" ? "حصة جماعية — " : "حصة فردية — ") + SETTINGS.plans[planKey].name + ")",
+            publishable_api_key: SETTINGS.gateway.moyasarKey,
+            callback_url: SETTINGS.gateway.callbackUrl || (location.origin + location.pathname),
+            methods: methods.length ? methods : ["creditcard"],
+            supported_networks: networks.length ? networks : ["mada", "visa", "mastercard"],
+            language: "ar"
+          });
+        });
+      }
+
+      function openPay() {
+        payDone = false;
+        $("#payItemName").textContent = $("#subject").value + " — " + $("#grade").value;
+        $("#payItemType").textContent = (classType === "group" ? "حصة جماعية — " : "حصة فردية — ") + SETTINGS.plans[planKey].name;
+        $("#payPrice").textContent = SETTINGS.plans[planKey].price + " ر.س";
+        var sim = $("#paySim"), host = $("#moyasarHost");
+        if (SETTINGS.gateway.moyasarKey) {
+          sim.style.display = "none";
+          host.style.display = "";
+          host.innerHTML = "";
+          initMoyasarForm(host);
+        } else {
+          host.style.display = "none";
+          sim.style.display = "";
+          buildMethods();
+          var m = ALL_METHODS.filter(function (x) { return x.id === selectedMethod; })[0];
+          $("#payFields").style.display = (m && m.card) ? "" : "none";
+          ["payCard", "payExp", "payCvv", "payName"].forEach(function (id) { $("#" + id).value = ""; });
+          $("#paySuccess").style.display = "none";
+          $("#payBtn").style.display = "";
+          $("#payBtn").classList.remove("loading");
+          $("#payBtn").disabled = false;
+          updatePayBtnLabel();
+        }
+        payModal.classList.add("open");
+        payModal.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+      }
+
+      function closePay() {
+        payModal.classList.remove("open");
+        payModal.setAttribute("aria-hidden", "true");
+        document.body.style.overflow = "";
+      }
+
+      function runPay() {
+        if (selectedMethod === "mada" || selectedMethod === "visa") {
+          var num = $("#payCard").value.replace(/\s+/g, "");
+          if (num.length < 16) { toast("يرجى إدخال رقم بطاقة صحيح (16 رقماً)", "error"); return; }
+          if (!/^\d{2}\/\d{2}$/.test($("#payExp").value)) { toast("يرجى إدخال تاريخ انتهاء صحيح MM/YY", "error"); return; }
+          if ($("#payCvv").value.length < 3) { toast("يرجى إدخال رمز التحقق CVV", "error"); return; }
+          if ($("#payName").value.trim().length < 3) { toast("يرجى إدخال اسم حامل البطاقة", "error"); return; }
+        }
+        $("#payBtn").disabled = true;
+        $("#payBtn").classList.add("loading");
+        $("#payBtn .pay-btn-label").textContent = "جاري معالجة الدفع...";
+        setTimeout(function () {
+          $("#payBtn").classList.remove("loading");
+          $("#payBtn").style.display = "none";
+          $("#paySuccess").style.display = "";
+          payDone = true;
+        }, 1600);
+      }
+
+      $("#goPayBtn").addEventListener("click", function () {
+        if (SETTINGS.plans[planKey].price === 0) {
+          toast("تم حجز حصتك الأولى المجانية 🎁 — نلتقي في القاعة", "success");
+          startRoom();
+          goScreen("room");
+          return;
+        }
+        openPay();
+      });
+      $("#payBtn").addEventListener("click", runPay);
+      $("#enterRoomBtn").addEventListener("click", function () {
+        closePay();
+        startRoom();
+        goScreen("room");
+      });
+      $$("[data-close]", payModal).forEach(function (el) {
+        el.addEventListener("click", closePay);
+      });
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && payModal.classList.contains("open")) closePay();
+      });
+
+      $("#payCard").addEventListener("input", function () {
+        var v = this.value.replace(/[^\d]/g, "").slice(0, 16);
+        this.value = v.replace(/(\d{4})(?=\d)/g, "$1 ");
+      });
+      $("#payExp").addEventListener("input", function () {
+        var v = this.value.replace(/[^\d]/g, "").slice(0, 4);
+        this.value = v.length > 2 ? v.slice(0, 2) + "/" + v.slice(2) : v;
+      });
+      $("#payCvv").addEventListener("input", function () {
+        this.value = this.value.replace(/[^\d]/g, "").slice(0, 4);
+      });
+
+      /* ============================================
+         قاعة الدرس — WebRTC حقيقي (PeerJS) مع دعم المجموعات
+         ============================================ */
+      var teacherName = SETTINGS.teachers.length ? SETTINGS.teachers[0].split(" — ")[0] : "المعلم";
+      var micOn = true;
+      var camOn = true;
+      var videoCallOn = true;
+      var isTeacher = false;
+      var isHost = false;
+      var handUp = false;
+      var peer = null;
+      var hostId = null;
+      var myId = null;
+      var localStream = null;
+      var screenStream = null;
+      var sharingScreen = false;
+      var remoteCamOn = true;
+      var roomCode = "";
+      var localVideoEl = null, localTile = null, remoteVideoEl = null, remoteTile = null;
+      var peers = {};
+      var participants = {};
+      var recvFiles = {};
+
+      function getRoomParam() {
+        var p = new URLSearchParams(location.search);
+        return p.get("room");
+      }
+
+      function getRoleParam() {
+        var p = new URLSearchParams(location.search);
+        return p.get("role");
+      }
+
+      function myName() {
+        if (isTeacher) return teacherName;
+        if (isHost) return "المضيف — الطالب";
+        return "طالب";
+      }
+
+      function isManager() {
+        return isHost || isTeacher;
+      }
+
+      function assignRoles() {
+        var tv = $("#teacherVideo"), mv = $("#myVideo");
+        if (isTeacher) {
+          localVideoEl = tv; localTile = tv.closest(".video-tile");
+          remoteVideoEl = mv; remoteTile = mv.closest(".video-tile");
+        } else {
+          localVideoEl = mv; localTile = mv.closest(".video-tile");
+          remoteVideoEl = tv; remoteTile = tv.closest(".video-tile");
+        }
+      }
+
+      function startLocalMedia() {
+        if (localStream) return Promise.resolve(localStream);
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+          toast("متصفحك لا يدعم الصوت والفيديو", "error");
+          return Promise.resolve(null);
+        }
+        return navigator.mediaDevices.getUserMedia({ audio: true, video: { width: { ideal: 1280 }, height: { ideal: 720 } } })
+          .then(function (stream) {
+            localStream = stream;
+            startAudioMonitor();
+            assignRoles();
+            localVideoEl.srcObject = stream;
+            localVideoEl.style.display = "block";
+            var av = localTile.querySelector(".v-avatar");
+            if (av) av.style.display = "none";
+            return stream;
+          })
+          .catch(function () {
+            toast("تعذر الوصول للكاميرا والميكروفون", "error");
+            return null;
+          });
+      }
+
+      /* إرسال البيانات: المضيف يبث للجميع، والمشارك يرسل للمضيف فقط (المضيف يمرّر للبقية) */
+      function sendData(obj) {
+        if (!peer) return;
+        obj.from = myId;
+        if (isHost) {
+          Object.keys(peers).forEach(function (id) {
+            var p = peers[id];
+            if (p && p.conn && p.conn.open) p.conn.send(obj);
+          });
+        } else if (hostId && peers[hostId] && peers[hostId].conn && peers[hostId].conn.open) {
+          peers[hostId].conn.send(obj);
+        }
+      }
+
+      function relayToAll(fromId, obj) {
+        Object.keys(peers).forEach(function (id) {
+          if (id === fromId) return;
+          var p = peers[id];
+          if (p && p.conn && p.conn.open) p.conn.send(obj);
+        });
+      }
+
+      function onData(fromId, msg) {
+        if (!msg || typeof msg !== "object") return;
+        msg.from = msg.from || fromId;
+        handleData(fromId, msg);
+        if (isHost && fromId !== myId) relayToAll(fromId, msg);
+      }
+
+      function bindConn(c) {
+        peers[c.peer] = peers[c.peer] || { conn: c, stream: null, name: "", isTeacher: false, mic: true, cam: true, screen: false };
+        c.on("open", function () {
+          $("#roomConnText").textContent = "متصل — الحصة حية";
+          $("#roomConnStatus").classList.remove("off");
+          sendData({ type: "hello", name: myName(), isTeacher: isTeacher });
+        });
+        c.on("data", function (msg) {
+          var fromId = (msg && msg.from) ? msg.from : c.peer;
+          onData(fromId, msg);
+        });
+        c.on("close", function () {
+          if (peers[c.peer]) delete peers[c.peer];
+          if (participants[c.peer]) delete participants[c.peer];
+          removeTile(c.peer);
+          renderRoster();
+          if (isHost) broadcastRoster();
+          toast("غادر أحد المشاركين الحصة", "error");
+        });
+      }
+
+      function hostRoom(code) {
+        if (typeof Peer === "undefined") { toast("تعذر تحميل مكتبة الاتصال", "error"); return; }
+        peer = new Peer("room-" + code);
+        myId = "room-" + code;
+        hostId = myId;
+        participants[myId] = { name: myName(), isTeacher: false, mic: true, cam: true, hand: false, screen: false };
+        peer.on("open", function () {
+          setInviteLinks(code);
+          $("#inviteBar").classList.add("show");
+          $("#roomConnText").textContent = "بانتظار المشاركين...";
+          $("#roomConnStatus").classList.remove("off");
+          renderRoster();
+          broadcastRoster();
+        });
+        peer.on("error", function (err) {
+          if (err.type === "unavailable-id") {
+            isTeacher = true;
+            isHost = false;
+            joinRoom(code);
+          } else if (err.type === "peer-unavailable") {
+            $("#roomConnText").textContent = "لم يتم العثور على الغرفة";
+            $("#roomConnStatus").classList.add("off");
+            toast("الغرفة غير متاحة حالياً", "error");
+          }
+        });
+        peer.on("connection", bindConn);
+        peer.on("call", function (call) {
+          call.answer(localStream ? localStream : undefined);
+          call.on("stream", function (remote) {
+            if (peers[call.peer]) peers[call.peer].stream = remote;
+            remoteCamOn = true;
+            attachRemote(call.peer, remote);
+          });
+        });
+      }
+
+      function joinRoom(code) {
+        if (typeof Peer === "undefined") { toast("تعذر تحميل مكتبة الاتصال", "error"); return; }
+        peer = new Peer();
+        myId = peer.id;
+        hostId = "room-" + code;
+        setInviteLinks(code);
+        $("#inviteBar").classList.add("show");
+        $("#roomConnText").textContent = "جارٍ الاتصال بالمضيف...";
+        peer.on("error", function (err) {
+          if (err.type === "peer-unavailable") {
+            $("#roomConnText").textContent = "الغرفة غير متاحة — تحقق من الرابط";
+            $("#roomConnStatus").classList.add("off");
+            toast("الغرفة غير متاحة حالياً", "error");
+          }
+        });
+        peer.on("open", function () {
+          myId = peer.id;
+          participants[myId] = { name: myName(), isTeacher: isTeacher, mic: true, cam: true, hand: false, screen: false };
+          assignRoles();
+          renderRoster();
+          startLocalMedia().then(function () {
+            var c = peer.connect("room-" + code);
+            bindConn(c);
+            if (localStream) {
+              var call = peer.call("room-" + code, localStream);
+              call.on("stream", function (remote) {
+                remoteCamOn = true;
+                attachRemote(hostId, remote);
+              });
+            }
+          });
+        });
+      }
+
+      function startRoom() {
+        $("#roomTitle").textContent = $("#subject").value + " — " + $("#grade").value;
+        $("#roomSub").textContent = "الحصة الإضافية المباشرة • " + teacherName + (classType === "group" ? " • حصة جماعية" : "");
+        $("#callTeacher").textContent = teacherName;
+        $("#callState").textContent = "مكالمة فيديو";
+        videoCallOn = true;
+        $("#videoCallBtn").classList.add("active-state");
+        $("#videoCallBtn").classList.remove("off");
+        $("#voiceCallBtn").classList.remove("active-state");
+        micOn = true; camOn = true;
+        $("#micBtn").classList.remove("off");
+        $("#camBtn").classList.remove("off");
+        $("#myMicBadge").classList.remove("show");
+        $("#myMutedLabel").classList.remove("show");
+        $("#callBanner").classList.add("show");
+        setTimeout(function () { $("#callBanner").classList.remove("show"); }, 2500);
+
+        roomCode = getRoomParam();
+        if (roomCode) {
+          isTeacher = getRoleParam() === "teacher";
+          isHost = false;
+        } else {
+          isHost = true;
+          isTeacher = false;
+        }
+        $("#videoArea").classList.toggle("video-area-group", classType === "group" && isHost);
+        $("#raiseHandWrap").style.display = isTeacher ? "none" : "";
+        $("#mgmtPanel").style.display = isManager() ? "" : "none";
+        if (!isHost) $("#inviteBar").classList.remove("show");
+
+        if (roomCode) {
+          assignRoles();
+          joinRoom(roomCode);
+        } else {
+          assignRoles();
+          startLocalMedia().then(function () {
+            hostRoom("manara-" + Math.random().toString(36).slice(2, 8));
+          });
+        }
+        setTimeout(function () { resizeCanvas(); }, 200);
+      }
+
+      /* أزرار المكالمة */
+      function setMicUI(on) {
+        $("#micBtn").classList.toggle("off", !on);
+        $("#micBtn").classList.toggle("active-state", on);
+        if (localStream) {
+          localStream.getAudioTracks().forEach(function (t) { t.enabled = on; });
+        }
+        $("#myMicBadge").classList.toggle("show", !on);
+        $("#myMutedLabel").classList.toggle("show", !on);
+      }
+
+      function setCamUI(on) {
+        $("#camBtn").classList.toggle("off", !on);
+        $("#camBtn").classList.toggle("active-state", on);
+        if (localStream) {
+          localStream.getVideoTracks().forEach(function (t) { t.enabled = on; });
+        }
+        if (localVideoEl) localVideoEl.style.display = on ? "block" : "none";
+        if (localTile) {
+          var av = localTile.querySelector(".v-avatar");
+          if (av) av.style.display = on ? "none" : "flex";
+        }
+      }
+
+      function broadcastState() {
+        if (participants[myId]) {
+          participants[myId].mic = micOn;
+          participants[myId].cam = camOn;
+        }
+        sendData({ type: "state", mic: micOn, cam: camOn });
+        renderRoster();
+        refreshTiles();
+        if (isHost) broadcastRoster();
+      }
+
+      $("#micBtn").addEventListener("click", function () {
+        micOn = !micOn;
+        setMicUI(micOn);
+        broadcastState();
+        toast(micOn ? "تم تشغيل الميكروفون 🎙️" : "تم كتم الميكروفون", micOn ? "success" : "error");
+      });
+
+      $("#camBtn").addEventListener("click", function () {
+        camOn = !camOn;
+        setCamUI(camOn);
+        broadcastState();
+        toast(camOn ? "تم تشغيل الكاميرا 📷" : "تم إيقاف الكاميرا", camOn ? "success" : "error");
+      });
+
+      /* ============================================
+         اختبار الصوت ومؤشر جودة الميكروفون
+         ============================================ */
+      var audioCtx = null, analyser = null, audioDataArray = null, audioMonitorTimer = null;
+      var aqModal = $("#aqModal");
+
+      function startAudioMonitor() {
+        if (audioCtx || !localStream || !localStream.getAudioTracks().length) return;
+        try {
+          var AudioCtx = window.AudioContext || window.webkitAudioContext;
+          audioCtx = new AudioCtx();
+          analyser = audioCtx.createAnalyser();
+          analyser.fftSize = 2048;
+          analyser.smoothingTimeConstant = 0.8;
+          var src = audioCtx.createMediaStreamSource(localStream);
+          src.connect(analyser);
+          audioDataArray = new Uint8Array(analyser.frequencyBinCount);
+          audioMonitorTimer = setInterval(tickAudioMonitor, 150);
+        } catch (e) {
+          audioCtx = null;
+        }
+      }
+
+      function currentAudioLevel() {
+        if (!analyser || !audioDataArray) return 0;
+        analyser.getByteFrequencyData(audioDataArray);
+        var sum = 0;
+        for (var i = 0; i < audioDataArray.length; i++) sum += audioDataArray[i];
+        return (sum / audioDataArray.length) / 255;
+      }
+
+      function audioQuality(level) {
+        if (level < 0.02) return { bars: 0, label: "لا توجد إشارة", cls: "none" };
+        if (level < 0.08) return { bars: 1, label: "ضعيفة", cls: "weak" };
+        if (level < 0.2) return { bars: 2, label: "متوسطة", cls: "fair" };
+        if (level < 0.4) return { bars: 3, label: "جيدة", cls: "good" };
+        return { bars: 4, label: "ممتازة", cls: "great" };
+      }
+
+      function setBars(wrap, n, dimN) {
+        var els = wrap.children;
+        for (var i = 0; i < els.length; i++) {
+          els[i].classList.toggle("on", i < n);
+          els[i].classList.toggle("dim", dimN && i >= dimN && i < n);
+        }
+      }
+
+      function tickAudioMonitor() {
+        var level = micOn ? currentAudioLevel() : 0;
+        var q = audioQuality(level);
+        setBars($("#aqMiniBars"), q.bars);
+        $("#aqMiniLabel").textContent = q.bars ? q.label : "لا إشارة";
+        $("#aqMini").classList.toggle("aq-off", q.bars === 0);
+        if (aqModal && aqModal.classList.contains("open")) {
+          var big = Math.round(q.bars * 2);
+          setBars($("#aqMeterBars"), big, big - 2);
+          var lbl = $("#aqMeterLabel");
+          lbl.textContent = q.label;
+          lbl.className = "aq-" + q.cls;
+          if (q.bars === 0) {
+            $("#aqTip").style.display = "";
+          }
+        }
+      }
+
+      function stopAudioMonitor() {
+        if (audioMonitorTimer) { clearInterval(audioMonitorTimer); audioMonitorTimer = null; }
+        if (audioCtx) {
+          try { audioCtx.close(); } catch (e) {}
+          audioCtx = null; analyser = null;
+        }
+      }
+
+      function openAqModal() {
+        if (!localStream || !localStream.getAudioTracks().length) {
+          toast("لا يوجد ميكروفون نشط في هذه الحصة", "error");
+          return;
+        }
+        startAudioMonitor();
+        if (audioCtx && audioCtx.state === "suspended") audioCtx.resume();
+        $("#aqMeterLabel").textContent = "تحدث الآن...";
+        $("#aqMeterLabel").className = "";
+        aqModal.classList.add("open");
+        aqModal.setAttribute("aria-hidden", "false");
+      }
+
+      function closeAqModal() {
+        aqModal.classList.remove("open");
+        aqModal.setAttribute("aria-hidden", "true");
+      }
+
+      $("#testAudioBtn").addEventListener("click", openAqModal);
+      $$("[data-aq-close]", aqModal).forEach(function (el) {
+        el.addEventListener("click", closeAqModal);
+      });
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && aqModal.classList.contains("open")) closeAqModal();
+      });
+
+      function stopStreams() {
+        stopAudioMonitor();
+        if (localStream) localStream.getTracks().forEach(function (t) { t.stop(); });
+        if (screenStream) screenStream.getTracks().forEach(function (t) { t.stop(); });
+        if (peer) peer.destroy();
+        localStream = null; screenStream = null; peer = null; peers = {}; sharingScreen = false;
+        $("#roomConnText").textContent = "انتهت الحصة";
+        $("#roomConnStatus").classList.add("off");
+      }
+
+      $("#endBtn").addEventListener("click", function () {
+        stopStreams();
+        toast("تم إنهاء المكالمة", "error");
+      });
+
+      /* مكالمة صوتية */
+      $("#voiceCallBtn").addEventListener("click", function () {
+        videoCallOn = false;
+        camOn = false;
+        $("#callState").textContent = "مكالمة صوتية";
+        $("#voiceCallBtn").classList.add("active-state");
+        $("#videoCallBtn").classList.remove("active-state");
+        $("#videoCallBtn").classList.add("off");
+        if (localStream) localStream.getVideoTracks().forEach(function (t) { t.enabled = false; });
+        if (localVideoEl) localVideoEl.style.display = "none";
+        if (remoteVideoEl) remoteVideoEl.style.display = "none";
+        broadcastState();
+        $("#callBanner").classList.add("show");
+        toast("جارٍ بدء مكالمة صوتية 📞");
+        setTimeout(function () { $("#callBanner").classList.remove("show"); }, 2500);
+      });
+
+      /* مكالمة فيديو */
+      $("#videoCallBtn").addEventListener("click", function () {
+        videoCallOn = true;
+        camOn = true;
+        $("#callState").textContent = "مكالمة فيديو";
+        $("#videoCallBtn").classList.add("active-state");
+        $("#videoCallBtn").classList.remove("off");
+        $("#voiceCallBtn").classList.remove("active-state");
+        if (localStream) localStream.getVideoTracks().forEach(function (t) { t.enabled = true; });
+        if (localVideoEl) localVideoEl.style.display = "block";
+        if (remoteVideoEl) remoteVideoEl.style.display = remoteCamOn ? "block" : "none";
+        broadcastState();
+        $("#callBanner").classList.add("show");
+        toast("جارٍ بدء مكالمة فيديو 🎥");
+        setTimeout(function () { $("#callBanner").classList.remove("show"); }, 2500);
+      });
+
+      /* مشاركة الشاشة */
+      function replaceVideoTrack(track) {
+        Object.keys(peers).forEach(function (id) {
+          var call = peers[id].call;
+          if (call && call.peerConnection) {
+            var senders = call.peerConnection.getSenders();
+            for (var i = 0; i < senders.length; i++) {
+              if (senders[i].track && senders[i].track.kind === "video") { senders[i].replaceTrack(track); break; }
+            }
+          }
+        });
+      }
+
+      function startScreenShare() {
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getDisplayMedia) {
+          toast("متصفحك لا يدعم مشاركة الشاشة", "error");
+          return;
+        }
+        navigator.mediaDevices.getDisplayMedia({ video: true, audio: false }).then(function (stream) {
+          screenStream = stream;
+          sharingScreen = true;
+          var track = stream.getVideoTracks()[0];
+          replaceVideoTrack(track);
+          if (localVideoEl) localVideoEl.srcObject = stream;
+          $("#screenShareBtn").classList.add("off");
+          $("#screenShareBtn").setAttribute("title", "إيقاف مشاركة الشاشة");
+          sendData({ type: "screen", on: true });
+          toast("جاري مشاركة الشاشة 🖥️", "success");
+          track.onended = function () { stopScreenShare(); };
+        }).catch(function () {
+          toast("تم إلغاء مشاركة الشاشة", "error");
+        });
+      }
+
+      function stopScreenShare() {
+        if (!sharingScreen) return;
+        sharingScreen = false;
+        if (screenStream) {
+          screenStream.getTracks().forEach(function (t) { t.stop(); });
+          screenStream = null;
+        }
+        if (localStream) {
+          var cam = localStream.getVideoTracks()[0];
+          if (cam) replaceVideoTrack(cam);
+          if (localVideoEl) {
+            localVideoEl.srcObject = localStream;
+            localVideoEl.style.display = camOn ? "block" : "none";
+          }
+        }
+        $("#screenShareBtn").classList.remove("off");
+        $("#screenShareBtn").setAttribute("title", "مشاركة الشاشة");
+        sendData({ type: "screen", on: false });
+      }
+
+      $("#screenShareBtn").addEventListener("click", function () {
+        if (sharingScreen) stopScreenShare();
+        else startScreenShare();
+      });
+
+      /* نسخ روابط الدعوة */
+      function copyText(txt, label) {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(txt).then(function () {
+            toast("تم نسخ " + label + " 📋", "success");
+          });
+        } else {
+          var ta = document.createElement("textarea");
+          ta.value = txt; document.body.appendChild(ta); ta.select();
+          document.execCommand("copy"); document.body.removeChild(ta);
+          toast("تم نسخ " + label + " 📋", "success");
+        }
+      }
+
+      $("#copyInvite").addEventListener("click", function () {
+        copyText($("#inviteCode").textContent, "رابط المعلم");
+      });
+
+      $("#copyStudentInvite").addEventListener("click", function () {
+        copyText($("#studentInviteCode").textContent, "رابط الطلاب");
+      });
+
+      /* ============================================
+         الدردشة ومشاركة الملفات والصور
+         ============================================ */
+      function addMsg(who, html, file, senderName) {
+        var body = $("#chatBody");
+        var el = document.createElement("div");
+        var stamp = new Date().toLocaleTimeString("ar-SA", { hour: "2-digit", minute: "2-digit" });
+        var otherName = senderName || teacherName;
+        if (file) {
+          el.className = "msg file " + who;
+          var meta = who === "me" ? "أرسلته أنا • " + stamp : otherName + " • " + stamp;
+          el.innerHTML =
+            '<span class="f-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></span>' +
+            "<span><b>" + html + '</b><small class="m-meta">' + meta + "</small></span>";
+        } else if (/^(data:)?image/.test(html)) {
+          el.className = "msg " + who;
+          var meta2 = (who === "me" ? "أرسلتها أنا • " : otherName + " • ") + stamp;
+          el.innerHTML = '<img src="' + html + '" alt="صورة مشاركة"><span class="m-meta">' + meta2 + "</span>";
+        } else {
+          el.className = "msg " + who;
+          el.innerHTML = html + '<span class="m-meta">' + (who === "me" ? "أنا • " : otherName + " • ") + stamp + "</span>";
+        }
+        body.appendChild(el);
+        body.scrollTop = body.scrollHeight;
+      }
+
+      function sendMsg() {
+        var input = $("#chatInput");
+        var val = input.value.trim();
+        if (!val) return;
+        addMsg("me", escapeHtml(val));
+        input.value = "";
+        sendData({ type: "chat", text: val, name: myName() });
+        if (!peer || !Object.keys(peers).length) toast("لا يوجد اتصال حقيقي بعد", "error");
+      }
+
+      function escapeHtml(s) {
+        return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      }
+
+      $("#chatSend").addEventListener("click", sendMsg);
+      $("#chatInput").addEventListener("keydown", function (e) {
+        if (e.key === "Enter") { e.preventDefault(); sendMsg(); }
+      });
+
+      /* مشاركة ملف — إرسال حقيقي عبر قناة البيانات */
+      function sendFileChunks(file, onSent) {
+        var id = "f" + Date.now() + Math.random().toString(36).slice(2, 6);
+        var chunkSize = 64 * 1024;
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          var buf = e.target.result;
+          var total = Math.max(1, Math.ceil(buf.byteLength / chunkSize));
+          sendData({ type: "file-start", id: id, name: file.name, size: file.size, mime: file.type || "application/octet-stream", total: total });
+          for (var i = 0; i < total; i++) {
+            sendData({ type: "file-chunk", id: id, seq: i, data: buf.slice(i * chunkSize, Math.min((i + 1) * chunkSize, buf.byteLength)) });
+          }
+          sendData({ type: "file-end", id: id });
+          if (onSent) onSent();
+        };
+        reader.readAsArrayBuffer(file);
+      }
+
+      $("#fileShare").addEventListener("change", function () {
+        var f = this.files[0];
+        if (!f) return;
+        var sizeTxt = f.size > 1024 * 1024 ? (f.size / (1024 * 1024)).toFixed(1) + " م.ب" : Math.round(f.size / 1024) + " ك.ب";
+        addMsg("me", f.name + " (" + sizeTxt + ")", true);
+        this.value = "";
+        sendFileChunks(f, function () { toast("تم إرسال الملف 📎", "success"); });
+      });
+
+      /* مشاركة صورة */
+      $("#imageShare").addEventListener("change", function () {
+        var f = this.files[0];
+        if (!f) return;
+        if (!/^image\//.test(f.type)) { toast("يرجى اختيار ملف صورة", "error"); this.value = ""; return; }
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          addMsg("me", e.target.result);
+          sendFileChunks(f, function () { toast("تم إرسال الصورة 🖼️", "success"); });
+        };
+        reader.readAsDataURL(f);
+        this.value = "";
+      });
+
+      /* ============================================
+         استقبال البيانات من الطرف الآخر
+         ============================================ */
+
+      function handleData(fromId, msg) {
+        if (!msg || typeof msg !== "object") return;
+        switch (msg.type) {
+          case "hello":
+            participants[fromId] = { name: msg.name || "طالب", isTeacher: !!msg.isTeacher, mic: true, cam: true, hand: false, screen: false };
+            if (isHost) {
+              if (msg.isTeacher && fromId !== myId) toast("انضم المعلم " + msg.name + " إلى الحصة 👋", "success");
+              broadcastRoster();
+            }
+            renderRoster();
+            refreshTiles();
+            break;
+          case "roster":
+            if (!msg.list) break;
+            participants = {};
+            msg.list.forEach(function (p) {
+              participants[p.id] = { name: p.name, isTeacher: p.isTeacher, mic: !!p.mic, cam: !!p.cam, hand: !!p.hand, screen: !!p.screen };
+            });
+            renderRoster();
+            refreshTiles();
+            break;
+          case "state":
+            if (participants[fromId]) { participants[fromId].mic = !!msg.mic; participants[fromId].cam = !!msg.cam; }
+            remoteCamOn = !!msg.cam;
+            if (remoteTile) {
+              var badge = remoteTile.querySelector(".v-mic-off");
+              var label = remoteTile.querySelector(".muted-label");
+              if (badge) badge.classList.toggle("show", !msg.mic);
+              if (label) label.classList.toggle("show", !msg.mic);
+              if (remoteVideoEl) remoteVideoEl.style.display = (videoCallOn && msg.cam) ? "block" : "none";
+              var av = remoteTile.querySelector(".v-avatar");
+              if (av) av.style.display = (videoCallOn && msg.cam) ? "none" : "flex";
+            }
+            renderRoster();
+            refreshTiles();
+            if (isHost) broadcastRoster();
+            break;
+          case "mute":
+            if (msg.target === null || msg.target === myId) {
+              micOn = !msg.on;
+              setMicUI(micOn);
+              toast(msg.on ? "تم إلغاء الكتم عنك 🎙️" : "تم كتم ميكروفونك بواسطة المعلم 🔇", "error");
+            }
+            break;
+          case "hand":
+            if (participants[fromId]) participants[fromId].hand = !!msg.on;
+            renderRoster();
+            refreshTiles();
+            if (isManager() && msg.on && fromId !== myId) {
+              var hn = participants[fromId] ? participants[fromId].name : "أحد الطلاب";
+              toast("✋ " + hn + " يرفع اليد");
+            }
+            if (isHost) broadcastRoster();
+            break;
+          case "screen":
+            if (participants[fromId]) participants[fromId].screen = !!msg.on;
+            updateScreenFlag(fromId, !!msg.on);
+            renderRoster();
+            refreshTiles();
+            if (isHost) broadcastRoster();
+            break;
+          case "end":
+            stopStreams();
+            toast("تم إنهاء الحصة بواسطة المعلم", "error");
+            break;
+          case "chat":
+            addMsg("them", escapeHtml(msg.text), false, msg.name);
+            break;
+          case "file-start":
+            recvFiles[msg.id] = {
+              name: msg.name, mime: msg.mime, total: msg.total, chunks: [], fromName: msg.name,
+              sizeTxt: (msg.size > 1024 * 1024 ? (msg.size / (1024 * 1024)).toFixed(1) + " م.ب" : Math.round(msg.size / 1024) + " ك.ب")
+            };
+            break;
+          case "file-chunk":
+            if (recvFiles[msg.id]) {
+              recvFiles[msg.id].chunks[msg.seq] = msg.data;
+              if (recvFiles[msg.id].chunks.length >= recvFiles[msg.id].total) completeRecvFile(msg.id);
+            }
+            break;
+          case "file-end":
+            completeRecvFile(msg.id);
+            break;
+          case "draw":
+            drawRemoteStroke(msg);
+            break;
+          case "wb-clear":
+            clearCanvas();
+            break;
+        }
+      }
+
+      function completeRecvFile(id) {
+        var f = recvFiles[id];
+        if (!f) return;
+        delete recvFiles[id];
+        var blob = new Blob(f.chunks, { type: f.mime || "application/octet-stream" });
+        if (/^image\//.test(f.mime)) {
+          var rd = new FileReader();
+          rd.onload = function (e) { addMsg("them", e.target.result, false, f.fromName); };
+          rd.readAsDataURL(blob);
+        } else {
+          var url = URL.createObjectURL(blob);
+          addMsg("them", '<a href="' + url + '" download="' + escapeHtml(f.name) + '">📄 ' + escapeHtml(f.name) + " (" + f.sizeTxt + ") — تحميل</a>", true, f.fromName);
+        }
+      }
+
+      /* ============================================
+         قائمة الحضور وإدارة المعلم
+         ============================================ */
+      function rosterList() {
+        var list = [];
+        Object.keys(participants).forEach(function (id) {
+          var p = participants[id];
+          list.push({ id: id, name: p.name, isTeacher: p.isTeacher, mic: p.mic, cam: p.cam, hand: p.hand, screen: p.screen });
+        });
+        return list;
+      }
+
+      function broadcastRoster() {
+        if (!isHost) return;
+        sendData({ type: "roster", list: rosterList() });
+      }
+
+      function renderRoster() {
+        var el = $("#rosterList");
+        if (!el) return;
+        var list = rosterList();
+        $("#rosterCount").textContent = list.length;
+        if (!list.length) {
+          el.innerHTML = '<div class="roster-empty">لا يوجد مشاركون بعد — شارك رابط الدعوة</div>';
+          return;
+        }
+        el.innerHTML = "";
+        list.forEach(function (p) {
+          if (p.id === myId && !isManager()) return;
+          var row = document.createElement("div");
+          row.className = "roster-item";
+          var muteBtn = "";
+          if (isManager() && p.id !== myId) {
+            muteBtn = '<button type="button" class="r-mute" data-mute-id="' + p.id + '" data-mute-on="' + (p.mic ? "0" : "1") + '" title="' + (p.mic ? "كتم الميكروفون" : "إلغاء الكتم") + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg></button>';
+          }
+          var hand = p.hand ? ' <span style="color:#d97706;">✋</span>' : "";
+          var roleTxt = p.isTeacher ? "المعلم" : (p.id === hostId ? "المضيف" : "طالب");
+          row.innerHTML =
+            '<span class="r-avatar">' + (p.isTeacher ? "م" : "ط") + "</span>" +
+            '<span class="r-info"><b>' + escapeHtml(p.name) + " " + hand + "</b>" +
+            "<small>" + roleTxt + " • " + (p.mic ? "🎙️" : "🔇") + " " + (p.cam ? "📷" : "🚫") + (p.screen ? " • 🖥️" : "") + "</small></span>" +
+            muteBtn;
+          el.appendChild(row);
+        });
+        el.querySelectorAll(".r-mute").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            var target = btn.getAttribute("data-mute-id");
+            var toOn = btn.getAttribute("data-mute-on") === "1";
+            sendData({ type: "mute", target: target, on: toOn });
+            toast(toOn ? "تم إلغاء الكتم عن المشارك 🎙️" : "تم كتم ميكروفون المشارك 🔇", "success");
+          });
+        });
+      }
+
+      /* أزرار الإدارة الجماعية */
+      $("#muteAllBtn").addEventListener("click", function () {
+        sendData({ type: "mute", target: null, on: false });
+        toast("تم كتم الجميع 🔇", "success");
+      });
+      $("#unmuteAllBtn").addEventListener("click", function () {
+        sendData({ type: "mute", target: null, on: true });
+        toast("تم إلغاء الكتم عن الجميع 🎙️", "success");
+      });
+      $("#wbClearAllBtn").addEventListener("click", function () {
+        clearCanvas();
+        sendData({ type: "wb-clear" });
+        toast("تم مسح السبورة للجميع 🧹", "success");
+      });
+      $("#endAllBtn").addEventListener("click", function () {
+        sendData({ type: "end" });
+        stopStreams();
+        toast("تم إنهاء الحصة للجميع", "error");
+      });
+
+      /* رفع اليد */
+      $("#raiseHandBtn").addEventListener("click", function () {
+        handUp = !handUp;
+        $("#raiseHandBtn").classList.toggle("active-state", handUp);
+        if (participants[myId]) participants[myId].hand = handUp;
+        sendData({ type: "hand", on: handUp });
+        renderRoster();
+        toast(handUp ? "تم رفع يدك ✋" : "تم إنزال يدك");
+      });
+
+      /* ============================================
+         البلاطات وروابط الدعوة
+         ============================================ */
+      function setTileMeta(tile, p) {
+        if (!tile || !p) return;
+        var name = tile.querySelector(".v-name");
+        if (name) name.textContent = p.name + (p.isTeacher ? " — المعلم" : " — طالب");
+        var mic = tile.querySelector(".v-mic-off");
+        if (mic) mic.classList.toggle("show", !p.mic);
+        var label = tile.querySelector(".muted-label");
+        if (label) label.classList.toggle("show", !p.mic);
+        tile.classList.toggle("screen-live", !!p.screen);
+      }
+
+      function tileForRemote(id) {
+        var existing = document.getElementById("rtile-" + id);
+        if (existing) return { video: existing.querySelector("video"), tile: existing };
+        var grid = document.getElementById("groupVideos");
+        var tile = document.createElement("div");
+        tile.className = "video-tile dyn";
+        tile.id = "rtile-" + id;
+        tile.innerHTML =
+          '<video autoplay playsinline></video>' +
+          '<span class="v-avatar">ط</span>' +
+          '<span class="v-name">طالب</span>' +
+          '<span class="v-mic-off"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg></span>' +
+          '<span class="muted-label">مكتوم الميكروفون</span>' +
+          '<span class="screen-flag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg> يشارك الشاشة</span>';
+        if (grid) grid.appendChild(tile);
+        var p = participants[id];
+        if (p) setTileMeta(tile, p);
+        return { video: tile.querySelector("video"), tile: tile };
+      }
+
+      function removeTile(id) {
+        var t = document.getElementById("rtile-" + id);
+        if (t && t.parentNode) t.parentNode.removeChild(t);
+      }
+
+      function updateScreenFlag(id, on) {
+        var t = document.getElementById("rtile-" + id);
+        if (t) t.classList.toggle("screen-live", on);
+      }
+
+      function refreshTiles() {
+        if (!(classType === "group" && isHost)) return;
+        Object.keys(participants).forEach(function (id) {
+          var t = document.getElementById("rtile-" + id);
+          if (t) setTileMeta(t, participants[id]);
+        });
+      }
+
+      function attachRemote(id, stream) {
+        if (!stream) return;
+        if (classType === "group" && isHost) {
+          var t = tileForRemote(id);
+          t.video.srcObject = stream;
+          t.video.style.display = "block";
+          var av = t.tile.querySelector(".v-avatar");
+          if (av) av.style.display = "none";
+          var p = participants[id];
+          if (p) setTileMeta(t.tile, p);
+          return;
+        }
+        remoteCamOn = true;
+        remoteVideoEl.srcObject = stream;
+        remoteVideoEl.style.display = "block";
+        var av2 = remoteTile.querySelector(".v-avatar");
+        if (av2) av2.style.display = "none";
+      }
+
+      function setInviteLinks(code) {
+        var base = location.href.split("?")[0];
+        $("#inviteCode").textContent = base + "?room=" + code + "&role=teacher";
+        if (classType === "group") {
+          $("#inviteTitle").textContent = "دعوة الطلاب والمعلم للانضمام 📡";
+          $("#inviteDesc").textContent = "شارك رابط المعلم مع معلمك، ورابط الطلاب مع زملائك لبدء الحصة الجماعية الحية.";
+          $("#studentLinkWrap").style.display = "flex";
+          $("#studentInviteCode").textContent = base + "?room=" + code;
+        } else {
+          $("#inviteTitle").textContent = "دعوة المعلم للانضمام 📡";
+          $("#inviteDesc").textContent = "شارك هذا الرابط مع معلمك ليبدأ الحصة الحية (صوت + فيديو + سبورة + مشاركة).";
+          $("#studentLinkWrap").style.display = "none";
+        }
+      }
+
+      /* ============================================
+         السبورة التفاعلية المتزامنة
+         ============================================ */
+      var wbCanvas = document.getElementById("wbCanvas");
+      var wbCtx = wbCanvas ? wbCanvas.getContext("2d") : null;
+      var wbColor = "#111827";
+      var wbSize = 6;
+      var wbDrawing = false;
+      var wbLast = null;
+
+      function clearCanvas() {
+        if (!wbCtx) return;
+        var r = wbCanvas.getBoundingClientRect();
+        wbCtx.setTransform(1, 0, 0, 1, 0, 0);
+        wbCtx.clearRect(0, 0, r.width, r.height);
+        wbCtx.setTransform(1, 0, 0, 1, 0, 0);
+      }
+
+      function resizeCanvas() {
+        if (!wbCanvas) return;
+        var r = wbCanvas.getBoundingClientRect();
+        if (!r.width) return;
+        var dpr = window.devicePixelRatio || 1;
+        wbCanvas.width = r.width * dpr;
+        wbCanvas.height = r.height * dpr;
+        wbCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+
+      function wbPoint(e) {
+        var r = wbCanvas.getBoundingClientRect();
+        return { x: (e.clientX - r.left) / r.width, y: (e.clientY - r.top) / r.height };
+      }
+
+      function drawStroke(a, b, color, size) {
+        if (!wbCtx) return;
+        var r = wbCanvas.getBoundingClientRect();
+        wbCtx.strokeStyle = color;
+        wbCtx.lineWidth = size;
+        wbCtx.lineCap = "round";
+        wbCtx.lineJoin = "round";
+        wbCtx.beginPath();
+        wbCtx.moveTo(a.x * r.width, a.y * r.height);
+        wbCtx.lineTo(b.x * r.width, b.y * r.height);
+        wbCtx.stroke();
+      }
+
+      function drawRemoteStroke(msg) {
+        drawStroke({ x: msg.x1, y: msg.y1 }, { x: msg.x2, y: msg.y2 }, msg.color, msg.size);
+      }
+
+      function initWhiteboard() {
+        if (!wbCanvas || !wbCtx) return;
+        resizeCanvas();
+        window.addEventListener("resize", resizeCanvas);
+
+        $$(".wb-color").forEach(function (b) {
+          b.addEventListener("click", function () {
+            $$(".wb-color").forEach(function (x) { x.classList.remove("active"); });
+            b.classList.add("active");
+            wbColor = b.getAttribute("data-color");
+          });
+        });
+
+        $("#wbSize").addEventListener("change", function () {
+          wbSize = parseInt(this.value, 10) || 6;
+        });
+
+        $("#wbClear").addEventListener("click", function () {
+          clearCanvas();
+          sendData({ type: "wb-clear" });
+        });
+
+        wbCanvas.addEventListener("pointerdown", function (e) {
+          if (e.button !== 0 && e.pointerType === "mouse") return;
+          wbDrawing = true;
+          wbLast = wbPoint(e);
+          wbCanvas.setPointerCapture(e.pointerId);
+        });
+
+        wbCanvas.addEventListener("pointermove", function (e) {
+          if (!wbDrawing || !wbLast) return;
+          var p = wbPoint(e);
+          drawStroke(wbLast, p, wbColor, wbSize);
+          sendData({ type: "draw", x1: wbLast.x, y1: wbLast.y, x2: p.x, y2: p.y, color: wbColor, size: wbSize });
+          wbLast = p;
+        });
+
+        function stopDraw() { wbDrawing = false; wbLast = null; }
+        wbCanvas.addEventListener("pointerup", stopDraw);
+        wbCanvas.addEventListener("pointercancel", stopDraw);
+        wbCanvas.addEventListener("pointerleave", stopDraw);
+      }
+      initWhiteboard();
+
+      /* ============================================
+         دخول المالك ولوحة الإعدادات
+         ============================================ */
+      $("#ownerToggle").addEventListener("click", function () {
+        $("#ownerForm").classList.toggle("open");
+      });
+
+      $("#ownerForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+        var em = $("#ownerEmail").value.trim();
+        var pw = $("#ownerPassword").value;
+        if (em === SETTINGS.owner.email && pw === SETTINGS.owner.password) {
+          toast("مرحباً بك في لوحة الإعدادات 🔧", "success");
+          populateAdminForm();
+          goScreen("admin");
+          $("#ownerForm").classList.remove("open");
+          $("#ownerEmail").value = "";
+          $("#ownerPassword").value = "";
+        } else {
+          toast("بيانات المالك غير صحيحة", "error");
+        }
+      });
+
+      /* تعبئة نموذج الإعدادات من SETTINGS */
+      function populateAdminForm() {
+        $("#cfgAppName").value = SETTINGS.brand.name;
+        $("#cfgTagline").value = SETTINGS.brand.tagline;
+        $("#cfgOwnerEmail").value = SETTINGS.owner.email;
+        $("#cfgOwnerPass").value = SETTINGS.owner.password;
+        $$("[data-theme-opt]").forEach(function (b) {
+          b.classList.toggle("active", b.getAttribute("data-theme-opt") === SETTINGS.themeDefault);
+        });
+        $("#cfgSingleName").value = SETTINGS.plans.single.name;
+        $("#cfgSinglePrice").value = SETTINGS.plans.single.price;
+        $("#cfgPack4Name").value = SETTINGS.plans.pack4.name;
+        $("#cfgPack4Price").value = SETTINGS.plans.pack4.price;
+        $("#cfgPack8Name").value = SETTINGS.plans.pack8.name;
+        $("#cfgPack8Price").value = SETTINGS.plans.pack8.price;
+        $("#cfgGradesPrimary").value = SETTINGS.stages.primary.grades.join("\n");
+        $("#cfgSubjectsPrimary").value = SETTINGS.stages.primary.subjects.join("\n");
+        $("#cfgGradesMiddle").value = SETTINGS.stages.middle.grades.join("\n");
+        $("#cfgSubjectsMiddle").value = SETTINGS.stages.middle.subjects.join("\n");
+        $("#cfgGradesSecondary").value = SETTINGS.stages.secondary.grades.join("\n");
+        $("#cfgSubjectsSecondary").value = SETTINGS.stages.secondary.subjects.join("\n");
+        $("#cfgTimes").value = SETTINGS.times.join("\n");
+        $("#cfgTeachers").value = SETTINGS.teachers.join("\n");
+        $$(".methods-cfg input[type=checkbox]").forEach(function (c) {
+          c.checked = SETTINGS.methods.indexOf(c.value) !== -1;
+        });
+        $("#cfgMoyasarKey").value = SETTINGS.gateway.moyasarKey;
+        $("#cfgCallbackUrl").value = SETTINGS.gateway.callbackUrl;
+        renderTeacherRequests();
+      }
+
+      /* ============================================
+         طلبات المعلمين: العرض والاعتماد والرفض
+         ============================================ */
+      function renderTeacherRequests() {
+        var list = getAccounts().filter(function (a) { return a.role === "teacher"; });
+        var wrap = $("#teacherReqList");
+        if (!wrap) return;
+        if (!list.length) {
+          wrap.innerHTML = '<p class="tr-empty">لا توجد طلبات معلمين حالياً.</p>';
+          return;
+        }
+        wrap.innerHTML = "";
+        list.forEach(function (acc) {
+          var row = document.createElement("div");
+          row.className = "teacher-req";
+          var badge =
+            acc.status === "approved" ? '<span class="tr-badge approved">معتمد</span>' :
+            acc.status === "rejected" ? '<span class="tr-badge rejected">مرفوض</span>' :
+            '<span class="tr-badge pending">بانتظار المراجعة</span>';
+          var certLink = acc.certData
+            ? '<a class="tr-cert" href="' + acc.certData + '" target="_blank" rel="noopener" download="' + (acc.certName || "شهادة") + '">📄 عرض الشهادة (' + (acc.certName || "") + ')</a>'
+            : "";
+          var actions = acc.status === "pending"
+            ? '<button type="button" class="btn btn-primary btn-sm" data-acc="approve">اعتماد</button>' +
+              '<button type="button" class="btn btn-outline btn-sm" data-acc="reject">رفض</button>'
+            : (acc.status === "approved"
+                ? '<button type="button" class="btn btn-outline btn-sm" data-acc="reject">إلغاء الاعتماد</button>'
+                : '<button type="button" class="btn btn-primary btn-sm" data-acc="approve">إعادة الاعتماد</button>');
+          var when = acc.createdAt ? new Date(acc.createdAt).toLocaleDateString("ar-SA") : "";
+          row.innerHTML =
+            '<span class="tr-avatar">م</span>' +
+            '<span class="tr-info"><b>' + esc(acc.name) + '</b><small>' + esc(acc.email) + (when ? " • " + when : "") + " • " + badge + "</small></span>" +
+            '<span class="tr-actions">' + certLink + actions + "</span>";
+          row.querySelectorAll("[data-acc]").forEach(function (btn) {
+            btn.addEventListener("click", function () {
+              setTeacherStatus(acc.email, btn.getAttribute("data-acc") === "approve" ? "approved" : "rejected");
+            });
+          });
+          wrap.appendChild(row);
+        });
+      }
+
+      function setTeacherStatus(email, status) {
+        var list = getAccounts();
+        var acc = null;
+        for (var i = 0; i < list.length; i++) {
+          if ((list[i].email || "").toLowerCase() === email.toLowerCase()) { acc = list[i]; break; }
+        }
+        if (!acc) return;
+        acc.status = status;
+        saveAccounts(list);
+        toast(status === "approved" ? "تم اعتماد المعلم — أصبح بإمكانه الدخول ✅" : "تم رفض الطلب", status === "approved" ? "success" : "error");
+        renderTeacherRequests();
+      }
+
+      function esc(str) {
+        return String(str == null ? "" : str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+      }
+
+      /* الثيم الافتراضي في لوحة الإعدادات */
+      $$("[data-theme-opt]").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          $$("[data-theme-opt]").forEach(function (b) { b.classList.remove("active"); });
+          btn.classList.add("active");
+        });
+      });
+
+      function linesToArray(str) {
+        return str.split("\n").map(function (s) { return s.trim(); }).filter(function (s) { return s.length > 0; });
+      }
+
+      function saveAdminForm() {
+        var brandName = $("#cfgAppName").value.trim() || "المنارة";
+        var tagline = $("#cfgTagline").value.trim() || "للتعليم والتدريب";
+        SETTINGS.brand.name = brandName;
+        SETTINGS.brand.tagline = tagline;
+        SETTINGS.owner.email = $("#cfgOwnerEmail").value.trim() || SETTINGS.owner.email;
+        SETTINGS.owner.password = $("#cfgOwnerPass").value || SETTINGS.owner.password;
+        SETTINGS.themeDefault = $("[data-theme-opt].active").getAttribute("data-theme-opt");
+
+        SETTINGS.plans.single.name = $("#cfgSingleName").value.trim() || "حصة واحدة";
+        SETTINGS.plans.single.price = Math.max(0, parseInt($("#cfgSinglePrice").value, 10) || 0);
+        SETTINGS.plans.pack4.name = $("#cfgPack4Name").value.trim() || "مجموعة حصص — 4 حصص";
+        SETTINGS.plans.pack4.price = Math.max(0, parseInt($("#cfgPack4Price").value, 10) || 0);
+        SETTINGS.plans.pack8.name = $("#cfgPack8Name").value.trim() || "مجموعة حصص — 8 حصص";
+        SETTINGS.plans.pack8.price = Math.max(0, parseInt($("#cfgPack8Price").value, 10) || 0);
+
+        SETTINGS.stages.primary.grades = linesToArray($("#cfgGradesPrimary").value);
+        SETTINGS.stages.primary.subjects = linesToArray($("#cfgSubjectsPrimary").value);
+        SETTINGS.stages.middle.grades = linesToArray($("#cfgGradesMiddle").value);
+        SETTINGS.stages.middle.subjects = linesToArray($("#cfgSubjectsMiddle").value);
+        SETTINGS.stages.secondary.grades = linesToArray($("#cfgGradesSecondary").value);
+        SETTINGS.stages.secondary.subjects = linesToArray($("#cfgSubjectsSecondary").value);
+
+        SETTINGS.times = linesToArray($("#cfgTimes").value);
+        SETTINGS.teachers = linesToArray($("#cfgTeachers").value);
+        SETTINGS.methods = $$(".methods-cfg input[type=checkbox]").filter(function (c) { return c.checked; }).map(function (c) { return c.value; });
+        SETTINGS.gateway.moyasarKey = $("#cfgMoyasarKey").value.trim();
+        SETTINGS.gateway.callbackUrl = $("#cfgCallbackUrl").value.trim();
+
+        saveSettings();
+        applyBrand();
+        applyBookingData();
+        applyTheme(SETTINGS.themeDefault);
+        toast("تم حفظ الإعدادات بنجاح ✔", "success");
+      }
+
+      $("#adminSaveBtn").addEventListener("click", saveAdminForm);
+
+      $("#adminResetBtn").addEventListener("click", function () {
+        if (!confirm("استعادة الإعدادات الافتراضية؟ سيتم حذف كل تعديلاتك.")) return;
+        try { localStorage.removeItem("manara-settings"); } catch (e) {}
+        SETTINGS = loadSettings();
+        applyBrand();
+        applyBookingData();
+        populateAdminForm();
+        toast("تمت استعادة الإعدادات الافتراضية", "success");
+      });
+
+      $("#adminBackBtn").addEventListener("click", function () {
+        goScreen("login");
+      });
+
+      /* تطبيق اسم التطبيق عند التشغيل */
+      applyBrand();
+
+      /* ============================================
+         تنبيهات toast
+         ============================================ */
+      function toast(message, type) {
+        var box = $("#toast-box");
+        if (!box) {
+          box = document.createElement("div");
+          box.id = "toast-box";
+          document.body.appendChild(box);
+        }
+        var el = document.createElement("div");
+        el.className = "toast-el";
+        el.style.background = type === "error" ? "#ef4444" : "#10b981";
+        el.textContent = message;
+        box.appendChild(el);
+        setTimeout(function () {
+          el.style.animation = "slideDown .3s ease";
+          setTimeout(function () { el.remove(); }, 300);
+        }, 3200);
+      }
+
+      /* السنة */
+      $("#year").textContent = new Date().getFullYear();
+
+      /* استقبال نتيجة الدفع من Moyasar بعد العودة من البوابة */
+      (function () {
+        var params = new URLSearchParams(window.location.search);
+        var st = params.get("status");
+        if (!st) return;
+        setTimeout(function () {
+          if (st === "paid") {
+            toast("تم الدفع بنجاح ✔ — حظاً موفقاً في حصتك", "success");
+            goScreen("booking");
+          } else if (st === "failed") {
+            toast("عذراً، فشلت عملية الدفع — حاول مرة أخرى", "error");
+          } else {
+            toast("عملية الدفع قيد المراجعة، سنوافيك بالنتيجة", "success");
+          }
+        }, 600);
+        try { history.replaceState(null, "", window.location.pathname); } catch (e) {}
+      })();
+
+      /* تهيئة أولية للصفحة الثانية عند العرض */
+      initBooking();
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,274 @@
+﻿﻿﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الكورسات — Madark للتدريب والتعليم</title>
+  <meta name="description" content="تصفح مكتبة Madark للكورسات التعليمية: رياضيات، برمجة، فيزياء، ذكاء اصطناعي والمزيد مع نخبة المعلمين.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8C%99%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+
+  <div data-slot="header" data-active="courses"></div>
+
+  <!-- ======= ترويسة الصفحة ======= -->
+  <section class="page-hero">
+    <div class="container page-hero-inner">
+      <span class="badge reveal">مكتبة الكورسات</span>
+      <h1 class="reveal d1">تصفح <span style="background:var(--gradient);-webkit-background-clip:text;background-clip:text;color:transparent;">كورساتنا</span></h1>
+      <p class="reveal d2">أكثر من 800 كورس تفاعلي بأيدي نخبة المعلمين — اختر مسارك وابدأ رحلة التفوق.</p>
+      <div class="crumbs reveal d3">
+        <a href="index.html">الرئيسية</a>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        <span>الكورسات</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= قائمة الكورسات ======= -->
+  <section class="section" style="padding-top:48px;">
+    <div class="container">
+      <div class="filter-bar reveal">
+        <div class="filter-search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          <input type="text" placeholder="ابحث عن كورس...">
+        </div>
+        <button class="filter-chip active" data-filter="all">الكل</button>
+        <button class="filter-chip" data-filter="math">الرياضيات</button>
+        <button class="filter-chip" data-filter="programming">البرمجة</button>
+        <button class="filter-chip" data-filter="science">العلوم</button>
+        <button class="filter-chip" data-filter="ai">الذكاء الاصطناعي</button>
+        <button class="filter-chip" data-filter="language">اللغات</button>
+        <button class="filter-chip" data-filter="skills">المهارات</button>
+      </div>
+
+      <div class="grid grid-3">
+        <article class="course-card reveal" data-category="math" data-title="أساسيات الرياضيات المتقدمة">
+          <div class="course-thumb thumb-violet">
+            <span class="course-tag badge">الأكثر مبيعاً</span>
+            <span class="thumb-ico">📊</span>
+          </div>
+          <div class="course-body">
+            <div class="course-meta">
+              <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>د. منى الشريف</span>
+              <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>32 ساعة</span>
+            </div>
+            <h3><a href="course-details.html">أساسيات الرياضيات المتقدمة</a></h3>
+            <div class="course-meta">
+              <span class="rating"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>4.9</span>
+              <span>12,400 طالب</span>
+            </div>
+            <div class="course-foot">
+              <span class="course-price" data-price-key="math">299 ر.س <small>499 ر.س</small></span>
+              <a href="course-details.html" class="btn btn-primary btn-sm">عرض الكورس</a>
+              <button type="button" class="btn btn-outline btn-sm" data-pay="math">اشترِ الآن</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="course-card reveal d1" data-category="programming" data-title="مقدمة في البرمجة بلغة بايثون">
+          <div class="course-thumb thumb-teal">
+            <span class="course-tag badge green">مجاني</span>
+            <span class="thumb-ico">💻</span>
+          </div>
+          <div class="course-body">
+            <div class="course-meta">
+              <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>م. أحمد الحسن</span>
+              <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>24 ساعة</span>
+            </div>
+            <h3><a href="course-details.html">مقدمة في البرمجة بلغة بايثون</a></h3>
+            <div class="course-meta">
+              <span class="rating"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>4.8</span>
+              <span>18,200 طالب</span>
+            </div>
+            <div class="course-foot">
+              <span class="course-price" data-price-key="python">مجاني</span>
+              <a href="course-details.html" class="btn btn-primary btn-sm">عرض الكورس</a>
+              <button type="button" class="btn btn-outline btn-sm" data-pay="python" data-free>اشترك مجاناً</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="course-card reveal d2" data-category="ai" data-title="ذكاء اصطناعي وتعلم الآلة">
+          <div class="course-thumb thumb-blue">
+            <span class="course-tag badge">جديد</span>
+            <span class="thumb-ico">🤖</span>
+          </div>
+          <div class="course-body">
+            <div class="course-meta">
+              <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>د. خالد العمري</span>
+              <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>40 ساعة</span>
+            </div>
+            <h3><a href="course-details.html">ذكاء اصطناعي وتعلم الآلة</a></h3>
+            <div class="course-meta">
+              <span class="rating"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>4.9</span>
+              <span>9,870 طالب</span>
+            </div>
+            <div class="course-foot">
+              <span class="course-price" data-price-key="ai">449 ر.س <small>699 ر.س</small></span>
+              <a href="course-details.html" class="btn btn-primary btn-sm">عرض الكورس</a>
+              <button type="button" class="btn btn-outline btn-sm" data-pay="ai">اشترِ الآن</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="course-card reveal" data-category="science" data-title="الفيزياء الحديثة من الصفر">
+          <div class="course-thumb thumb-orange">
+            <span class="course-tag badge">تخفيض 30%</span>
+            <span class="thumb-ico">🔭</span>
+          </div>
+          <div class="course-body">
+            <div class="course-meta">
+              <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>د. فهد العبدالله</span>
+              <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>36 ساعة</span>
+            </div>
+            <h3><a href="course-details.html">الفيزياء الحديثة من الصفر</a></h3>
+            <div class="course-meta">
+              <span class="rating"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>4.7</span>
+              <span>7,600 طالب</span>
+            </div>
+            <div class="course-foot">
+              <span class="course-price" data-price-key="physics">349 ر.س <small>499 ر.س</small></span>
+              <a href="course-details.html" class="btn btn-primary btn-sm">عرض الكورس</a>
+              <button type="button" class="btn btn-outline btn-sm" data-pay="physics">اشترِ الآن</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="course-card reveal d1" data-category="language" data-title="الإنجليزية لأعمالك اليومية">
+          <div class="course-thumb thumb-rose">
+            <span class="course-tag badge">الأكثر رواجاً</span>
+            <span class="thumb-ico">🗣️</span>
+          </div>
+          <div class="course-body">
+            <div class="course-meta">
+              <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>أ. ريم الزهراني</span>
+              <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>28 ساعة</span>
+            </div>
+            <h3><a href="course-details.html">الإنجليزية لأعمالك اليومية</a></h3>
+            <div class="course-meta">
+              <span class="rating"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>4.8</span>
+              <span>21,000 طالب</span>
+            </div>
+            <div class="course-foot">
+              <span class="course-price" data-price-key="english">259 ر.س <small>399 ر.س</small></span>
+              <a href="course-details.html" class="btn btn-primary btn-sm">عرض الكورس</a>
+              <button type="button" class="btn btn-outline btn-sm" data-pay="english">اشترِ الآن</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="course-card reveal d2" data-category="programming" data-title="تطوير تطبيقات الويب الكاملة">
+          <div class="course-thumb thumb-emerald">
+            <span class="course-tag badge">حديث</span>
+            <span class="thumb-ico">🌐</span>
+          </div>
+          <div class="course-body">
+            <div class="course-meta">
+              <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>م. أحمد الحسن</span>
+              <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>52 ساعة</span>
+            </div>
+            <h3><a href="course-details.html">تطوير تطبيقات الويب الكاملة</a></h3>
+            <div class="course-meta">
+              <span class="rating"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>4.9</span>
+              <span>14,300 طالب</span>
+            </div>
+            <div class="course-foot">
+              <span class="course-price" data-price-key="webdev">499 ر.س <small>799 ر.س</small></span>
+              <a href="course-details.html" class="btn btn-primary btn-sm">عرض الكورس</a>
+              <button type="button" class="btn btn-outline btn-sm" data-pay="webdev">اشترِ الآن</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="course-card reveal" data-category="science" data-title="الكيمياء العضوية بلا تعقيد">
+          <div class="course-thumb thumb-slate">
+            <span class="course-tag badge">شامل</span>
+            <span class="thumb-ico">⚗️</span>
+          </div>
+          <div class="course-body">
+            <div class="course-meta">
+              <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>د. ليلى المطيري</span>
+              <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>30 ساعة</span>
+            </div>
+            <h3><a href="course-details.html">الكيمياء العضوية بلا تعقيد</a></h3>
+            <div class="course-meta">
+              <span class="rating"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>4.6</span>
+              <span>5,900 طالب</span>
+            </div>
+            <div class="course-foot">
+              <span class="course-price" data-price-key="chemistry">279 ر.س <small>380 ر.س</small></span>
+              <a href="course-details.html" class="btn btn-primary btn-sm">عرض الكورس</a>
+              <button type="button" class="btn btn-outline btn-sm" data-pay="chemistry">اشترِ الآن</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="course-card reveal d1" data-category="skills" data-title="مهارات القيادة وإدارة الفرق">
+          <div class="course-thumb thumb-sky">
+            <span class="course-tag badge">شهادة معتمدة</span>
+            <span class="thumb-ico">🚀</span>
+          </div>
+          <div class="course-body">
+            <div class="course-meta">
+              <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>أ. سارة القحطاني</span>
+              <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>22 ساعة</span>
+            </div>
+            <h3><a href="course-details.html">مهارات القيادة وإدارة الفرق</a></h3>
+            <div class="course-meta">
+              <span class="rating"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>4.8</span>
+              <span>16,700 طالب</span>
+            </div>
+            <div class="course-foot">
+              <span class="course-price" data-price-key="leadership">199 ر.س <small>299 ر.س</small></span>
+              <a href="course-details.html" class="btn btn-primary btn-sm">عرض الكورس</a>
+              <button type="button" class="btn btn-outline btn-sm" data-pay="leadership">اشترِ الآن</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="course-card reveal d2" data-category="ai" data-title="تحليل البيانات باستخدام بايثون">
+          <div class="course-thumb thumb-violet">
+            <span class="course-tag badge">وظيفي</span>
+            <span class="thumb-ico">📈</span>
+          </div>
+          <div class="course-body">
+            <div class="course-meta">
+              <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>د. خالد العمري</span>
+              <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>38 ساعة</span>
+            </div>
+            <h3><a href="course-details.html">تحليل البيانات باستخدام بايثون</a></h3>
+            <div class="course-meta">
+              <span class="rating"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>4.9</span>
+              <span>11,100 طالب</span>
+            </div>
+            <div class="course-foot">
+              <span class="course-price" data-price-key="data">429 ر.س <small>599 ر.س</small></span>
+              <a href="course-details.html" class="btn btn-primary btn-sm">عرض الكورس</a>
+              <button type="button" class="btn btn-outline btn-sm" data-pay="data">اشترِ الآن</button>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div style="text-align:center;margin-top:48px;" class="reveal">
+        <button class="btn btn-outline btn-lg">
+          تحميل المزيد من الكورسات
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <div data-slot="footer"></div>
+
+  <script src="js/site-config.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/payment.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

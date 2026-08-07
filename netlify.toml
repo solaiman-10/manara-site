@@ -1,0 +1,18 @@
+[build]
+  publish = "manara-site"
+
+[functions]
+  directory = "netlify/functions"
+
+# 404 fallback: keep single-page routes working
+[[redirects]]
+  from = "/*"
+  to = "/404.html"
+  status = 404
+
+# Force HTTPS always on
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
