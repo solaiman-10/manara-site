@@ -1,8 +1,9 @@
-[build]
-  publish = "manara-site"
-
-[functions]
-  directory = "netlify/functions"
+# ============================================
+#   إعداد مشترك لكل الموقعين من نفس المستودع
+#   (دليل النشر لكل موقع يُضبط من لوحة Netlify)
+#   - المنارة:      publish = "manara-site"
+#   - Madark:       publish = "madark" + functions = "madark/netlify/functions"
+# ============================================
 
 # 404 fallback: keep single-page routes working
 [[redirects]]

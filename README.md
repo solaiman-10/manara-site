@@ -2,38 +2,41 @@
 
 تطبيق صفحة واحدة (HTML + CSS + JS) لمساحة تعليمية تقدم دروساً إضافية لطلاب التعليم العام. يعمل بالكامل بدون خادم ويحفظ الإعدادات في متصفح كل مستخدم.
 
+المستودع يحتوي **مشروعين منشورين من نفس المستودع**:
+- **المنارة** — مجلد `manara-site/` (التطبيق الرئيسي)
+- **Madark** — مجلد `madark/` (قالب موقع تسويقي متعدد الصفحات + دوال دفع Tap)
+
 ## الملفات
 
-- `app.html` — ملف التطبيق الرئيسي (ساعة العمل اليومية)
-- `manara-site/index.html` — نسخة النشر (تحدَّثها بعد كل تعديل)
+- `app.html` — ملف العمل الرئيسي للمنارة (تعدَّله ثم انسخه لنسخة النشر)
+- `manara-site/index.html` — نسخة نشر المنارة
+- `madark/` — مشروع Madark مستقل (يرى تحديثاته من نفس الـ push)
 
-## النشر التلقائي (Git + Netlify)
+## النشر التلقائي (Git + Netlify) — موقعان
 
-المستودع: https://github.com/solaiman-10/manara-site
+### موقع المنارة (المنشور مسبقاً)
+- Netlify → **Add new site** → **Import from Git** → مستودع `manara-site`
+- **Publish directory:** `manara-site`
+- النتيجة: `https://manara-1.netlify.app`
 
-### خطوة واحدة: ربط Netlify بالمستودع (مرة واحدة فقط)
+### موقع Madark (الثاني)
+- Netlify → **Add new site** → **Import from Git** → **نفس المستودع** `manara-site`
+- **Publish directory:** `madark`
+- **Functions directory:** `madark/netlify/functions`
+- اختر اسماً مستقلاً مثل `madark-1` → النتيجة: `https://madark-1.netlify.app`
 
-1. افتح https://app.netlify.com → **Add new site** → **Import an existing project** → **GitHub**.
-2. فوض Netlify للوصول إلى مستودع `manara-site`.
-3. اختر المستودع، ثم **Deploy** — سيكتشف Netlify إعداد `netlify.toml` تلقائياً
-   (دليل النشر: `manara-site`).
+> `netlify.toml` المشترك لا يحدد دليل النشر (لكي يتحكم كل موقع بنفسه من لوحة Netlify).
 
-### تحديث الموقع بعد كل تعديل
+### تحديث الموقعين بعد كل تعديل
+```
+# نسخة المنارة من ملف العمل
+Copy-Item app.html manara-site/index.html
 
-1. انسخ ملف العمل لنسخة النشر:
-   ```
-   Copy-Item app.html manara-site/index.html
-   ```
-2. ارفع التغييرات — وسينشر Netlify تلقائياً:
-   ```
-   git add -A
-   git commit -m "وصف التعديل"
-   git push
-   ```
-
-### النشر اليدوي (بديل سريع)
-
-اسحب مجلد `manara-site` وأفلته في https://app.netlify.com/drop — الرابط يبقى نفسه.
+git add -A
+git commit -m "وصف التعديل"
+git push
+```
+كلا الموقعين يتحدثان تلقائياً مع كل push — ومجلد `madark/` مسار مستقل لتحديثات Madark فقط.
 
 ## بيانات المالك (لوحة الإعدادات)
 
