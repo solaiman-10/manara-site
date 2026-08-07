@@ -1,5 +1,5 @@
 /* ============================================
-   Madark للتدريب والتعليم — لوحة إعدادات المالك
+   مدارك للتدريب والتعليم — لوحة إعدادات المالك
    تسجيل دخول المالك + تعديل الأسعار والخطط
    وطرق الدفع وهوية المنصة، ويُحفظ محلياً
    (localStorage) ثم تُطبَّق على كل الصفحات.
@@ -102,6 +102,95 @@
     });
   }
 
+  /* ---------- خيارات الخطوط المتاحة (Google Fonts) ---------- */
+  var FONT_OPTIONS = [
+    ["Tajawal", "تجوال"],
+    ["Cairo", "القاهرة"],
+    ["Almarai", "المريئ"],
+    ["Rubik", "روبيك"],
+    ["Noto Kufi Arabic", "كوفي (Noto Kufi)"],
+    ["Amiri", "أميري"],
+    ["El Messiri", "المسيري"],
+    ["Alexandria", "الإسكندرية"],
+    ["IBM Plex Sans Arabic", "IBM Plex Sans"],
+    ["Reem Kufi", "ريم كوفي"]
+  ];
+  function fontSelect(id, current) {
+    return '<select id="' + id + '" class="admin-input admin-select">' +
+      FONT_OPTIONS.map(function (o) {
+        return '<option value="' + o[0] + '"' + (o[0] === current ? " selected" : "") + ">" + o[1] + "</option>";
+      }).join("") + "</select>";
+  }
+  var COLOR_FIELDS = [
+    ["ad-color-primary", "اللون الأساسي"],
+    ["ad-color-dark", "اللون الأساسي الغامق"],
+    ["ad-color-light", "درجة التدرج الفاتح"],
+    ["ad-color-accent", "اللون الثانوي"]
+  ];
+  function themeRowsHTML(theme) {
+    var colors = (theme || {}).colors || {};
+    var fonts = (theme || {}).fonts || {};
+    var colorRows = COLOR_FIELDS.map(function (c) {
+      return "" +
+        '<div class="admin-row">' +
+        '  <span class="admin-key">' + c[1] + "</span>" +
+        '  <input type="color" id="' + c[0] + '" class="admin-color" ' + input(colors[c[1] === "اللون الأساسي" ? "primary" : c[1] === "اللون الأساسي الغامق" ? "primaryDark" : c[1] === "درجة التدرج الفاتح" ? "primaryLight" : "accent"]) + ">" +
+        '  <input type="text" id="' + c[0] + '-hex" class="admin-input admin-input-md" ' + input(colors[c[1] === "اللون الأساسي" ? "primary" : c[1] === "اللون الأساسي الغامق" ? "primaryDark" : c[1] === "درجة التدرج الفاتح" ? "primaryLight" : "accent"]) + ">" +
+        "</div>";
+    }).join("");
+    var fontRows = "" +
+      '<div class="admin-row">' +
+      '  <span class="admin-key">خط النصوص</span>' +
+      '  <div class="admin-font-select">' + fontSelect("ad-font-body", fonts.body || "Tajawal") + "</div>" +
+      "</div>" +
+      '<div class="admin-row">' +
+      '  <span class="admin-key">خط العناوين</span>' +
+      '  <div class="admin-font-select">' + fontSelect("ad-font-head", fonts.head || "Cairo") + "</div>" +
+      "</div>";
+    return colorRows + fontRows;
+  }
+  function readThemeFields() {
+    var colors = {};
+    COLOR_FIELDS.forEach(function (c) {
+      var key = c[1] === "اللون الأساسي" ? "primary" : c[1] === "اللون الأساسي الغامق" ? "primaryDark" : c[1] === "درجة التدرج الفاتح" ? "primaryLight" : "accent";
+      colors[key] = (($("#" + c[0] + "-hex") || {}).value || "").trim();
+    });
+    return {
+      colors: colors,
+      fonts: {
+        body: (($("#ad-font-body") || {}).value || "").trim(),
+        head: (($("#ad-font-head") || {}).value || "").trim()
+      }
+    };
+  }
+  function bindThemePreview() {
+    function preview() {
+      if (window.MadarkConfig && window.MadarkConfig.applyTheme) {
+        window.MadarkConfig.applyTheme(readThemeFields());
+      }
+    }
+    COLOR_FIELDS.forEach(function (c) {
+      var colorInput = $("#" + c[0]);
+      var hexInput = $("#" + c[0] + "-hex");
+      if (!colorInput || !hexInput) return;
+      colorInput.addEventListener("input", function () {
+        hexInput.value = colorInput.value;
+        preview();
+      });
+      hexInput.addEventListener("input", function () {
+        var v = hexInput.value.trim();
+        if (/^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/.test(v)) {
+          colorInput.value = v;
+          preview();
+        }
+      });
+    });
+    ["ad-font-body", "ad-font-head"].forEach(function (id) {
+      var sel = $("#" + id);
+      if (sel) sel.addEventListener("change", preview);
+    });
+  }
+
   function buildDash() {
     var target = $("#adminDash");
     if (!target) return;
@@ -172,6 +261,11 @@
       "  </section>" +
 
       '  <section class="panel">' +
+      "    <div class='panel-head'><h3>المظهر والألوان</h3><span class='admin-hint'>تظهر الألوان والخطوط فور التغيير — احفظ لتثبيتها</span></div>" +
+      themeRowsHTML(settings.theme) +
+      "  </section>" +
+
+      '  <section class="panel">' +
       "    <div class='panel-head'><h3>أسعار الباقات</h3></div>" +
       planRows +
       "  </section>" +
@@ -209,6 +303,7 @@
     logoutBtn.addEventListener("click", logout);
 
     $$(".admin-method-row", target).forEach(bindMethodRow);
+    bindThemePreview();
     if (addMethodBtn) {
       addMethodBtn.addEventListener("click", function () {
         var list = $("#ad-methods-list", target);
@@ -230,6 +325,7 @@
         tagline: ($("#ad-brand-tagline") || {}).value
       },
       currency: ($("#ad-currency") || {}).value,
+      theme: readThemeFields(),
       pricing: { courses: {}, plans: {} },
       payment: { methods: [] },
       owner: {

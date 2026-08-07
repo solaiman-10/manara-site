@@ -1,5 +1,5 @@
 /* ============================================
-   Madark — إنشاء عملية دفع عبر Tap Payments
+   مدارك — إنشاء عملية دفع عبر Tap Payments
    Netlify Function: المفتاح السري يُقرأ من
    متغيرات البيئة ولا يُنشر في أي ملف أمامي.
    الأسعار تُقرأ من خادم هنا (وليس من المتصفح)
@@ -43,7 +43,7 @@ exports.handler = async function (event) {
   }
 
   const siteUrl = (body.siteUrl || process.env.URL || "https://madark.edu").replace(/\/+$/, "");
-  const name = body.name || "شراء من منصة Madark";
+  const name = body.name || "شراء من منصة مدارك";
 
   const payload = {
     amount: amount,
@@ -51,7 +51,7 @@ exports.handler = async function (event) {
     description: name,
     customer: {
       first_name: (body.firstName || "زائر").slice(0, 40),
-      last_name: (body.lastName || "Madark").slice(0, 40),
+      last_name: (body.lastName || "مدارك").slice(0, 40),
       email: (body.email || "guest@madark.edu")
     },
     source: { id: "src_all" },

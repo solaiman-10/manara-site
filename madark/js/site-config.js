@@ -1,5 +1,5 @@
 /* ============================================
-   Madark للتدريب والتعليم — ملف الإعدادات المركزي
+   مدارك للتدريب والتعليم — ملف الإعدادات المركزي
    ============================================
    المالك يعدّل هنا فقط:
    - الأسعار والخصومات (ر.س)
@@ -10,7 +10,7 @@
 
 window.MadarkConfig = {
   brand: {
-    name: "Madark",
+    name: "مدارك",
     tagline: "للتدريب والتعليم",
     home: "index.html"
   },
@@ -44,7 +44,7 @@ window.MadarkConfig = {
     newsletterText: "اشترك ليصلك كل جديد: كورسات، عروض، ونصائح تعليمية.",
     email: "support@madark.edu",
     phone: "+966 12 345 6789",
-    copy: "Madark للتدريب والتعليم — جميع الحقوق محفوظة.",
+    copy: "مدارك للتدريب والتعليم — جميع الحقوق محفوظة.",
     madeWith: "صُنع بـ 💜 في العالم العربي"
   },
 
@@ -103,6 +103,24 @@ window.MadarkConfig = {
   owner: {
     email: "admin@madark.edu",
     password: "madark2026"
+  },
+
+  /* ============================================
+     المظهر والألوان — قابلة للتعديل من لوحة
+     إعدادات المالك (قسم "المظهر والألوان")
+     colors: ألوان الهوية | fonts: خطوط الموقع
+     ============================================ */
+  theme: {
+    colors: {
+      primary: "#6d28d9",        /* اللون الأساسي */
+      primaryDark: "#5b21b6",    /* اللون الأساسي الغامق */
+      primaryLight: "#9333ea",   /* درجة التدرج الفاتح */
+      accent: "#f59e0b"          /* اللون الثانوي */
+    },
+    fonts: {
+      body: "Tajawal",           /* خط النصوص */
+      head: "Cairo"              /* خط العناوين */
+    }
   }
 };
 
@@ -135,4 +153,62 @@ window.MadarkConfig = {
     try { saved = JSON.parse(raw); } catch (e) { return base; }
     return merge(base, saved);
   };
+
+  /* ============================================
+     تطبيق المظهر (الألوان والخطوط) على الصفحة.
+     يُستدعى تلقائياً عند تحميل أي صفحة، ويُستدعى
+     من لوحة المالك للمعاينة الفورية قبل الحفظ.
+     ============================================ */
+  window.MadarkConfig.applyTheme = function (theme) {
+    var root = document.documentElement;
+    if (!root) return;
+    theme = theme || {};
+    var colors = theme.colors || {};
+    var fonts = theme.fonts || {};
+
+    function setVar(name, value) {
+      if (value) root.style.setProperty(name, value);
+    }
+    function fontStack(name) {
+      return name ? "'" + name + "', 'Tajawal', 'Cairo', system-ui, sans-serif" : null;
+    }
+    function toRgba(hex, alpha) {
+      var h = String(hex || "").replace("#", "");
+      if (h.length === 3) h = h.split("").map(function (x) { return x + x; }).join("");
+      var n = parseInt(h, 16);
+      if (isNaN(n) || h.length !== 6) return "rgba(109, 40, 217, " + alpha + ")";
+      return "rgba(" + ((n >> 16) & 255) + ", " + ((n >> 8) & 255) + ", " + (n & 255) + ", " + alpha + ")";
+    }
+
+    setVar("--primary", colors.primary);
+    setVar("--primary-dark", colors.primaryDark);
+    setVar("--primary-soft", toRgba(colors.primary, 0.12));
+    setVar("--accent", colors.accent);
+    setVar("--font", fontStack(fonts.body));
+    setVar("--font-head", fontStack(fonts.head));
+    if (colors.primary) {
+      var light = colors.primaryLight || colors.primary;
+      setVar("--gradient", "linear-gradient(135deg, " + colors.primary + " 0%, " + light + " 50%, " + colors.primary + " 100%)");
+      setVar("--gradient-soft", "linear-gradient(135deg, " + toRgba(colors.primary, 0.10) + " 0%, " + toRgba(colors.primary, 0.03) + " 100%)");
+      setVar("--shadow-primary", "0 10px 30px " + toRgba(colors.primary, 0.35));
+    }
+
+    /* تحميل خطوط Google Fonts المختارة إن لم تكن محمّلة في الصفحة */
+    var known = ["Cairo", "Tajawal", "Almarai", "Rubik", "Noto Kufi Arabic", "Amiri", "El Messiri", "Alexandria", "IBM Plex Sans Arabic", "Reem Kufi"];
+    var needed = [];
+    [fonts.body, fonts.head].forEach(function (name) {
+      if (name && known.indexOf(name) !== -1 && needed.indexOf(name) === -1) needed.push(name);
+    });
+    needed.forEach(function (name) {
+      if (document.querySelector('link[data-font="' + name + '"]')) return;
+      var link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.setAttribute("data-font", name);
+      link.href = "https://fonts.googleapis.com/css2?family=" + encodeURIComponent(name) + ":wght@400;500;700;800;900&display=swap";
+      document.head.appendChild(link);
+    });
+  };
+
+  /* التطبيق التلقائي عند تحميل أي صفحة */
+  window.MadarkConfig.applyTheme((window.MadarkConfig.load ? window.MadarkConfig.load() : window.MadarkConfig).theme);
 })();

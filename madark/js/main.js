@@ -1,5 +1,5 @@
 /* ============================================
-   Madark للتدريب والتعليم — التفاعلات العامة
+   مدارك للتدريب والتعليم — التفاعلات العامة
    ============================================ */
 
 (function () {
@@ -276,7 +276,7 @@
           }
           localStorage.setItem("madark-user", JSON.stringify(user));
         } catch (err) {}
-        const brand = (window.MadarkConfig && window.MadarkConfig.brand && window.MadarkConfig.brand.name) || "Madark";
+        const brand = (window.MadarkConfig && window.MadarkConfig.brand && window.MadarkConfig.brand.name) || "مدارك";
         toast("أهلاً بك في " + brand + " — جارٍ الدخول… 🎉", "success");
         setTimeout(() => { window.location.href = "dashboard.html"; }, 450);
         return;
