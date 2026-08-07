@@ -7,19 +7,33 @@
 - `app.html` — ملف التطبيق الرئيسي (ساعة العمل اليومية)
 - `manara-site/index.html` — نسخة النشر (تحدَّثها بعد كل تعديل)
 
-## النشر على Netlify (رابط عام مجاني)
+## النشر التلقائي (Git + Netlify)
 
-1. افتح https://app.netlify.com/drop وسجّل دخولك (مجاني).
-2. اسحب مجلد `manara-site` وأفلته في الصفحة.
-3. بعد ثوانٍ تحصل على رابط مثل `https://xyz-abc-123.netlify.app`.
-4. لتغيير اسم الرابط: Netlify → Site settings → Change site name
-   (مثال: `manara-ksa.netlify.app`).
+المستودع: https://github.com/solaiman-10/manara-site
 
-### تحديث التطبيق بعد تعديل `app.html`
+### خطوة واحدة: ربط Netlify بالمستودع (مرة واحدة فقط)
 
-1. انسخ الملف: `Copy-Item app.html manara-site/index.html`
-2. في Netlify: قم بسحب وإفلات مجلد `manara-site` مرة أخرى فوق نفس الموقع
-   (Deploys → Drag and drop) — الرابط يبقى نفسه.
+1. افتح https://app.netlify.com → **Add new site** → **Import an existing project** → **GitHub**.
+2. فوض Netlify للوصول إلى مستودع `manara-site`.
+3. اختر المستودع، ثم **Deploy** — سيكتشف Netlify إعداد `netlify.toml` تلقائياً
+   (دليل النشر: `manara-site`).
+
+### تحديث الموقع بعد كل تعديل
+
+1. انسخ ملف العمل لنسخة النشر:
+   ```
+   Copy-Item app.html manara-site/index.html
+   ```
+2. ارفع التغييرات — وسينشر Netlify تلقائياً:
+   ```
+   git add -A
+   git commit -m "وصف التعديل"
+   git push
+   ```
+
+### النشر اليدوي (بديل سريع)
+
+اسحب مجلد `manara-site` وأفلته في https://app.netlify.com/drop — الرابط يبقى نفسه.
 
 ## بيانات المالك (لوحة الإعدادات)
 
