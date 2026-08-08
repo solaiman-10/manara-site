@@ -13,8 +13,14 @@
      التجريبي: يظهر الرمز في استجابة sendOtp.
    ============================================ */
 
-const { getStore } = require("@netlify/blobs");
 const crypto = require("crypto");
+
+let getStore = null;
+try {
+  getStore = require("@netlify/blobs").getStore;
+} catch (e) {
+  getStore = null;
+}
 
 const STORE_NAME = "madark-data";
 const OWNER_EMAIL = process.env.MADARK_OWNER_EMAIL || "admin@madark.edu";
