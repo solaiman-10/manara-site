@@ -29,7 +29,7 @@
     <div class="container page-hero-inner">
       <span class="badge reveal">نخبة المعلمين</span>
       <h1 class="reveal d1">تعلم من <span style="background:var(--gradient);-webkit-background-clip:text;background-clip:text;color:transparent;">أفضل الخبراء</span></h1>
-      <p class="reveal d2">أكثر من 1200 معلم معتمد بخبرات محلية وعالمية — اختر معلمك وابدأ رحلتك.</p>
+      <p class="reveal d2">نخبة من المعلمين المعتمدين بخبرات محلية وعالمية — اختر معلمك وابدأ رحلتك.</p>
       <div class="crumbs reveal d3">
         <a href="index.html">الرئيسية</a>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
@@ -63,8 +63,6 @@
           <p>دكتوراه في الرياضيات التطبيقية مع 15 عاماً من الخبرة التدريسية.</p>
           <div class="teacher-stats">
             <div><b>4.9</b> التقييم</div>
-            <div><b>12.4k</b> طالب</div>
-            <div><b>320</b> كورس</div>
           </div>
           <a href="auth.html" class="btn btn-outline btn-sm btn-block">حجز جلسة</a>
         </div>
@@ -76,8 +74,6 @@
           <p>مهندس برمجيات بشركة تقنية عالمية، خبير في بناء التطبيقات الحديثة.</p>
           <div class="teacher-stats">
             <div><b>4.8</b> التقييم</div>
-            <div><b>18.2k</b> طالب</div>
-            <div><b>245</b> كورس</div>
           </div>
           <a href="auth.html" class="btn btn-outline btn-sm btn-block">حجز جلسة</a>
         </div>
@@ -89,8 +85,6 @@
           <p>باحث في تعلم الآلة، نشر أبحاثاً علمية محكمة ودرّب آلاف المهندسين.</p>
           <div class="teacher-stats">
             <div><b>4.9</b> التقييم</div>
-            <div><b>9.8k</b> طالب</div>
-            <div><b>180</b> كورس</div>
           </div>
           <a href="auth.html" class="btn btn-outline btn-sm btn-block">حجز جلسة</a>
         </div>
@@ -102,8 +96,6 @@
           <p>مدربة معتمدة في القيادة ومهارات التواصل مع خبرة تدريب تتجاوز 10 سنوات.</p>
           <div class="teacher-stats">
             <div><b>4.9</b> التقييم</div>
-            <div><b>15.6k</b> طالب</div>
-            <div><b>210</b> كورس</div>
           </div>
           <a href="auth.html" class="btn btn-outline btn-sm btn-block">حجز جلسة</a>
         </div>
@@ -115,8 +107,6 @@
           <p>دكتوراه في الفيزياء النظرية، اشتهر بأسلوبه المبسط في شرح أصعب المفاهيم.</p>
           <div class="teacher-stats">
             <div><b>4.7</b> التقييم</div>
-            <div><b>7.6k</b> طالب</div>
-            <div><b>140</b> كورس</div>
           </div>
           <a href="auth.html" class="btn btn-outline btn-sm btn-block">حجز جلسة</a>
         </div>
@@ -128,8 +118,6 @@
           <p>حاصلة على شهادة TESOL الدولية، متخصصة في تعليم الإنجليزية بمتعة وسهولة.</p>
           <div class="teacher-stats">
             <div><b>4.8</b> التقييم</div>
-            <div><b>21k</b> طالب</div>
-            <div><b>165</b> كورس</div>
           </div>
           <a href="auth.html" class="btn btn-outline btn-sm btn-block">حجز جلسة</a>
         </div>
@@ -141,8 +129,6 @@
           <p>باحثة في الكيمياء العضوية، تشرح المعادلات بطرق بصرية ممتعة وسهلة الحفظ.</p>
           <div class="teacher-stats">
             <div><b>4.6</b> التقييم</div>
-            <div><b>5.9k</b> طالب</div>
-            <div><b>98</b> كورس</div>
           </div>
           <a href="auth.html" class="btn btn-outline btn-sm btn-block">حجز جلسة</a>
         </div>
@@ -154,8 +140,6 @@
           <p>خبير في أمن المعلومات وحاصل على شهادات دولية من أهم المؤسسات العالمية.</p>
           <div class="teacher-stats">
             <div><b>4.8</b> التقييم</div>
-            <div><b>8.3k</b> طالب</div>
-            <div><b>112</b> كورس</div>
           </div>
           <a href="auth.html" class="btn btn-outline btn-sm btn-block">حجز جلسة</a>
         </div>
@@ -217,6 +201,7 @@
   <script src="js/site-config.js"></script>
   <script src="js/components.js"></script>
   <script src="js/payment.js"></script>
+  <script src="js/api.js"></script>
   <script src="js/main.js"></script>
   <script>
     (function () {
@@ -273,17 +258,45 @@
         }
         var user = {};
         try { user = JSON.parse(localStorage.getItem("madark-user") || "{}"); } catch (err) {}
-        var bookings = [];
-        try { bookings = JSON.parse(localStorage.getItem("madark-bookings") || "[]"); } catch (err) {}
-        bookings.push({
+        var booking = {
           teacher: currentTeacher,
           date: date,
           time: time,
           type: document.getElementById("bookType").value,
           by: user.email || "",
           at: Date.now()
-        });
+        };
+        var bookings = [];
+        try { bookings = JSON.parse(localStorage.getItem("madark-bookings") || "[]"); } catch (err) {}
+        bookings.push(booking);
         try { localStorage.setItem("madark-bookings", JSON.stringify(bookings)); } catch (err) {}
+        if (window.MadarkApi && window.MadarkApi.getToken()) {
+          window.MadarkApi.call("book", { booking: {
+            teacher: currentTeacher,
+            date: date,
+            time: time,
+            type: document.getElementById("bookType").value,
+            at: new Date().toISOString()
+          } }).then(function (r) {
+            if (r && r.ok && r.booking) {
+              var all = [];
+              try { all = JSON.parse(localStorage.getItem("madark-bookings") || "[]"); } catch (err2) {}
+              all = all.filter(function (b) {
+                return !(b.teacher === r.booking.teacher && b.date === r.booking.date && b.time === r.booking.time && b._id !== r.booking.id);
+              });
+              all.push({
+                _id: r.booking.id,
+                teacher: r.booking.teacher,
+                date: r.booking.date,
+                time: r.booking.time,
+                type: r.booking.type,
+                by: user.email || "",
+                at: r.booking.at || Date.now()
+              });
+              try { localStorage.setItem("madark-bookings", JSON.stringify(all)); } catch (err2) {}
+            }
+          });
+        }
         closeModal();
         if (window.toast) {
           window.toast("تم تأكيد حجزك — " + currentTeacher.split("—")[0] + " 🎉", "success");

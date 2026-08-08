@@ -227,60 +227,97 @@
 
   /* ---------- اختيار الدور (طالب / معلّم) ---------- */
   const roleTabs = $$("[data-role-tab]");
+  const certGroup = $("#cert-group");
+  const certInput = $("#reg-cert");
+  function syncCertGroup() {
+    const roleInput = $("#reg-role");
+    const isTeacher = (roleInput && roleInput.value) === "teacher";
+    if (certGroup) certGroup.style.display = isTeacher ? "" : "none";
+    if (certInput) certInput.required = isTeacher;
+  }
   roleTabs.forEach(tab => {
     tab.addEventListener("click", () => {
       roleTabs.forEach(t => t.classList.remove("active"));
       tab.classList.add("active");
       const roleInput = $("#reg-role");
       if (roleInput) roleInput.value = tab.getAttribute("data-role-tab");
+      syncCertGroup();
       if (tab.getAttribute("data-role-tab") === "teacher") {
-        toast("سيتم إنشاء حسابك كمعلّم — سيمرّ مراجعة الإدارة", "info");
+        toast("سيتم إنشاء حسابك كمعلّم — ارفق شهادة التخصص للمراجعة", "info");
+      }
+    });
+  });
+  syncCertGroup();
+
+  /* ---------- تبويب طريقة التسجيل (بريد / جوال) ---------- */
+  function looksLikeSaudiPhone(v) {
+    let d = String(v || "").replace(/\D/g, "");
+    if (d.startsWith("00")) d = d.slice(2);
+    if (d.length === 10 && d.startsWith("05")) return true;
+    if (d.length === 9 && d.startsWith("5")) return true;
+    if (d.length === 12 && d.startsWith("9665")) return true;
+    return false;
+  }
+
+  const methodTabs = $$("[data-method-tab]");
+  const methodInput = $("#reg-method");
+  methodTabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      methodTabs.forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
+      const m = tab.getAttribute("data-method-tab");
+      if (methodInput) methodInput.value = m;
+      const emailField = $("#email-field");
+      const phoneField = $("#phone-field");
+      const otpField = $("#otp-field");
+      if (m === "phone") {
+        if (emailField) emailField.style.display = "none";
+        if (phoneField) phoneField.style.display = "";
+        if (otpField) otpField.style.display = "";
+      } else {
+        if (emailField) emailField.style.display = "";
+        if (phoneField) phoneField.style.display = "none";
+        if (otpField) otpField.style.display = "none";
       }
     });
   });
 
-  /* ---------- الدخول عبر جوجل / أبل ---------- */
-  const SOCIAL_LABELS = { google: "جوجل", apple: "أبل" };
-  $$(".social-btn[data-social]").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const provider = btn.getAttribute("data-social");
-      const label = SOCIAL_LABELS[provider] || provider;
-      const roleInput = $("#reg-role");
-      const role = (roleInput && roleInput.value) || "student";
-      let name = "";
-      try { name = localStorage.getItem("madark-social-name") || ""; } catch (e) {}
-      if (!name.trim()) {
-        name = prompt("ما اسمك الكامل؟", "") || "";
-        name = name.trim();
-        if (name) { try { localStorage.setItem("madark-social-name", name); } catch (e) {} }
+  /* ---------- إرسال رمز التحقق للجوال ---------- */
+  const sendOtpBtn = $("#send-otp-btn");
+  if (sendOtpBtn) {
+    sendOtpBtn.addEventListener("click", () => {
+      const phone = $("#reg-phone");
+      const hint = $("#otp-hint");
+      if (!phone) return;
+      const p = phone.value.trim();
+      if (!looksLikeSaudiPhone(p)) {
+        if (hint) { hint.className = "otp-hint err"; hint.textContent = "أدخل رقم جوال سعودي صحيح (مثال: 05xxxxxxxx)"; }
+        return;
       }
-      if (!name) name = provider === "google" ? "مستخدم جوجل" : "مستخدم أبل";
-      const idKey = "madark-social-id-" + provider;
-      let id = "";
-      try { id = localStorage.getItem(idKey) || ""; } catch (e) {}
-      if (!id) {
-        id = Date.now().toString(36) + Math.floor(Math.random() * 1e8).toString(36);
-        try { localStorage.setItem(idKey, id); } catch (e) {}
+      sendOtpBtn.disabled = true;
+      if (hint) { hint.className = "otp-hint"; hint.textContent = "جارٍ إرسال الرمز…"; }
+      const req = window.MadarkApi ? window.MadarkApi.call("sendOtp", { phone: p }) : null;
+      if (!req) {
+        sendOtpBtn.disabled = false;
+        if (hint) { hint.className = "otp-hint err"; hint.textContent = "التفعيل بالجوال يتطلب الاتصال بالخادم"; }
+        return;
       }
-      const email = id + "@" + provider + ".com";
-      const user = { name, email, role, provider, status: "active", at: Date.now() };
-      try {
-        const accounts = JSON.parse(localStorage.getItem("madark-accounts") || "[]");
-        const existing = accounts.find(a => a.email === email);
-        if (!existing) {
-          accounts.push(user);
-          localStorage.setItem("madark-accounts", JSON.stringify(accounts));
-        } else if (existing.name !== name) {
-          existing.name = name;
-          localStorage.setItem("madark-accounts", JSON.stringify(accounts));
+      req.then(function (r) {
+        sendOtpBtn.disabled = false;
+        if (r && r.ok) {
+          if (hint) { hint.className = "otp-hint ok"; hint.textContent = "أُرسل الرمز إلى رقمك — أدخله أدناه"; }
+          const otpField = $("#otp-field");
+          if (otpField) otpField.style.display = "";
+          if (r.demo && r.code && $("#reg-otp")) {
+            $("#reg-otp").value = String(r.code);
+            if (hint) { hint.className = "otp-hint ok"; hint.textContent = "وضع تجريبي — تم تعبئة الرمز تلقائياً (" + r.code + ")"; }
+          }
+        } else {
+          if (hint) { hint.className = "otp-hint err"; hint.textContent = (r && r.error) ? r.error : "تعذر إرسال الرمز"; }
         }
-        localStorage.setItem("madark-user", JSON.stringify(user));
-      } catch (err) {}
-      const brand = (window.MadarkConfig && window.MadarkConfig.brand && window.MadarkConfig.brand.name) || "مدارك";
-      toast("أهلاً بك في " + brand + " — جارٍ الدخول… 🎉", "success");
-      setTimeout(() => { window.location.href = "dashboard.html"; }, 450);
+      });
     });
-  });
+  }
 
   /* ---------- إظهار/إخفاء كلمة المرور ---------- */
   $$(".toggle-pass").forEach(btn => {
@@ -300,13 +337,14 @@
   forms.forEach(form => {
     form.addEventListener("submit", e => {
       const kind = form.getAttribute("data-auth-form");
-      const email = $("input[type=email]", form);
+      const email = $("input[type=email], input[name=loginId]", form);
       const pass = $("input[type=password], input[name=password]", form);
-      const emailVal = email?.value.trim();
-      if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
+      const emailVal = email ? email.value.trim() : "";
+      const isPhone = looksLikeSaudiPhone(emailVal);
+      if (email && emailVal && !isPhone && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
         e.preventDefault();
         email.focus();
-        toast("يرجى إدخال بريد إلكتروني صحيح", "error");
+        toast("يرجى إدخال بريد إلكتروني صحيح أو رقم جوال سعودي", "error");
         return;
       }
       if (pass && pass.value.length < 6) {
@@ -324,66 +362,257 @@
         const roleInput = $("#reg-role");
         const emailClean = emailVal.toLowerCase();
 
-        /* تسجيل الدخول: التحقق من وجود الحساب وكلمة المرور */
+        /* تسجيل الدخول: الخادم أولاً، ثم نسخة احتياطية محلية */
         if (kind === "login") {
-          let accounts = [];
-          try { accounts = JSON.parse(localStorage.getItem("madark-accounts") || "[]"); } catch (err) {}
-          const acc = accounts.find(a => (a.email || "").toLowerCase() === emailClean);
-          if (!acc) {
-            toast("لا يوجد حساب بهذا البريد — أنشئ حساباً جديداً أولاً", "error");
-            email.focus();
-            return;
-          }
-          if (acc.password && acc.password !== pass.value) {
-            toast("كلمة المرور غير صحيحة", "error");
-            pass.focus();
-            return;
-          }
-          if (acc.role === "teacher" && acc.status === "pending") {
-            toast("حسابك قيد المراجعة — بانتظار موافقة إدارة المنصة ⏳", "info");
-            return;
-          }
-          const user = {
-            name: acc.name || emailClean.split("@")[0],
-            email: acc.email,
-            role: acc.role || "student",
-            provider: acc.provider || "email",
-            at: Date.now()
+          const proceedLocal = function (acc) {
+            const user = {
+              name: acc.name || emailVal.split("@")[0],
+              email: acc.email,
+              role: acc.role || "student",
+              provider: acc.provider || "email",
+              at: Date.now()
+            };
+            try { localStorage.setItem("madark-user", JSON.stringify(user)); } catch (err) {}
+            toast("أهلاً بك في " + brand + " — جارٍ الدخول… 🎉", "success");
+            setTimeout(() => { window.location.href = "dashboard.html"; }, 450);
           };
-          try { localStorage.setItem("madark-user", JSON.stringify(user)); } catch (err) {}
-          toast("أهلاً بك في " + brand + " — جارٍ الدخول… 🎉", "success");
-          setTimeout(() => { window.location.href = "dashboard.html"; }, 450);
+          const blockPending = function (u) {
+            if (u && u.role === "teacher" && u.status === "pending") {
+              toast("حسابك قيد المراجعة — بانتظار موافقة إدارة المنصة ⏳", "info");
+              return true;
+            }
+            return false;
+          };
+          const serverLogin = window.MadarkApi ? window.MadarkApi.call("login", { identifier: emailVal, password: pass.value }) : null;
+          if (serverLogin) {
+            serverLogin.then(function (r) {
+              if (r && r.ok) {
+                if (blockPending(r.user)) return;
+                window.MadarkApi.setToken(r.token);
+                window.MadarkApi.setUser(r.user);
+                if (Array.isArray(r.bookings)) window.MadarkApi.setBookings(r.bookings);
+                toast("أهلاً بك في " + brand + " — جارٍ الدخول… 🎉", "success");
+                setTimeout(() => { window.location.href = "dashboard.html"; }, 450);
+                return;
+              }
+              if (r && r.error === "network") {
+                if (isPhone) {
+                  toast("تعذر التحقق من رقم الجوال — يلزم الاتصال بالخادم", "error");
+                  return;
+                }
+                let accounts = [];
+                try { accounts = JSON.parse(localStorage.getItem("madark-accounts") || "[]"); } catch (err) {}
+                const acc = accounts.find(a => (a.email || "").toLowerCase() === emailVal);
+                if (!acc) {
+                  toast("تعذر الوصول للخادم، ولا يوجد حساب محلي بهذا البريد", "error");
+                  return;
+                }
+                if (acc.password && acc.password !== pass.value) {
+                  toast("كلمة المرور غير صحيحة", "error");
+                  pass.focus();
+                  return;
+                }
+                if (blockPending(acc)) return;
+                proceedLocal(acc);
+                return;
+              }
+              toast(r && r.error ? r.error : "بيانات الدخول غير صحيحة", "error");
+              if (pass) pass.focus();
+            });
+          } else {
+            if (isPhone) {
+              toast("تسجيل الدخول بالجوال يتطلب الاتصال بالخادم", "error");
+              return;
+            }
+            let accounts = [];
+            try { accounts = JSON.parse(localStorage.getItem("madark-accounts") || "[]"); } catch (err) {}
+            const acc = accounts.find(a => (a.email || "").toLowerCase() === emailVal);
+            if (!acc) {
+              toast("لا يوجد حساب بهذا البريد — أنشئ حساباً جديداً أولاً", "error");
+              email.focus();
+              return;
+            }
+            if (acc.password && acc.password !== pass.value) {
+              toast("كلمة المرور غير صحيحة", "error");
+              pass.focus();
+              return;
+            }
+            if (blockPending(acc)) return;
+            proceedLocal(acc);
+          }
           return;
         }
 
-        /* إنشاء حساب جديد: حفظ كلمة مرور حقيقية مرتبطة بالبريد */
-        const fullName = (nameInput && nameInput.value.trim()) || emailClean.split("@")[0];
+        /* إنشاء حساب جديد: الخادم أولاً، ثم نسخة محلية احتياطية */
+        const method = (methodInput && methodInput.value) || "email";
+        const phoneInput = $("#reg-phone");
+        const otpInput = $("#reg-otp");
+        const phoneVal = phoneInput ? phoneInput.value.trim() : "";
+        const otpVal = otpInput ? otpInput.value.trim() : "";
+        const fullName = (nameInput && nameInput.value.trim());
         const role = (roleInput && roleInput.value) || "student";
-        let accounts = [];
-        try { accounts = JSON.parse(localStorage.getItem("madark-accounts") || "[]"); } catch (err) {}
-        if (accounts.some(a => (a.email || "").toLowerCase() === emailClean)) {
-          toast("هذا البريد مسجل مسبقاً — سجّل دخولك", "error");
-          email.focus();
+        if (!fullName) {
+          toast("أدخل اسمك الكامل", "error");
+          if (nameInput) nameInput.focus();
           return;
         }
-        const user = {
-          name: fullName,
-          email: emailClean,
-          password: pass.value,
-          role: role,
-          status: role === "teacher" ? "pending" : "active",
-          provider: "email",
-          at: Date.now()
+
+        /* قراءة شهادة التخصص (للمعلمين فقط) */
+        function readCert() {
+          return new Promise(function (resolve) {
+            if (role !== "teacher") { resolve({ certName: "", certData: "" }); return; }
+            if (!certInput || !certInput.files || !certInput.files[0]) {
+              toast("يرجى إرفاق شهادة التخصص للموافقة على تسجيلك كمعلم", "error");
+              if (certInput) certInput.focus();
+              resolve(null);
+              return;
+            }
+            const file = certInput.files[0];
+            if (file.size > 2 * 1024 * 1024) {
+              toast("حجم الشهادة كبير — اختر ملفاً أصغر من 2 ميجابايت", "error");
+              resolve(null);
+              return;
+            }
+            const reader = new FileReader();
+            reader.onload = function () { resolve({ certName: file.name, certData: String(reader.result) }); };
+            reader.onerror = function () { toast("تعذر قراءة الملف", "error"); resolve(null); };
+            reader.readAsDataURL(file);
+          });
+        }
+
+        /* التسجيل بالجوال السعودي (يتطلب رمز OTP مُفعّل) */
+        if (method === "phone") {
+          if (!looksLikeSaudiPhone(phoneVal)) {
+            toast("أدخل رقم جوال سعودي صحيح (مثال: 05xxxxxxxx)", "error");
+            if (phoneInput) phoneInput.focus();
+            return;
+          }
+          if (!/^\d{4,6}$/.test(otpVal)) {
+            toast("أدخل رمز التحقق المرسل إلى جوالك", "error");
+            if (otpInput) otpInput.focus();
+            return;
+          }
+          readCert().then(function (cert) {
+            if (!cert) return;
+            const vreq = window.MadarkApi ? window.MadarkApi.call("verifyOtp", { phone: phoneVal, code: otpVal }) : null;
+            if (!vreq) {
+              toast("تعذر الاتصال بالخادم — تحقق الجوال يتطلب اتصالاً", "error");
+              return;
+            }
+            vreq.then(function (vr) {
+              if (!vr || !vr.ok) {
+                toast(vr && vr.error ? vr.error : "رمز التحقق غير صحيح", "error");
+                if (otpInput) otpInput.focus();
+                return;
+              }
+              const sreq = window.MadarkApi ? window.MadarkApi.call("signup", { name: fullName, phone: phoneVal, password: pass.value, role: role, certName: cert.certName, certData: cert.certData }) : null;
+              if (!sreq) {
+                toast("تعذر الاتصال بالخادم", "error");
+                return;
+              }
+              sreq.then(function (r) {
+                if (r && r.ok) {
+                  window.MadarkApi.setToken(r.token);
+                  window.MadarkApi.setUser(r.user);
+                  if (Array.isArray(r.bookings)) window.MadarkApi.setBookings(r.bookings);
+                  if (role === "teacher") {
+                    toast("تم إنشاء حسابك كمعلّم — سيتم تفعيله بعد مراجعة الإدارة ⏳", "info");
+                    return;
+                  }
+                  toast("أهلاً بك في " + brand + " — جارٍ الدخول… 🎉", "success");
+                  setTimeout(() => { window.location.href = "dashboard.html"; }, 450);
+                  return;
+                }
+                toast(r && r.error ? r.error : "تعذر إنشاء الحساب", "error");
+              });
+            });
+          });
+          return;
+        }
+
+        /* التسجيل بالبريد الإلكتروني */
+        const storeLocal = function () {
+          let accounts = [];
+          try { accounts = JSON.parse(localStorage.getItem("madark-accounts") || "[]"); } catch (err) {}
+          if (accounts.some(a => (a.email || "").toLowerCase() === emailClean)) {
+            toast("هذا البريد مسجل مسبقاً — سجّل دخولك", "error");
+            email.focus();
+            return null;
+          }
+          const user = {
+            name: fullName,
+            email: emailClean,
+            password: pass.value,
+            role: role,
+            status: role === "teacher" ? "pending" : "active",
+            provider: "email",
+            at: Date.now()
+          };
+          accounts.push(user);
+          try { localStorage.setItem("madark-accounts", JSON.stringify(accounts)); } catch (err) {}
+          return user;
         };
-        accounts.push(user);
-        try { localStorage.setItem("madark-accounts", JSON.stringify(accounts)); } catch (err) {}
-        if (role === "teacher") {
-          toast("تم إنشاء حسابك كمعلّم — سيتم تفعيله بعد مراجعة الإدارة ⏳", "info");
-          return;
-        }
-        try { localStorage.setItem("madark-user", JSON.stringify(user)); } catch (err) {}
-        toast("أهلاً بك في " + brand + " — جارٍ الدخول… 🎉", "success");
-        setTimeout(() => { window.location.href = "dashboard.html"; }, 450);
+        readCert().then(function (cert) {
+          if (!cert) return;
+          const serverSignup = window.MadarkApi ? window.MadarkApi.call("signup", { name: fullName, email: emailClean, password: pass.value, role: role, certName: cert.certName, certData: cert.certData }) : null;
+          if (serverSignup) {
+            serverSignup.then(function (r) {
+              if (r && r.ok) {
+                window.MadarkApi.setToken(r.token);
+                window.MadarkApi.setUser(r.user);
+                if (Array.isArray(r.bookings)) window.MadarkApi.setBookings(r.bookings);
+                if (role === "teacher") {
+                  toast("تم إنشاء حسابك كمعلّم — سيتم تفعيله بعد مراجعة الإدارة ⏳", "info");
+                  return;
+                }
+                toast("أهلاً بك في " + brand + " — جارٍ الدخول… 🎉", "success");
+                setTimeout(() => { window.location.href = "dashboard.html"; }, 450);
+                return;
+              }
+              if (r && r.error === "هذا البريد مسجل مسبقاً") {
+                window.MadarkApi.call("login", { email: emailClean, password: pass.value }).then(function (lr) {
+                  if (lr && lr.ok) {
+                    if (lr.user && lr.user.role === "teacher" && lr.user.status === "pending") {
+                      toast("حسابك قيد المراجعة — بانتظار موافقة إدارة المنصة ⏳", "info");
+                      return;
+                    }
+                    window.MadarkApi.setToken(lr.token);
+                    window.MadarkApi.setUser(lr.user);
+                    if (Array.isArray(lr.bookings)) window.MadarkApi.setBookings(lr.bookings);
+                    toast("أهلاً بك في " + brand + " — جارٍ الدخول… 🎉", "success");
+                    setTimeout(() => { window.location.href = "dashboard.html"; }, 450);
+                  } else {
+                    toast(lr && lr.error ? lr.error : "هذا البريد مسجل مسبقاً — سجّل دخولك", "error");
+                  }
+                });
+                return;
+              }
+              if (r && r.error === "network") {
+                const u = storeLocal();
+                if (!u) return;
+                if (role === "teacher") {
+                  toast("تم إنشاء حسابك محلياً كمعلّم — سيُفعّل بعد مراجعة الإدارة ⏳", "info");
+                  return;
+                }
+                try { localStorage.setItem("madark-user", JSON.stringify(u)); } catch (err) {}
+                toast("أهلاً بك في " + brand + " — جارٍ الدخول… 🎉 (وضع محلي)", "success");
+                setTimeout(() => { window.location.href = "dashboard.html"; }, 450);
+              } else {
+                toast(r && r.error ? r.error : "تعذر إنشاء الحساب", "error");
+              }
+            });
+          } else {
+            const u = storeLocal();
+            if (!u) return;
+            if (role === "teacher") {
+              toast("تم إنشاء حسابك كمعلّم — سيتم تفعيله بعد مراجعة الإدارة ⏳", "info");
+              return;
+            }
+            try { localStorage.setItem("madark-user", JSON.stringify(u)); } catch (err) {}
+            toast("أهلاً بك في " + brand + " — جارٍ الدخول… 🎉", "success");
+            setTimeout(() => { window.location.href = "dashboard.html"; }, 450);
+          }
+        });
         return;
       }
 
@@ -403,6 +632,10 @@
   /* ---------- تسجيل الخروج ---------- */
   const logoutBtn = $("[data-logout]");
   logoutBtn?.addEventListener("click", () => {
+    if (window.MadarkApi) {
+      window.MadarkApi.call("logout", {}).then(() => {});
+      window.MadarkApi.clearToken();
+    }
     try { localStorage.removeItem("madark-user"); } catch (e) {}
   });
 
@@ -451,59 +684,6 @@
     @keyframes slideDown { from { opacity: 1; transform: none; } to { opacity: 0; transform: translateY(20px); } }
   `;
   document.head.appendChild(styleTag);
-
-  /* ---------- الرسم الدائري في لوحة التحكم ---------- */
-  function initDonut() {
-    const canvas = $("#donut");
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    const dpr = window.devicePixelRatio || 1;
-    const size = canvas.width = canvas.height = 180 * dpr;
-    canvas.style.width = canvas.style.height = "180px";
-    ctx.scale(dpr, dpr);
-
-    const segments = [
-      { value: 46, color: "#8b5cf6" },
-      { value: 28, color: "#06b6d4" },
-      { value: 18, color: "#f59e0b" },
-      { value: 8, color: "#e2e8f0" }
-    ];
-    const total = segments.reduce((s, x) => s + x.value, 0);
-    let angle = -Math.PI / 2;
-    const css = getComputedStyle(document.documentElement);
-
-    const animate = (now, start) => {
-      const p = Math.min((now - start) / 1400, 1);
-      const eased = 1 - Math.pow(1 - p, 3);
-      ctx.clearRect(0, 0, 180, 180);
-      let current = angle;
-      segments.forEach(seg => {
-        const sweep = (seg.value / total) * Math.PI * 2 * eased;
-        ctx.beginPath();
-        ctx.moveTo(90, 90);
-        ctx.arc(90, 90, 74, current, current + sweep);
-        ctx.closePath();
-        ctx.fillStyle = seg.color;
-        ctx.fill();
-        current += (seg.value / total) * Math.PI * 2;
-      });
-      ctx.beginPath();
-      ctx.arc(90, 90, 52, 0, Math.PI * 2);
-      ctx.fillStyle = css.getPropertyValue("--card").trim() || "#fff";
-      ctx.fill();
-      ctx.fillStyle = css.getPropertyValue("--text").trim() || "#0f172a";
-      ctx.font = "800 30px Cairo";
-      ctx.textAlign = "center";
-      ctx.textBaseline = "middle";
-      ctx.fillText("82%", 90, 88);
-      ctx.fillStyle = "#94a3b8";
-      ctx.font = "600 13px Tajawal";
-      ctx.fillText("إتمام الكورسات", 90, 114);
-      if (p < 1) requestAnimationFrame(t => animate(t, start));
-    };
-    requestAnimationFrame(t => animate(t, t));
-  }
-  initDonut();
 
   /* ---------- تحديث السنة في الفوتر ---------- */
   $$("[data-year]").forEach(el => { el.textContent = new Date().getFullYear(); });

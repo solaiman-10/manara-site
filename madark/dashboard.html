@@ -88,42 +88,42 @@
         </a>
       </div>
 
-      <!-- بطاقات الإحصائيات -->
+      <!-- بطاقات نشاطي -->
       <div class="stat-cards">
         <div class="stat-card reveal">
           <div class="stat-ico a">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
           </div>
           <div>
-            <b data-count="8">0</b>
-            <span>كورسات مسجلة</span>
+            <b id="st-bookings">0</b>
+            <span>حجوزاتي الكلية</span>
           </div>
         </div>
         <div class="stat-card reveal d1">
           <div class="stat-ico b">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
           </div>
           <div>
-            <b data-count="42">0</b>
-            <span>ساعة دراسة</span>
+            <b id="st-group">0</b>
+            <span>حصص جماعية</span>
           </div>
         </div>
         <div class="stat-card reveal d2">
           <div class="stat-ico c">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.47 12.89L17 22l-5-3-5 3 1.53-9.11"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6"/><path d="M22 11h-6"/></svg>
           </div>
           <div>
-            <b data-count="3">0</b>
-            <span>شهادات مكتملة</span>
+            <b id="st-individual">0</b>
+            <span>حصص فردية</span>
           </div>
         </div>
         <div class="stat-card reveal d3">
           <div class="stat-ico d">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
           </div>
           <div>
-            <b>12</b>
-            <span>الترتيب الأسبوعي</span>
+            <b id="st-role">—</b>
+            <span>نوع الحساب</span>
           </div>
         </div>
       </div>
@@ -189,23 +189,19 @@
           </div>
         </div>
 
-        <!-- التقدم العام -->
+        <!-- ملخص الحساب -->
         <div class="panel reveal d1">
           <div class="panel-head">
-            <h3>التقدم العام</h3>
-            <a href="#">التفاصيل</a>
+            <h3>ملخص حسابي</h3>
+            <a href="auth.html">إدارة الحساب</a>
           </div>
-          <div class="donut-wrap">
-            <div>
-              <canvas id="donut"></canvas>
-            </div>
-            <ul class="donut-legend">
-              <li><span class="dot" style="background:#8b5cf6;"></span> مكتمل <b>46%</b></li>
-              <li><span class="dot" style="background:#06b6d4;"></span> قيد التنفيذ <b>28%</b></li>
-              <li><span class="dot" style="background:#f59e0b;"></span> مستجد <b>18%</b></li>
-              <li><span class="dot" style="background:#e2e8f0;"></span> لم يبدأ <b>8%</b></li>
-            </ul>
-          </div>
+          <ul class="account-summary">
+            <li><span>الاسم</span><b id="as-name">—</b></li>
+            <li><span>البريد / الجوال</span><b id="as-id">—</b></li>
+            <li><span>الدور</span><b id="as-role">—</b></li>
+            <li><span>حالة الحساب</span><b id="as-status">—</b></li>
+            <li><span>تاريخ الانضمام</span><b id="as-joined">—</b></li>
+          </ul>
         </div>
       </div>
 
@@ -250,56 +246,24 @@
           </div>
         </div>
 
-        <!-- المتصدرون -->
+        <!-- ابدأ الآن -->
         <div class="panel reveal d1">
           <div class="panel-head">
-            <h3>لوحة المتصدرين — هذا الأسبوع</h3>
-            <a href="#">المزيد</a>
+            <h3>ابدأ الآن</h3>
           </div>
-          <div class="leader-row">
-            <span class="leader-rank">1</span>
-            <div class="leader-avatar" style="background:linear-gradient(135deg,#8b5cf6,#c026d3);">م</div>
-            <div class="leader-info">
-              <b>ماجد العلي</b>
-              <small>12.8 ساعة دراسة</small>
-            </div>
-            <span class="leader-points">2,450</span>
-          </div>
-          <div class="leader-row">
-            <span class="leader-rank">2</span>
-            <div class="leader-avatar" style="background:linear-gradient(135deg,#0d9488,#06b6d4);">ل</div>
-            <div class="leader-info">
-              <b>لمى الغامدي</b>
-              <small>11.2 ساعة دراسة</small>
-            </div>
-            <span class="leader-points">2,310</span>
-          </div>
-          <div class="leader-row">
-            <span class="leader-rank">3</span>
-            <div class="leader-avatar" style="background:linear-gradient(135deg,#f97316,#eab308);">ي</div>
-            <div class="leader-info">
-              <b>يوسف النجار</b>
-              <small>10.6 ساعة دراسة</small>
-            </div>
-            <span class="leader-points">2,180</span>
-          </div>
-          <div class="leader-row">
-            <span class="leader-rank" style="background:var(--primary-soft);color:var(--primary);">12</span>
-            <div class="leader-avatar" style="background:var(--gradient);">س</div>
-            <div class="leader-info">
-              <b>سلامة أحمد (أنت)</b>
-              <small>7.1 ساعة دراسة</small>
-            </div>
-            <span class="leader-points">1,540</span>
-          </div>
-          <div class="leader-row">
-            <span class="leader-rank">13</span>
-            <div class="leader-avatar" style="background:linear-gradient(135deg,#475569,#0f172a);">ن</div>
-            <div class="leader-info">
-              <b>نوف الشمري</b>
-              <small>6.8 ساعة دراسة</small>
-            </div>
-            <span class="leader-points">1,480</span>
+          <div class="quick-links">
+            <a href="courses.html" class="quick-link">
+              <span class="quick-ico" style="background:linear-gradient(135deg,#8b5cf6,#c026d3);color:#fff;">📚</span>
+              <div><b>تصفح الكورسات</b><small>اكتشف كورساتك واشترك فيها</small></div>
+            </a>
+            <a href="teachers.html" class="quick-link">
+              <span class="quick-ico" style="background:linear-gradient(135deg,#0d9488,#06b6d4);color:#fff;">🎓</span>
+              <div><b>احجز حصة مع معلم</b><small>حصص مباشرة جماعية أو فردية</small></div>
+            </a>
+            <a href="course-details.html" class="quick-link">
+              <span class="quick-ico" style="background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;">⭐</span>
+              <div><b>اقتراح لك</b><small>أساسيات الرياضيات المتقدمة</small></div>
+            </a>
           </div>
         </div>
       </div>
@@ -309,8 +273,8 @@
         <div class="cta-blob c1" style="width:220px;height:220px;"></div>
         <div class="cta-inner" style="text-align:right;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;">
           <div>
-            <h2 style="font-size:24px;margin-bottom:6px;">واصل التقدم — أنت تبلي بلاءً رائعاً!</h2>
-            <p style="font-size:15px;margin:0;">لديك واجبان مستحقان في الرياضيات المتقدمة. أكملهما لتحافظ على ترتيبك.</p>
+            <h2 style="font-size:24px;margin-bottom:6px;">تعلّم بخطوات ثابتة — كل حصة تقرّبك من هدفك!</h2>
+            <p style="font-size:15px;margin:0;">اختر المعلم المناسب واحجز جلستك القادمة مباشرة من صفحة المعلمين.</p>
           </div>
           <a href="course-details.html" class="btn btn-light btn-lg">انتقل إلى الكورس</a>
         </div>
@@ -318,38 +282,70 @@
     </main>
   </div>
 
+  <script src="js/api.js"></script>
   <script src="js/main.js"></script>
   <script>
     (function () {
       function esc(str) {
         return String(str == null ? "" : str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
       }
-      var user = null;
-      try { user = JSON.parse(localStorage.getItem("madark-user")); } catch (e) {}
-      var roleEl = document.querySelector(".dp-role");
-      if (roleEl) roleEl.textContent = (user && user.role === "teacher" ? "معلّم" : "طالب") + " — " + (user && user.email ? user.email : "");
       var body = document.getElementById("myProfileBody");
+      var roleEl = document.querySelector(".dp-role");
       if (!body) return;
-      if (!user) {
-        body.innerHTML = '<p style="color:var(--text-muted);margin:0;">لم تسجّل دخولك بعد — <a href="auth.html" style="color:var(--primary);font-weight:800;">سجّل دخولك</a> لعرض ملفك وحصصك.</p>';
-        return;
+      function setText(id, val) {
+        var el = document.getElementById(id);
+        if (el) el.textContent = val;
       }
-      var bookings = [];
-      try { bookings = JSON.parse(localStorage.getItem("madark-bookings") || "[]"); } catch (e) {}
-      var mine = bookings.filter(function (b) {
-        return b.by && user.email && b.by.toLowerCase() === user.email.toLowerCase();
-      });
-      var rows = mine.length ? mine.map(function (b, i) {
-        var parts = b.date ? b.date.split("-") : [];
-        var dateLabel = parts.length === 3 ? parts[2] + "/" + parts[1] + "/" + parts[0] : b.date || "—";
-        return "<tr><td>" + (i + 1) + "</td><td>" + esc(b.teacher) + "</td><td>" + dateLabel + "</td><td>" + esc(b.time || "") + "</td><td>" + (b.type === "group" ? "جماعية" : "فردية") + "</td><td>" + new Date(b.at).toLocaleDateString("ar-SA") + "</td></tr>";
-      }).join("") : '<tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:18px;">لا توجد جلسات محجوزة بعد — احجز جلستك من صفحة المعلمين.</td></tr>';
-      body.innerHTML =
-        '<div class="profile-id">' +
-          '<div class="avatar">' + esc((user.name || "م").charAt(0)) + "</div>" +
-          '<div><b>' + esc(user.name) + "</b><small>" + esc(user.email) + " • " + (user.role === "teacher" ? "معلّم" : "طالب") + "</small></div>" +
-        "</div>" +
-        '<div class="profile-table-wrap"><table class="profile-table"><thead><tr><th>#</th><th>المعلم</th><th>التاريخ</th><th>الوقت</th><th>النوع</th><th>تاريخ الحجز</th></tr></thead><tbody>' + rows + "</tbody></table></div>";
+      function render(user, bookings) {
+        bookings = bookings || [];
+        var ident = (user && (user.email || user.phone || "")) || "";
+        if (roleEl) roleEl.textContent = (user && user.role === "teacher" ? "معلّم" : "طالب") + " — " + ident;
+        var mine = ident ? bookings.filter(function (b) {
+          var k = (b.by || b.email || "").toLowerCase();
+          return k === ident.toLowerCase();
+        }) : [];
+        setText("st-bookings", mine.length);
+        setText("st-group", mine.filter(function (b) { return b.type === "group"; }).length);
+        setText("st-individual", mine.filter(function (b) { return b.type !== "group"; }).length);
+        setText("st-role", user ? (user.role === "teacher" ? "معلّم" : "طالب") : "—");
+        setText("as-name", user ? user.name : "—");
+        setText("as-id", ident || "—");
+        setText("as-role", user ? (user.role === "teacher" ? "معلّم" : "طالب") : "—");
+        setText("as-status", user ? (user.status === "pending" ? "قيد المراجعة" : "مفعل") : "—");
+        setText("as-joined", user && user.createdAt ? new Date(user.createdAt).toLocaleDateString("ar-SA") : "—");
+        if (!user) {
+          body.innerHTML = '<p style="color:var(--text-muted);margin:0;">لم تسجّل دخولك بعد — <a href="auth.html" style="color:var(--primary);font-weight:800;">سجّل دخولك</a> لعرض ملفك وحصصك.</p>';
+          return;
+        }
+        var rows = mine.length ? mine.map(function (b, i) {
+          var parts = b.date ? b.date.split("-") : [];
+          var dateLabel = parts.length === 3 ? parts[2] + "/" + parts[1] + "/" + parts[0] : b.date || "—";
+          return "<tr><td>" + (i + 1) + "</td><td>" + esc(b.teacher) + "</td><td>" + dateLabel + "</td><td>" + esc(b.time || "") + "</td><td>" + (b.type === "group" ? "جماعية" : "فردية") + "</td><td>" + new Date(b.at).toLocaleDateString("ar-SA") + "</td></tr>";
+        }).join("") : '<tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:18px;">لا توجد جلسات محجوزة بعد — احجز جلستك من صفحة المعلمين.</td></tr>';
+        body.innerHTML =
+          '<div class="profile-id">' +
+            '<div class="avatar">' + esc((user.name || "م").charAt(0)) + "</div>" +
+            '<div><b>' + esc(user.name) + "</b><small>" + esc(ident) + " • " + (user.role === "teacher" ? "معلّم" : "طالب") + "</small></div>" +
+          "</div>" +
+          '<div class="profile-table-wrap"><table class="profile-table"><thead><tr><th>#</th><th>المعلم</th><th>التاريخ</th><th>الوقت</th><th>النوع</th><th>تاريخ الحجز</th></tr></thead><tbody>' + rows + "</tbody></table></div>";
+      }
+      var cachedUser = null;
+      try { cachedUser = JSON.parse(localStorage.getItem("madark-user")); } catch (e) {}
+      var cachedBookings = [];
+      try { cachedBookings = JSON.parse(localStorage.getItem("madark-bookings") || "[]"); } catch (e) {}
+      render(cachedUser, cachedBookings);
+      if (window.MadarkApi && window.MadarkApi.getToken()) {
+        window.MadarkApi.call("me", {}).then(function (r) {
+          if (r && r.ok) {
+            window.MadarkApi.setUser(r.user);
+            if (Array.isArray(r.bookings)) {
+              window.MadarkApi.setBookings(r.bookings);
+              cachedBookings = r.bookings;
+            }
+            render(r.user, cachedBookings);
+          }
+        });
+      }
     })();
   </script>
 </body>

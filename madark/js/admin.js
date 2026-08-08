@@ -68,6 +68,16 @@
         authed = true;
         buildDash();
         showDash();
+        if (window.MadarkApi) {
+          window.MadarkApi.call("ownerLogin", { email: email, password: pass }).then(function (r) {
+            if (r && r.ok && r.ownerToken) {
+              window.MadarkApi.setOwnerToken(r.ownerToken);
+              renderUsersReport();
+            } else if (r && r.error === "network") {
+              toast("الخادم غير متاح — يعمل وضع السجل المحلي فقط", "info");
+            }
+          });
+        }
       } else {
         toast("بيانات تسجيل الدخول غير صحيحة", "error");
       }
@@ -288,6 +298,20 @@
       "  </section>" +
 
       '  <section class="panel">' +
+      "    <div class='panel-head'><h3>إحصائيات المنصة</h3>" +
+      '      <span class="admin-hint">أرقام حقيقية محسوبة من حسابات وحجوزات الخادم — لا تظهر إلا للمالك هنا</span>' +
+      "    </div>" +
+      '    <div class="admin-stats" id="ad-stats"></div>' +
+      "  </section>" +
+
+      '  <section class="panel">' +
+      "    <div class='panel-head'><h3>طلبات المعلمين — المراجعة والاعتماد</h3>" +
+      '      <span class="admin-hint">راجع شهادة التخصص ثم اعتمد أو ارفض الطلب.</span>' +
+      "    </div>" +
+      '    <div id="ad-teacher-requests"></div>' +
+      "  </section>" +
+
+      '  <section class="panel">' +
       "    <div class='panel-head'><h3>سجل المستخدمين والحصص — للمراجعة</h3></div>" +
       "    <p class='admin-hint'>ملف خاص يعرض كل مستخدم مسجل وجلساته المحجوزة. استخدم زر التنزيل لحفظ نسخة المراجعة (HTML) في مجلد خاص بك.</p>" +
       '    <div id="ad-report-users"></div>' +
@@ -346,19 +370,45 @@
   function roleLabel(role) {
     return role === "teacher" ? "معلم" : "طالب";
   }
-  function renderUsersReport() {
+  var serverReport = null;
+  function ownerKeyOf(b) { return (b.by || b.email || "").toLowerCase(); }
+  function renderStats(users, bookings) {
+    var wrap = $("#ad-stats");
+    if (!wrap) return;
+    users = users || [];
+    bookings = bookings || [];
+    var teachers = users.filter(function (u) { return u.role === "teacher"; });
+    var students = users.filter(function (u) { return u.role === "student"; });
+    var pending = teachers.filter(function (t) { return t.status === "pending"; });
+    var approved = teachers.filter(function (t) { return t.status === "approved" || t.status === "active"; });
+    var group = bookings.filter(function (b) { return b.type === "group"; }).length;
+    var individual = bookings.length - group;
+    function card(label, val, cls) {
+      return '<div class="admin-stat ' + cls + '"><b>' + val + "</b><span>" + label + "</span></div>";
+    }
+    wrap.innerHTML =
+      card("إجمالي المستخدمين", users.length, "a") +
+      card("طلاب", students.length, "d") +
+      card("معلمون معتمدون", approved.length, "b") +
+      card("معلمون بانتظار الموافقة", pending.length, "c") +
+      card("إجمالي الحجوزات", bookings.length, "a") +
+      card("حصص جماعية", group, "b") +
+      card("حصص فردية", individual, "c");
+  }
+  function renderReportFrom(accounts, bookings) {
+    renderStats(accounts, bookings);
     var wrap = $("#ad-report-users");
     if (!wrap) return;
-    var accounts = getAccounts();
-    var bookings = getBookings();
+    accounts = accounts || [];
+    bookings = bookings || [];
     if (!accounts.length && !bookings.length) {
       wrap.innerHTML = '<p class="admin-hint" style="text-align:center;padding:14px 0;">لا يوجد مستخدمون أو حجوزات بعد.</p>';
       return;
     }
     var html = "";
     accounts.forEach(function (acc) {
-      var mine = bookings.filter(function (b) { return b.by && (b.by || "").toLowerCase() === (acc.email || "").toLowerCase(); });
-      var when = acc.at ? new Date(acc.at).toLocaleDateString("ar-SA") : "—";
+      var mine = bookings.filter(function (b) { return ownerKeyOf(b) === teacherIdOf(acc); });
+      var when = acc.createdAt ? new Date(acc.createdAt).toLocaleDateString("ar-SA") : (acc.at ? new Date(acc.at).toLocaleDateString("ar-SA") : "—");
       var badge = acc.status === "pending"
         ? '<span style="background:rgba(245,158,11,.15);color:#b45309;font-size:11px;font-weight:800;padding:3px 10px;border-radius:999px;">بانتظار الموافقة</span>'
         : acc.status === "rejected"
@@ -366,7 +416,7 @@
           : '<span style="background:rgba(16,185,129,.15);color:#047857;font-size:11px;font-weight:800;padding:3px 10px;border-radius:999px;">نشط</span>';
       html += '<div class="profile-id" style="flex-wrap:wrap;">' +
         '<span class="avatar" style="width:42px;height:42px;font-size:16px;">' + esc((acc.name || "م").charAt(0)) + "</span>" +
-        '<span style="flex:1;min-width:180px;"><b style="display:block;">' + esc(acc.name) + '</b><small style="color:var(--text-muted);">' + esc(acc.email) + " • " + roleLabel(acc.role) + " • سجل في " + when + " • " + badge + "</small></span>" +
+        '<span style="flex:1;min-width:180px;"><b style="display:block;">' + esc(acc.name) + '</b><small style="color:var(--text-muted);">' + esc(acc.email || acc.phone) + " • " + roleLabel(acc.role) + " • سجل في " + when + " • " + badge + "</small></span>" +
         '<b style="color:var(--primary);font-size:13px;">' + mine.length + " حجز</b></div>";
       if (mine.length) {
         html += '<div class="profile-table-wrap" style="margin-bottom:14px;"><table class="profile-table"><thead><tr><th>#</th><th>المعلم</th><th>التاريخ</th><th>الوقت</th><th>النوع</th><th>تاريخ الحجز</th></tr></thead><tbody>';
@@ -382,16 +432,96 @@
     });
     wrap.innerHTML = html;
   }
+  function renderUsersReport() {
+    renderReportFrom(getAccounts(), getBookings());
+    renderTeacherRequestsFrom(getAccounts().filter(function (a) { return a.role === "teacher"; }));
+    fetchServerReport();
+  }
+  function fetchServerReport() {
+    var ot = window.MadarkApi ? window.MadarkApi.getOwnerToken() : "";
+    if (!ot) return;
+    window.MadarkApi.call("ownerReport", { token: ot }).then(function (r) {
+      if (r && r.ok) {
+        serverReport = { users: r.users || [], bookings: r.bookings || [] };
+        renderReportFrom(serverReport.users, serverReport.bookings);
+        renderTeacherRequestsFrom(serverReport.users.filter(function (u) { return u.role === "teacher"; }));
+      } else if (r && r.error === "غير مصرح — سجّل دخول المالك أولاً") {
+        window.MadarkApi.clearOwnerToken();
+      }
+    });
+  }
+
+  /* ---------- طلبات المعلمين: العرض والاعتماد والرفض ---------- */
+  function teacherIdOf(acc) {
+    return (acc.email || acc.phone || "").toLowerCase();
+  }
+  function renderTeacherRequestsFrom(list) {
+    var wrap = $("#ad-teacher-requests");
+    if (!wrap) return;
+    list = list || [];
+    if (!list.length) {
+      wrap.innerHTML = '<p class="admin-hint" style="text-align:center;padding:14px 0;">لا توجد طلبات معلمين حالياً.</p>';
+      return;
+    }
+    var html = "";
+    list.forEach(function (acc) {
+      var badge = acc.status === "approved"
+        ? '<span style="background:rgba(16,185,129,.15);color:#047857;font-size:11px;font-weight:800;padding:3px 10px;border-radius:999px;">معتمد</span>'
+        : acc.status === "rejected"
+          ? '<span style="background:rgba(239,68,68,.15);color:#b91c1c;font-size:11px;font-weight:800;padding:3px 10px;border-radius:999px;">مرفوض</span>'
+          : '<span style="background:rgba(245,158,11,.15);color:#b45309;font-size:11px;font-weight:800;padding:3px 10px;border-radius:999px;">بانتظار المراجعة</span>';
+      var ident = teacherIdOf(acc);
+      var when = acc.createdAt ? new Date(acc.createdAt).toLocaleDateString("ar-SA") : (acc.at ? new Date(acc.at).toLocaleDateString("ar-SA") : "—");
+      var certLink = acc.certData
+        ? '<a href="' + acc.certData + '" target="_blank" rel="noopener" download="' + esc(acc.certName || "شهادة") + '" style="color:var(--primary);font-weight:700;font-size:13px;display:inline-flex;align-items:center;gap:5px;">📄 عرض الشهادة' + (acc.certName ? " (" + esc(acc.certName) + ")" : "") + "</a>"
+        : '<span style="font-size:12.5px;color:var(--text-muted);">لا توجد شهادة</span>';
+      var actions = acc.status === "pending"
+        ? '<button type="button" class="btn btn-primary btn-sm" data-tr="approve" data-tr-email="' + esc(ident) + '">اعتماد</button>' +
+          '<button type="button" class="btn btn-outline btn-sm" data-tr="reject" data-tr-email="' + esc(ident) + '">رفض</button>'
+        : acc.status === "approved"
+          ? '<button type="button" class="btn btn-outline btn-sm" data-tr="reject" data-tr-email="' + esc(ident) + '">إلغاء الاعتماد</button>'
+          : '<button type="button" class="btn btn-primary btn-sm" data-tr="approve" data-tr-email="' + esc(ident) + '">إعادة الاعتماد</button>';
+      html += '<div class="profile-id" style="flex-wrap:wrap;border-radius:12px;padding:10px 12px;margin-bottom:10px;border:1.5px solid var(--border);' + (acc.status === "pending" ? "border-color:rgba(245,158,11,.5);background:rgba(245,158,11,.05);" : "") + '">' +
+        '<span class="avatar" style="width:42px;height:42px;font-size:16px;">' + esc((acc.name || "م").charAt(0)) + "</span>" +
+        '<span style="flex:1;min-width:170px;"><b style="display:block;">' + esc(acc.name) + '</b><small style="color:var(--text-muted);">' + esc(ident) + " • سجل في " + when + " • " + badge + "</small></span>" +
+        '<span style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">' + certLink + actions + "</span>" +
+        "</div>";
+    });
+    wrap.innerHTML = html;
+    wrap.querySelectorAll("[data-tr]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        setTeacherStatus(btn.getAttribute("data-tr-email"), btn.getAttribute("data-tr") === "approve" ? "approved" : "rejected");
+      });
+    });
+  }
+  function setTeacherStatus(email, status) {
+    var list = getAccounts();
+    list.forEach(function (a) {
+      if (teacherIdOf(a) === String(email || "").toLowerCase()) a.status = status;
+    });
+    try { localStorage.setItem("madark-accounts", JSON.stringify(list)); } catch (e) {}
+    if (window.MadarkApi) {
+      var ot = window.MadarkApi.getOwnerToken();
+      if (ot) {
+        window.MadarkApi.call("approveTeacher", { token: ot, email: email, status: status }).then(function (r) {
+          if (r && r.error === "غير مصرح — سجّل دخول المالك أولاً") window.MadarkApi.clearOwnerToken();
+        });
+      }
+    }
+    toast(status === "approved" ? "تم اعتماد المعلم — أصبح بإمكانه الدخول ✅" : "تم رفض الطلب", status === "approved" ? "success" : "error");
+    renderUsersReport();
+  }
   function downloadReport() {
-    var accounts = getAccounts();
-    var bookings = getBookings();
+    var data = serverReport || { users: getAccounts(), bookings: getBookings() };
+    var accounts = data.users || [];
+    var bookings = data.bookings || [];
     var dateStr = new Date().toLocaleDateString("ar-SA");
     var brandName = (settings.brand && settings.brand.name) || "مدارك";
     var rows = "";
     accounts.forEach(function (acc) {
-      var mine = bookings.filter(function (b) { return b.by && (b.by || "").toLowerCase() === (acc.email || "").toLowerCase(); });
-      var when = acc.at ? new Date(acc.at).toLocaleDateString("ar-SA") : "—";
-      rows += '<div class="u"><div class="uh"><strong>' + esc(acc.name) + "</strong><span>" + esc(acc.email) + " • " + roleLabel(acc.role) + " • سجل في " + when + "</span></div>";
+      var mine = bookings.filter(function (b) { return ownerKeyOf(b) === teacherIdOf(acc); });
+      var when = acc.createdAt ? new Date(acc.createdAt).toLocaleDateString("ar-SA") : (acc.at ? new Date(acc.at).toLocaleDateString("ar-SA") : "—");
+      rows += '<div class="u"><div class="uh"><strong>' + esc(acc.name) + "</strong><span>" + esc(acc.email || acc.phone) + " • " + roleLabel(acc.role) + " • سجل في " + when + "</span></div>";
       if (mine.length) {
         rows += '<table><tr><th>#</th><th>المعلم</th><th>التاريخ</th><th>الوقت</th><th>النوع</th><th>تاريخ الحجز</th></tr>';
         mine.forEach(function (b, i) {

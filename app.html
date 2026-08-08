@@ -241,6 +241,11 @@
     .auth-tab { padding: 11px; border-radius: var(--radius-sm); font-weight: 800; font-size: 15px; color: var(--text-muted); transition: var(--transition); }
     .auth-tab.active { background: var(--card); color: var(--primary); box-shadow: var(--shadow); }
     .cert-hint { display: block; font-size: 12px; color: var(--text-muted); margin-top: 6px; line-height: 1.5; }
+    .cert-hint.err { color: #b91c1c; }
+    .cert-hint.ok { color: #047857; }
+    .btn-otp { flex-shrink: 0; padding: 0 14px; font-size: 13px; border-radius: var(--radius-sm); background: var(--primary); color: #fff; border: none; cursor: pointer; font-weight: 800; height: 46px; white-space: nowrap; }
+    .btn-otp:disabled { opacity: .6; cursor: not-allowed; }
+    #phone-field .input-wrap input { flex: 1; min-width: 0; }
 
     .teacher-req { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border: 1px solid var(--border); border-radius: 14px; background: var(--bg-soft); margin-bottom: 10px; flex-wrap: wrap; }
     .teacher-req .tr-avatar { width: 44px; height: 44px; border-radius: 12px; background: var(--gradient); color: #fff; display: grid; place-items: center; font-weight: 900; font-size: 17px; flex-shrink: 0; }
@@ -255,6 +260,10 @@
     .tr-badge.pending { background: rgba(245,158,11,.15); color: #b45309; }
     .tr-badge.approved { background: rgba(16,185,129,.15); color: #047857; }
     .tr-badge.rejected { background: rgba(239,68,68,.15); color: #b91c1c; }
+
+    .owner-stat { border: 1.5px solid var(--border); border-radius: 14px; padding: 14px; text-align: center; background: var(--card); }
+    .owner-stat b { font-family: var(--font-head); font-size: 24px; display: block; color: var(--primary); }
+    .owner-stat span { font-size: 12.5px; color: var(--text-muted); }
 
     .form-group { margin-bottom: 16px; }
     .form-group label { display: block; font-weight: 700; font-size: 14px; margin-bottom: 7px; }
@@ -272,9 +281,6 @@
 
     .form-check { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--text-muted); cursor: pointer; }
     .form-check input { accent-color: var(--primary); width: 16px; height: 16px; cursor: pointer; }
-    .auth-alt { text-align: center; margin: 18px 0; color: var(--text-muted); font-size: 14px; position: relative; }
-    .auth-alt::before, .auth-alt::after { content: ""; position: absolute; top: 50%; width: 34%; height: 1px; background: var(--border); }
-    .auth-alt::before { right: 0; } .auth-alt::after { left: 0; }
 
     /* ============================================
        الشاشة الثانية — اختيار الصف والمادة والوقت والاشتراك
@@ -321,6 +327,8 @@
     .plan-info small { color: var(--text-muted); font-size: 12.5px; }
     .plan-price { font-family: var(--font-head); font-weight: 900; font-size: 17px; color: var(--primary); white-space: nowrap; }
     .plan-price small { font-size: 12px; color: var(--text-soft); font-weight: 600; display: block; text-align: left; }
+    .plan-badge { display: inline-block; margin-top: 4px; background: var(--accent); color: #fff; font-size: 10.5px; font-weight: 800; padding: 2px 8px; border-radius: 20px; }
+    .plan-old { color: var(--danger) !important; text-decoration: line-through; font-size: 12px !important; margin-right: 4px; display: inline !important; }
 
     .summary {
       position: sticky; top: 92px;
@@ -384,6 +392,33 @@
     .cfg-stages { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
     .cfg-stages label { display: block; font-weight: 700; font-size: 13px; margin-bottom: 6px; }
     .methods-cfg { display: grid; gap: 10px; margin-bottom: 18px; padding-bottom: 16px; border-bottom: 1px dashed var(--border-strong); }
+
+    .admin-grid .input-wrap select {
+      width: 100%; padding: 11px 14px; border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm); background: var(--bg); color: var(--text);
+      outline: none; font-size: 14px; cursor: pointer;
+    }
+    .admin-grid .input-wrap select:focus { border-color: var(--primary); box-shadow: 0 0 0 4px var(--ring); }
+    .theme-cfg { display: grid; gap: 12px; }
+    .color-input { display: flex; align-items: center; gap: 10px; }
+    .color-input input[type="color"] {
+      width: 46px; height: 42px; padding: 3px; border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm); background: var(--bg); cursor: pointer;
+    }
+    .color-input input[type="text"] { flex: 1; }
+    .theme-live { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+    .offer-row {
+      display: grid; grid-template-columns: 1.2fr 1fr 1fr .7fr auto auto; gap: 10px;
+      align-items: center; padding: 12px; margin-bottom: 10px;
+      background: var(--bg); border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+    }
+    .offer-row input, .offer-row select { width: 100%; }
+    .offer-row .form-check { display: flex; align-items: center; gap: 6px; font-size: 13px; white-space: nowrap; }
+    .offer-del { border: none; background: var(--danger); color: #fff; width: 34px; height: 34px; border-radius: var(--radius-sm); cursor: pointer; font-size: 15px; line-height: 1; }
+    .offer-hint { margin-top: 12px; color: var(--text-muted); font-size: 13px; }
+    @media (max-width: 860px) {
+      .offer-row { grid-template-columns: 1fr 1fr; }
+    }
 
     /* ============================================
        قاعة الدرس — مكالمات ومشاركة
@@ -690,6 +725,21 @@
     .footer { background: var(--bg-soft); border-top: 1px solid var(--border); padding: 26px 0; text-align: center; font-size: 13px; color: var(--text-muted); }
     .footer .logo { justify-content: center; margin-bottom: 8px; font-size: 18px; }
 
+    /* ============================================
+       الملف الشخصي للمستخدم
+       ============================================ */
+    .nav-actions { display: flex; gap: 8px; align-items: center; }
+    .nav-actions .btn { margin-right: 2px; }
+    .profile-id { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border: 1px solid var(--border); border-radius: 14px; background: var(--bg-soft); margin-bottom: 14px; }
+    .profile-id small { display: block; color: var(--text-muted); margin-top: 3px; }
+    .profile-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .profile-table th, .profile-table td { border: 1px solid var(--border); padding: 8px 10px; text-align: right; }
+    .profile-table th { background: var(--bg-soft); color: var(--text-muted); font-weight: 700; }
+    .profile-table-wrap { max-height: 280px; overflow: auto; border-radius: 12px; border: 1px solid var(--border); }
+    .report-user { border: 1px solid var(--border); border-radius: 14px; padding: 14px 16px; margin-bottom: 12px; background: var(--bg-soft); }
+    .report-user-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 10px; }
+    .report-count { margin-right: auto; font-size: 12.5px; font-weight: 800; color: var(--primary); background: var(--primary-soft); padding: 4px 12px; border-radius: 999px; }
+
     #toast-box { position: fixed; bottom: 24px; right: 24px; z-index: 99999; display: flex; flex-direction: column; gap: 10px; }
     .toast-el { color: #fff; padding: 14px 22px; border-radius: 12px; font-weight: 700; font-size: 14px; box-shadow: 0 10px 30px rgba(0,0,0,.2); animation: slideUp .35s ease; direction: rtl; }
 
@@ -734,14 +784,9 @@
         </span>
         <span id="hdrBrandName">المنارة<small id="hdrBrandTag">للتعليم والتدريب</small></span>
       </a>
-
-      <div class="theme-switch" role="group" aria-label="اختيار ألوان التطبيق">
-        <button type="button" data-theme-btn="blue-orange" class="active" title="أبيض / أزرق / برتقالي" aria-label="أبيض / أزرق / برتقالي">
-          <span class="swatch blue-orange"></span>
-        </button>
-        <button type="button" data-theme-btn="green-cyan" title="أبيض / رمادي / سماوي" aria-label="أبيض / رمادي / سماوي">
-          <span class="swatch green-cyan"></span>
-        </button>
+      <div class="nav-actions" id="navActions">
+        <button type="button" class="btn btn-outline btn-sm" id="profileBtn" style="display:none;">ملفي</button>
+        <button type="button" class="btn btn-outline btn-sm" id="logoutBtn" style="display:none;">خروج</button>
       </div>
     </div>
   </header>
@@ -797,10 +842,10 @@
           <!-- تسجيل الدخول -->
           <form data-auth-form="login">
             <div class="form-group">
-              <label for="email">البريد الإلكتروني</label>
+              <label for="email">البريد الإلكتروني أو رقم الجوال</label>
               <div class="input-wrap">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
-                <input type="email" id="email" placeholder="example@email.com" required>
+                <input type="text" id="email" name="loginId" placeholder="example@email.com أو 05xxxxxxxx" required autocomplete="username">
               </div>
             </div>
             <div class="form-group">
@@ -819,17 +864,10 @@
             </div>
             <button type="submit" class="btn btn-primary btn-lg btn-block">تسجيل الدخول</button>
 
-            <div class="auth-alt">أو عبر</div>
-            <div class="social-row" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-              <button type="button" class="btn btn-outline">
-                <svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.27-4.74 3.27-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84A11 11 0 0 0 12 23z"/><path fill="#FBBC05" d="M5.84 14.1a6.6 6.6 0 0 1 0-4.2V7.06H2.18a11 11 0 0 0 0 9.88l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
-                جوجل
-              </button>
-              <button type="button" class="btn btn-outline">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.5.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.56 9.56 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85V21c0 .27.18.58.69.48A10 10 0 0 0 22 12c0-5.52-4.48-10-10-10z"/></svg>
-                أبل
-              </button>
-            </div>
+            <p style="text-align:center;font-size:12.5px;color:var(--text-muted);margin-top:16px;">
+              الدخول بالجوال السعودي: اكتب رقمك في الحقل أعلاه مع كلمة المرور.
+            </p>
+
             <p style="text-align:center;font-size:14px;color:var(--text-muted);margin-top:18px;">
               ليس لديك حساب؟
               <a href="#" style="color:var(--primary);font-weight:800;" onclick="document.querySelector('[data-tab=signup]').click();return false;">أنشئ حساباً جديداً</a>
@@ -879,10 +917,34 @@
               </div>
             </div>
             <div class="form-group">
+              <label>سجّل عبر</label>
+              <div class="auth-tabs" style="margin-bottom:0;">
+                <button type="button" class="auth-tab active" data-method-tab="email">بريد إلكتروني</button>
+                <button type="button" class="auth-tab" data-method-tab="phone">جوال سعودي</button>
+              </div>
+              <input type="hidden" id="reg-method" value="email">
+            </div>
+            <div class="form-group" id="email-field">
               <label for="reg-email">البريد الإلكتروني</label>
               <div class="input-wrap">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
-                <input type="email" id="reg-email" placeholder="example@email.com" required>
+                <input type="email" id="reg-email" placeholder="example@email.com">
+              </div>
+            </div>
+            <div class="form-group" id="phone-field" style="display:none;">
+              <label for="reg-phone">رقم الجوال (سعودي)</label>
+              <div class="input-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                <input type="tel" id="reg-phone" placeholder="05xxxxxxxx" inputmode="numeric">
+                <button type="button" class="btn btn-otp" id="send-otp-btn">إرسال الرمز</button>
+              </div>
+              <small class="cert-hint" id="otp-hint">سيرسل لك رمز تحقق برسالة نصية لتأكيد رقمك.</small>
+            </div>
+            <div class="form-group" id="otp-field" style="display:none;">
+              <label for="reg-otp">رمز التحقق</label>
+              <div class="input-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                <input type="text" id="reg-otp" inputmode="numeric" maxlength="6" placeholder="••••••" autocomplete="one-time-code">
               </div>
             </div>
             <div class="form-group">
@@ -1055,6 +1117,7 @@
             <span class="t-label">الإجمالي</span>
             <span class="t-price" id="sumTotal">200 ر.س</span>
           </div>
+          <div class="sum-old-wrap"><span id="sumOld" style="display:none;color:var(--danger);font-size:13px;font-weight:700;"></span></div>
           <button type="button" class="btn btn-primary btn-lg btn-block" id="goPayBtn">المتابعة للدفع</button>
           <div class="sum-hint">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
@@ -1348,6 +1411,65 @@
           </div>
         </div>
 
+        <!-- المظهر والألوان والخطوط -->
+        <div class="panel">
+          <h3>
+            <span class="p-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg></span>
+            المظهر والألوان والخطوط
+          </h3>
+          <div class="theme-cfg">
+            <div class="form-group">
+              <label for="cfgColorPrimary">اللون الأساسي</label>
+              <div class="color-input"><input type="color" id="cfgColorPrimary" value="#2563eb"><input type="text" id="cfgColorPrimaryHex" placeholder="#2563eb"></div>
+            </div>
+            <div class="form-group">
+              <label for="cfgColorPrimaryDark">اللون الأساسي (داكن)</label>
+              <div class="color-input"><input type="color" id="cfgColorPrimaryDark" value="#1e3a8a"><input type="text" id="cfgColorPrimaryDarkHex" placeholder="#1e3a8a"></div>
+            </div>
+            <div class="form-group">
+              <label for="cfgColorPrimaryDeeper">اللون الأساسي (أغمق)</label>
+              <div class="color-input"><input type="color" id="cfgColorPrimaryDeeper" value="#0f1e47"><input type="text" id="cfgColorPrimaryDeeperHex" placeholder="#0f1e47"></div>
+            </div>
+            <div class="form-group">
+              <label for="cfgColorPrimaryLight">اللون الأساسي (فاتح)</label>
+              <div class="color-input"><input type="color" id="cfgColorPrimaryLight" value="#3b82f6"><input type="text" id="cfgColorPrimaryLightHex" placeholder="#3b82f6"></div>
+            </div>
+            <div class="form-group">
+              <label for="cfgColorPrimarySoft">اللون الأساسي (خلفيات ناعمة)</label>
+              <div class="color-input"><input type="color" id="cfgColorPrimarySoft" value="#eff6ff"><input type="text" id="cfgColorPrimarySoftHex" placeholder="#eff6ff"></div>
+            </div>
+            <div class="form-group">
+              <label for="cfgColorAccent">اللون المميز (الشارات)</label>
+              <div class="color-input"><input type="color" id="cfgColorAccent" value="#f59e0b"><input type="text" id="cfgColorAccentHex" placeholder="#f59e0b"></div>
+            </div>
+            <div class="form-group">
+              <label for="cfgFontBody">الخط الرئيسي</label>
+              <div class="input-wrap"><select id="cfgFontBody"><option value="">الافتراضي (Tajawal)</option></select></div>
+            </div>
+            <div class="form-group" style="margin-bottom:0;">
+              <label for="cfgFontHead">خط العناوين</label>
+              <div class="input-wrap"><select id="cfgFontHead"><option value="">الافتراضي (Cairo)</option></select></div>
+            </div>
+          </div>
+          <div class="theme-live">
+            <button type="button" class="btn btn-outline btn-sm" id="themeLiveBtn">معاينة مباشرة</button>
+            <button type="button" class="btn btn-outline btn-sm" id="themeResetBtn">إعادة الافتراضي</button>
+          </div>
+        </div>
+
+        <!-- العروض والتخفيضات -->
+        <div class="panel panel-wide">
+          <h3>
+            <span class="p-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg></span>
+            العروض والتخفيضات
+          </h3>
+          <div id="offersList"></div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;">
+            <button type="button" class="btn btn-outline btn-sm" id="addOfferBtn">+ إضافة عرض</button>
+          </div>
+          <div class="offer-hint">تُطبق العروض تلقائياً على السعر المعروض للمستفيدين عند اختيار الخطة، ويظهر السعر قبل الخصم مشطوباً.</div>
+        </div>
+
         <!-- المراحل والمواد -->
         <div class="panel panel-wide">
           <h3>
@@ -1423,6 +1545,16 @@
           </p>
         </div>
 
+        <!-- إحصائيات المنصة -->
+        <div class="panel panel-wide">
+          <h3>
+            <span class="p-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg></span>
+            إحصائيات المنصة
+          </h3>
+          <p style="font-size:13px;color:var(--text-muted);margin:0 0 14px;">أرقام حقيقية محسوبة من حسابات وحصص الخادم — لا تظهر إلا للمالك هنا.</p>
+          <div id="ownerStats" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;"></div>
+        </div>
+
         <!-- طلبات المعلمين -->
         <div class="panel panel-wide">
           <h3>
@@ -1431,6 +1563,20 @@
           </h3>
           <p style="font-size:13px;color:var(--text-muted);margin:0 0 14px;">المعلمون المتقدمون بانتظار الموافقة — راجع شهادة التخصص ثم اعتمد أو ارفض.</p>
           <div id="teacherReqList"></div>
+        </div>
+
+        <!-- سجل المستخدمين والحصص — للمراجعة -->
+        <div class="panel panel-wide">
+          <h3>
+            <span class="p-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/><path d="M12 11v6"/><path d="M9 14h6"/></svg></span>
+            سجل المستخدمين والحصص — للمراجعة
+          </h3>
+          <p style="font-size:13px;color:var(--text-muted);margin:0 0 14px;">ملف خاص يعرض كل مستخدم مسجل وحصصه المحجوزة. استخدم زر التنزيل لحفظ نسخة المراجعة (HTML) في مجلد خاص بك على جهازك.</p>
+          <div id="reportUsers"></div>
+          <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;">
+            <button type="button" class="btn btn-primary btn-sm" id="reportDownloadBtn">تنزيل ملف المراجعة</button>
+            <button type="button" class="btn btn-outline btn-sm" id="reportRefreshBtn">تحديث السجل</button>
+          </div>
         </div>
       </div>
     </div>
@@ -1476,6 +1622,7 @@
           <span class="pay-item-type" id="payItemType">—</span>
         </div>
         <div class="pay-amount" id="payPrice">0</div>
+        <div id="payOld" style="display:none;color:var(--danger);font-size:13px;font-weight:700;text-align:center;margin-top:4px;"></div>
       </div>
 
       <div id="paySim">
@@ -1518,6 +1665,28 @@
   </div>
 
   <!-- ============================================================
+       نافذة الملف الشخصي
+       ============================================================ -->
+  <div class="pay-modal" id="profileModal" aria-hidden="true">
+    <div class="pay-overlay" data-pclose></div>
+    <div class="pay-box" role="dialog" aria-modal="true" aria-labelledby="profileTitle">
+      <button class="pay-close" data-pclose aria-label="إغلاق">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+      <div class="pay-head">
+        <span class="pay-lock">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </span>
+        <div>
+          <h3 id="profileTitle">الملف الشخصي</h3>
+          <p class="pay-sub">بياناتك وحصصك المسجلة</p>
+        </div>
+      </div>
+      <div class="profile-body" id="profileBody"></div>
+    </div>
+  </div>
+
+  <!-- ============================================================
        نافذة اختبار جودة الصوت
        ============================================================ -->
   <div class="aq-modal" id="aqModal" aria-hidden="true">
@@ -1548,6 +1717,23 @@
 
       var $ = function (s, c) { return (c || document).querySelector(s); };
       var $$ = function (s, c) { return Array.from((c || document).querySelectorAll(s)); };
+
+      /* ============================================
+         الاتصال بالخادم المشترك (Netlify Function)
+         ============================================ */
+      function apiCall(action, payload) {
+        var t = null;
+        try { t = localStorage.getItem("manara-token") || null; } catch (e) {}
+        return fetch("/.netlify/functions/manara-api", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(Object.assign({ action: action, token: t }, payload || {}))
+        }).then(function (r) {
+          return r.json().catch(function () { return { ok: false, error: "bad-response" }; });
+        }).catch(function () {
+          return { ok: false, error: "network" };
+        });
+      }
 
       var root = document.documentElement;
 
@@ -1604,7 +1790,14 @@
         times: ["السبت — 4:00 عصراً", "السبت — 6:00 مساءً", "الأحد — 5:00 عصراً", "الاثنين — 7:00 مساءً", "الثلاثاء — 5:30 عصراً", "الأربعاء — 6:30 مساءً", "الخميس — 4:30 عصراً"],
         teachers: ["أ. خالد الحربي — الرياضيات", "د. منى الشريف — العلوم", "أ. سارة القحطاني — اللغة العربية", "م. عمر السبيعي — الفيزياء", "أ. نورة العتيبي — اللغة الإنجليزية"],
         methods: ["mada", "visa", "applepay", "stcpay"],
-        gateway: { moyasarKey: "", callbackUrl: "" }
+        gateway: { moyasarKey: "", callbackUrl: "" },
+        /* تخصيص المظهر: اترك القيمة فارغة لاستخدام ثيم التطبيق الافتراضي */
+        theme: {
+          colors: { primary: "", primaryDark: "", primaryDeeper: "", primaryLight: "", primarySoft: "", accent: "" },
+          fonts: { body: "", head: "" }
+        },
+        /* العروض والتخفيضات: array من كائنات العرض */
+        offers: []
       };
 
       var SETTINGS = loadSettings();
@@ -1639,6 +1832,76 @@
         $("#hdrBrandName").innerHTML = name + "<small>" + tag + "</small>";
         $("#ftrBrandName").innerHTML = name + "<small>" + tag + "</small>";
         $("#loginGreet").textContent = "مرحباً بك في " + name;
+      }
+
+      /* ============================================
+         تخصيص المظهر: ألوان وخطوط المالك
+         تُطبق فوق الثيم الافتراضي عبر متغيرات CSS
+         ============================================ */
+      var THEME_VARS = ["--primary", "--primary-dark", "--primary-deeper", "--primary-soft", "--accent", "--gradient", "--gradient-soft", "--shadow-primary", "--ring", "--font", "--font-head"];
+      function toRgba(hex, alpha) {
+        var h = String(hex || "").replace("#", "");
+        if (h.length === 3) h = h.split("").map(function (x) { return x + x; }).join("");
+        var n = parseInt(h, 16);
+        if (isNaN(n) || h.length !== 6) return "rgba(37, 99, 235, " + alpha + ")";
+        return "rgba(" + ((n >> 16) & 255) + ", " + ((n >> 8) & 255) + ", " + (n & 255) + ", " + alpha + ")";
+      }
+      function applyCustomTheme() {
+        THEME_VARS.forEach(function (v) { root.style.removeProperty(v); });
+        var th = SETTINGS.theme || {};
+        var c = th.colors || {};
+        var f = th.fonts || {};
+        function setV(n, v) { if (v) root.style.setProperty(n, v); }
+        setV("--primary", c.primary);
+        setV("--primary-dark", c.primaryDark);
+        setV("--primary-deeper", c.primaryDeeper);
+        setV("--primary-soft", c.primarySoft);
+        setV("--accent", c.accent);
+        if (c.primary) {
+          var light = c.primaryLight || c.primary;
+          var dark = c.primaryDark || c.primary;
+          setV("--gradient", "linear-gradient(135deg, " + c.primary + " 0%, " + light + " 55%, " + dark + " 100%)");
+          setV("--gradient-soft", "linear-gradient(135deg, " + (c.primarySoft || c.primary) + " 0%, rgba(255,255,255,.25) 100%)");
+          setV("--shadow-primary", "0 10px 30px " + toRgba(c.primary, 0.30));
+          setV("--ring", "0 0 0 3px " + toRgba(c.primary, 0.15));
+        }
+        if (f.body) setV("--font", "'" + f.body + "', 'Tajawal', 'Cairo', system-ui, sans-serif");
+        if (f.head) setV("--font-head", "'" + f.head + "', 'Cairo', 'Tajawal', system-ui, sans-serif");
+        var known = ["Cairo", "Tajawal", "Almarai", "Rubik", "Noto Kufi Arabic", "Amiri", "El Messiri", "Alexandria", "IBM Plex Sans Arabic", "Reem Kufi"];
+        var needed = [];
+        [f.body, f.head].forEach(function (name) {
+          if (name && known.indexOf(name) !== -1 && needed.indexOf(name) === -1) needed.push(name);
+        });
+        needed.forEach(function (name) {
+          if (document.querySelector('link[data-font="' + name + '"]')) return;
+          var link = document.createElement("link");
+          link.rel = "stylesheet";
+          link.setAttribute("data-font", name);
+          link.href = "https://fonts.googleapis.com/css2?family=" + encodeURIComponent(name) + ":wght@400;500;700;800;900&display=swap";
+          document.head.appendChild(link);
+        });
+      }
+
+      /* ============================================
+         العروض والتخفيضات: حساب السعر الفعلي بعد الخصم
+         ============================================ */
+      function planPrice(key) {
+        var p = SETTINGS.plans[key];
+        if (!p) return { price: 0, oldPrice: 0, badge: "", discount: 0 };
+        if (p.price === 0) return { price: 0, oldPrice: 0, badge: "", discount: 0 };
+        var best = null;
+        (SETTINGS.offers || []).forEach(function (o) {
+          if (!o.active || !o.plans || o.plans.indexOf(key) === -1) return;
+          var value = Math.max(0, Number(o.value) || 0);
+          if (value <= 0) return;
+          var discount = o.type === "percent" ? Math.round(p.price * value / 100) : value;
+          var newPrice = Math.max(0, p.price - discount);
+          if (!best || newPrice < best.price) {
+            best = { price: newPrice, discount: discount, badge: o.badge || o.title || "" };
+          }
+        });
+        if (!best) return { price: p.price, oldPrice: 0, badge: "", discount: 0 };
+        return { price: best.price, oldPrice: p.price, badge: best.badge, discount: best.discount };
       }
 
       /* ============================================
@@ -1678,6 +1941,22 @@
       /* ============================================
          حسابات المستخدمين (تخزين محلي)
          ============================================ */
+      function looksLikeSaudiPhone(v) {
+        var d = String(v || "").replace(/\D/g, "");
+        if (d.startsWith("00")) d = d.slice(2);
+        if (d.length === 10 && d.startsWith("05")) return true;
+        if (d.length === 9 && d.startsWith("5")) return true;
+        if (d.length === 12 && d.startsWith("9665")) return true;
+        return false;
+      }
+      function normalizePhone(v) {
+        var p = String(v || "").replace(/\D/g, "");
+        if (p.startsWith("00")) p = p.slice(2);
+        if (p.length === 10 && p.startsWith("05")) p = "966" + p.slice(1);
+        else if (p.length === 9 && p.startsWith("5")) p = "966" + p;
+        if (!/^9665\d{8}$/.test(p)) return "";
+        return "+" + p;
+      }
       function getAccounts() {
         try { return JSON.parse(localStorage.getItem("manara-accounts") || "[]"); } catch (e) { return []; }
       }
@@ -1686,13 +1965,53 @@
       }
       function findAccount(email) {
         email = (email || "").trim().toLowerCase();
+        var byPhone = normalizePhone(email);
         var list = getAccounts();
-        for (var i = 0; i < list.length; i++) if ((list[i].email || "").toLowerCase() === email) return list[i];
+        for (var i = 0; i < list.length; i++) {
+          if ((list[i].email || "").toLowerCase() === email) return list[i];
+          if (byPhone && normalizePhone(list[i].email) === byPhone) return list[i];
+        }
         return null;
       }
-      function loginSuccess(name, role) {
-        try { localStorage.setItem("manara-user", JSON.stringify({ name: name, role: role })); } catch (e) {}
+      function currentUser() {
+        try { return JSON.parse(localStorage.getItem("manara-user") || "null"); } catch (e) { return null; }
+      }
+      function getBookings() {
+        try { return JSON.parse(localStorage.getItem("manara-bookings") || "[]"); } catch (e) { return []; }
+      }
+      function saveBookings(list) {
+        try { localStorage.setItem("manara-bookings", JSON.stringify(list)); } catch (e) {}
+      }
+      function saveBookingRecord() {
+        var u = currentUser();
+        var pr = planPrice(planKey);
+        var rec = {
+          name: (u && u.name) || $("#email").value || "مستخدم",
+          email: (u && u.email) || "",
+          subject: $("#subject").value,
+          grade: $("#grade").value,
+          teacher: $("#teacher").value,
+          time: $("#time").value,
+          classType: classType,
+          plan: SETTINGS.plans[planKey].name,
+          planKey: planKey,
+          price: pr.price,
+          paid: pr.price > 0,
+          at: new Date().toISOString()
+        };
+        var list = getBookings();
+        list.push(rec);
+        saveBookings(list);
+        var tok = null;
+        try { tok = localStorage.getItem("manara-token") || null; } catch (e) {}
+        if (tok) apiCall("book", { token: tok, booking: rec });
+      }
+      function loginSuccess(name, email, role) {
+        var e = (email || "").trim().toLowerCase();
+        if (looksLikeSaudiPhone(e)) e = normalizePhone(e);
+        try { localStorage.setItem("manara-user", JSON.stringify({ name: name, email: e, role: role })); } catch (err) {}
         toast("تم تسجيل الدخول بنجاح — أهلاً بك في " + SETTINGS.brand.name + " 🎉", "success");
+        refreshNavUser();
         initBooking();
         goScreen("booking");
       }
@@ -1713,91 +2032,270 @@
       });
 
       /* ============================================
+         تبويب طريقة التسجيل (بريد / جوال)
+         ============================================ */
+      var methodTabs = $$("[data-method-tab]");
+      methodTabs.forEach(function (tab) {
+        tab.addEventListener("click", function () {
+          var m = tab.getAttribute("data-method-tab");
+          methodTabs.forEach(function (t) { t.classList.remove("active"); });
+          tab.classList.add("active");
+          var methodIn = $("#reg-method");
+          if (methodIn) methodIn.value = m;
+          var emailF = $("#email-field");
+          var phoneF = $("#phone-field");
+          var otpF = $("#otp-field");
+          if (m === "phone") {
+            if (emailF) emailF.style.display = "none";
+            if (phoneF) phoneF.style.display = "";
+            if (otpF) otpF.style.display = "";
+          } else {
+            if (emailF) emailF.style.display = "";
+            if (phoneF) phoneF.style.display = "none";
+            if (otpF) otpF.style.display = "none";
+          }
+        });
+      });
+
+      /* إرسال رمز التحقق للجوال */
+      var sendOtpBtn = $("#send-otp-btn");
+      if (sendOtpBtn) {
+        sendOtpBtn.addEventListener("click", function () {
+          var phone = $("#reg-phone");
+          var hint = $("#otp-hint");
+          if (!phone) return;
+          var p = phone.value.trim();
+          if (!looksLikeSaudiPhone(p)) {
+            if (hint) { hint.className = "cert-hint err"; hint.textContent = "أدخل رقم جوال سعودي صحيح (مثال: 05xxxxxxxx)"; }
+            return;
+          }
+          sendOtpBtn.disabled = true;
+          if (hint) { hint.className = "cert-hint"; hint.textContent = "جارٍ إرسال الرمز…"; }
+          apiCall("sendOtp", { phone: p }).then(function (r) {
+            sendOtpBtn.disabled = false;
+            if (r && r.ok) {
+              if (hint) { hint.className = "cert-hint ok"; hint.textContent = "أُرسل الرمز إلى رقمك — أدخله أدناه"; }
+              var otpF = $("#otp-field");
+              if (otpF) otpF.style.display = "";
+              if (r.demo && r.code && $("#reg-otp")) {
+                $("#reg-otp").value = String(r.code);
+                if (hint) { hint.className = "cert-hint ok"; hint.textContent = "وضع تجريبي — تم تعبئة الرمز تلقائياً (" + r.code + ")"; }
+              }
+            } else {
+              if (hint) { hint.className = "cert-hint err"; hint.textContent = (r && r.error) ? r.error : "تعذر إرسال الرمز"; }
+            }
+          });
+        });
+      }
+
+      /* ============================================
          نماذج الدخول والتسجيل
          ============================================ */
       $$("[data-auth-form]").forEach(function (form) {
         form.addEventListener("submit", function (e) {
           e.preventDefault();
           var mode = form.getAttribute("data-auth-form");
-          var email = $("input[type=email]", form);
+          var idInput = $("input[name=loginId], input[type=email], input[type=tel]", form);
           var pass = $("input[type=password]", form);
-          if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) {
-            toast("يرجى إدخال بريد إلكتروني صحيح", "error"); email.focus(); return;
-          }
+          var idVal = (idInput && idInput.value ? idInput.value : "").trim();
+          var isPhone = looksLikeSaudiPhone(idVal);
           if (pass && pass.value.trim().length < 6) {
             toast("كلمة المرور يجب أن تكون 6 أحرف على الأقل", "error"); pass.focus(); return;
           }
           if (mode === "login") {
-            var acc = findAccount(email.value.trim());
-            if (!acc) {
-              toast("لا يوجد حساب بهذا البريد — أنشئ حساباً جديداً أولاً", "error"); email.focus(); return;
+            if (idVal && !isPhone && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(idVal)) {
+              toast("يرجى إدخال بريد إلكتروني صحيح أو رقم جوال سعودي", "error"); idInput.focus(); return;
             }
-            if (acc.password !== pass.value) {
-              toast("كلمة المرور غير صحيحة", "error"); pass.focus(); return;
+            var acc = findAccount(idVal);
+            if (isPhone && !acc) {
+              toast("لا يوجد حساب بهذا الرقم — أنشئ حساباً جديداً أولاً", "error"); idInput.focus(); return;
             }
-            if (acc.role === "teacher" && acc.status === "pending") {
-              toast("حسابك قيد المراجعة — بانتظار موافقة إدارة المنصة ⏳", "info"); return;
-            }
-            if (acc.role === "teacher" && acc.status === "rejected") {
-              toast("عذراً، تم رفض طلبك من قبل الإدارة", "error"); return;
-            }
-            loginSuccess(acc.name, acc.role);
-            return;
-          }
-          /* تسجيل حساب جديد */
-          if (getAccounts().some(function (a) { return (a.email || "").toLowerCase() === email.value.trim().toLowerCase(); })) {
-            toast("هذا البريد مسجل مسبقاً — سجّل دخولك", "error"); email.focus(); return;
-          }
-          var nameInput = $("input[type=text]", form);
-          var fullName = (nameInput && nameInput.value.trim()) || "مستخدم";
-          if (signupRole === "teacher") {
-            var certInput = $("#reg-cert");
-            if (!certInput.files || !certInput.files[0]) {
-              toast("يرجى إرفاق شهادة التخصص للموافقة على تسجيلك كمعلم", "error");
-              certInput && certInput.focus();
-              return;
-            }
-            var file = certInput.files[0];
-            if (file.size > 2 * 1024 * 1024) {
-              toast("حجم الشهادة كبير — يرجى اختيار ملف أصغر من 2 ميجابايت", "error"); return;
-            }
-            var reader = new FileReader();
-            reader.onload = function () {
-              var list = getAccounts();
-              list.push({
-                name: fullName,
-                email: email.value.trim().toLowerCase(),
-                password: pass.value,
-                role: "teacher",
-                status: "pending",
-                certName: file.name,
-                certData: reader.result,
-                createdAt: new Date().toISOString()
-              });
-              saveAccounts(list);
-              toast("تم إرسال طلبك — سيتم مراجعة شهادتك واعتمادك من قبل الإدارة ⏳", "success");
-              resetSignupForm();
-              $$("[data-tab]").forEach(function (t) {
-                if (t.getAttribute("data-tab") === "login") t.click();
-              });
+            var doLocal = function (local) {
+              if (!local) {
+                toast("لا يوجد حساب بهذه البيانات — أنشئ حساباً جديداً أولاً", "error"); idInput.focus(); return;
+              }
+              if (local.password && local.password !== pass.value) {
+                toast("كلمة المرور غير صحيحة", "error"); pass.focus(); return;
+              }
+              if (local.role === "teacher" && local.status === "pending") {
+                toast("حسابك قيد المراجعة — بانتظار موافقة إدارة المنصة ⏳", "info"); return;
+              }
+              if (local.role === "teacher" && local.status === "rejected") {
+                toast("عذراً، تم رفض طلبك من قبل الإدارة", "error"); return;
+              }
+              loginSuccess(local.name, local.email, local.role);
             };
-            reader.readAsDataURL(file);
+            apiCall("login", { identifier: idVal, password: pass.value }).then(function (r) {
+              if (r && r.ok && r.token) {
+                try {
+                  localStorage.setItem("manara-token", r.token);
+                  localStorage.setItem("manara-user", JSON.stringify(r.user));
+                  if (r.bookings) localStorage.setItem("manara-bookings", JSON.stringify(r.bookings));
+                } catch (e2) {}
+                var u = r.user || {};
+                if (u.role === "teacher" && u.status === "pending") {
+                  toast("حسابك قيد المراجعة — بانتظار موافقة إدارة المنصة ⏳", "info"); return;
+                }
+                if (u.role === "teacher" && u.status === "rejected") {
+                  toast("عذراً، تم رفض طلبك من قبل الإدارة", "error"); return;
+                }
+                loginSuccess(u.name, idVal, u.role);
+                return;
+              }
+              if (isPhone) {
+                toast(r && r.error && r.error !== "network" ? r.error : "تعذر التحقق من رقم الجوال — يلزم الاتصال بالخادم", "error");
+                return;
+              }
+              doLocal(acc);
+              if (r && r.error) toast(r.error, "error");
+            });
             return;
           }
-          /* طالب */
-          var list2 = getAccounts();
-          list2.push({
-            name: fullName,
-            email: email.value.trim().toLowerCase(),
-            password: pass.value,
-            role: "student",
-            status: "active",
-            certName: "",
-            certData: "",
-            createdAt: new Date().toISOString()
+
+          /* تسجيل حساب جديد */
+          var nameInput = $("input[type=text]", form);
+          var fullName = (nameInput && nameInput.value.trim()) || "";
+          if (!fullName) {
+            toast("أدخل اسمك الكامل", "error"); nameInput && nameInput.focus(); return;
+          }
+          var methodIn = $("#reg-method");
+          var method = (methodIn && methodIn.value) || "email";
+          var emailIn = $("#reg-email");
+          var phoneIn = $("#reg-phone");
+          var otpIn = $("#reg-otp");
+          var emailVal = (emailIn && emailIn.value ? emailIn.value : "").trim().toLowerCase();
+          var phoneVal = (phoneIn && phoneIn.value ? phoneIn.value : "").trim();
+          var otpVal = (otpIn && otpIn.value ? otpIn.value : "").trim();
+
+          function readCert() {
+            return new Promise(function (resolve) {
+              if (signupRole !== "teacher") { resolve({ certName: "", certData: "" }); return; }
+              var certInput = $("#reg-cert");
+              if (!certInput || !certInput.files || !certInput.files[0]) {
+                toast("يرجى إرفاق شهادة التخصص للموافقة على تسجيلك كمعلم", "error");
+                certInput && certInput.focus();
+                resolve(null);
+                return;
+              }
+              var file = certInput.files[0];
+              if (file.size > 2 * 1024 * 1024) {
+                toast("حجم الشهادة كبير — اختر ملفاً أصغر من 2 ميجابايت", "error");
+                resolve(null);
+                return;
+              }
+              var reader = new FileReader();
+              reader.onload = function () { resolve({ certName: file.name, certData: String(reader.result) }); };
+              reader.onerror = function () { toast("تعذر قراءة الملف", "error"); resolve(null); };
+              reader.readAsDataURL(file);
+            });
+          }
+
+          /* التسجيل بالجوال السعودي (يتطلب رمز OTP مُفعّل) */
+          if (method === "phone") {
+            if (!looksLikeSaudiPhone(phoneVal)) {
+              toast("أدخل رقم جوال سعودي صحيح (مثال: 05xxxxxxxx)", "error"); phoneIn && phoneIn.focus(); return;
+            }
+            if (!/^\d{4,6}$/.test(otpVal)) {
+              toast("أدخل رمز التحقق المرسل إلى جوالك", "error"); otpIn && otpIn.focus(); return;
+            }
+            readCert().then(function (cert) {
+              if (!cert) return;
+              apiCall("verifyOtp", { phone: phoneVal, code: otpVal }).then(function (vr) {
+                if (!vr || !vr.ok) {
+                  toast(vr && vr.error ? vr.error : "رمز التحقق غير صحيح", "error"); otpIn && otpIn.focus(); return;
+                }
+                apiCall("signup", { name: fullName, phone: phoneVal, password: pass.value, role: signupRole, certName: cert.certName, certData: cert.certData }).then(function (r) {
+                  if (r && r.ok) {
+                    try {
+                      localStorage.setItem("manara-token", r.token);
+                      localStorage.setItem("manara-user", JSON.stringify(r.user));
+                    } catch (e3) {}
+                    if (signupRole === "teacher") {
+                      toast("تم إنشاء حسابك كمعلّم — سيتم تفعيله بعد مراجعة الإدارة ⏳", "info");
+                    } else {
+                      loginSuccess(fullName, phoneVal, "student");
+                    }
+                    resetSignupForm();
+                    $$("[data-tab]").forEach(function (t) { if (t.getAttribute("data-tab") === "login") t.click(); });
+                    return;
+                  }
+                  if (r && r.error === "network") {
+                    toast("التسجيل بالجوال يتطلب الاتصال بالخادم — يلزم التحقق من رقمك أولاً", "error");
+                    return;
+                  }
+                  toast(r && r.error ? r.error : "تعذر إنشاء الحساب", "error");
+                });
+              });
+            });
+            return;
+          }
+
+          /* التسجيل بالبريد الإلكتروني */
+          if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
+            toast("يرجى إدخال بريد إلكتروني صحيح", "error"); emailIn && emailIn.focus(); return;
+          }
+          if (getAccounts().some(function (a) { return (a.email || "").toLowerCase() === emailVal; })) {
+            toast("هذا البريد مسجل مسبقاً — سجّل دخولك", "error"); emailIn && emailIn.focus(); return;
+          }
+          readCert().then(function (cert) {
+            if (!cert) return;
+            apiCall("signup", { name: fullName, email: emailVal, password: pass.value, role: signupRole, certName: cert.certName, certData: cert.certData }).then(function (r) {
+              if (r && r.ok) {
+                try {
+                  localStorage.setItem("manara-token", r.token);
+                  localStorage.setItem("manara-user", JSON.stringify(r.user));
+                } catch (e4) {}
+                if (signupRole === "teacher") {
+                  toast("تم إنشاء حسابك كمعلّم — سيتم تفعيله بعد مراجعة الإدارة ⏳", "info");
+                } else {
+                  loginSuccess(fullName, emailVal, "student");
+                }
+                resetSignupForm();
+                if (signupRole === "teacher") {
+                  $$("[data-tab]").forEach(function (t) { if (t.getAttribute("data-tab") === "login") t.click(); });
+                }
+                return;
+              }
+              if (r && r.error === "هذا البريد مسجل مسبقاً") {
+                apiCall("login", { identifier: emailVal, password: pass.value }).then(function (lr) {
+                  if (lr && lr.ok && lr.token) {
+                    try {
+                      localStorage.setItem("manara-token", lr.token);
+                      localStorage.setItem("manara-user", JSON.stringify(lr.user));
+                      if (lr.bookings) localStorage.setItem("manara-bookings", JSON.stringify(lr.bookings));
+                    } catch (e5) {}
+                    loginSuccess(lr.user ? lr.user.name : fullName, emailVal, "student");
+                  } else {
+                    toast(lr && lr.error ? lr.error : "هذا البريد مسجل مسبقاً — سجّل دخولك", "error");
+                  }
+                });
+                return;
+              }
+              if (r && r.error === "network") {
+                var list = getAccounts();
+                list.push({
+                  name: fullName,
+                  email: emailVal,
+                  password: pass.value,
+                  role: signupRole,
+                  status: signupRole === "teacher" ? "pending" : "active",
+                  certName: cert.certName,
+                  certData: cert.certData,
+                  createdAt: new Date().toISOString()
+                });
+                saveAccounts(list);
+                if (signupRole === "teacher") {
+                  toast("تم إرسال طلبك محلياً — سيتم مراجعة شهادتك من قبل الإدارة ⏳", "success");
+                } else {
+                  loginSuccess(fullName, emailVal, "student");
+                }
+                resetSignupForm();
+                $$("[data-tab]").forEach(function (t) { if (t.getAttribute("data-tab") === "login") t.click(); });
+              } else {
+                toast(r && r.error ? r.error : "تعذر إنشاء الحساب", "error");
+              }
+            });
           });
-          saveAccounts(list2);
-          loginSuccess(fullName, "student");
         });
       });
 
@@ -1808,13 +2306,103 @@
         if (nameIn) nameIn.value = "";
         if (mailIn) mailIn.value = "";
         if (pwIn) pwIn.value = "";
+        var phone = $("#reg-phone");
+        var otp = $("#reg-otp");
+        if (phone) phone.value = "";
+        if (otp) otp.value = "";
         var cert = $("#reg-cert");
         if (cert) { cert.value = ""; cert.required = false; }
         var tabs = $$("[data-signup-role]");
         tabs.forEach(function (b) { b.classList.toggle("active", b.getAttribute("data-signup-role") === "student"); });
         signupRole = "student";
         $("#certGroup").style.display = "none";
+        var emailF = $("#email-field");
+        var phoneF = $("#phone-field");
+        var otpF = $("#otp-field");
+        var hint = $("#otp-hint");
+        if (emailF) emailF.style.display = "";
+        if (phoneF) phoneF.style.display = "none";
+        if (otpF) otpF.style.display = "none";
+        if (hint) { hint.className = "cert-hint"; hint.textContent = "سيرسل لك رمز تحقق برسالة نصية لتأكيد رقمك."; }
+        var methodIn = $("#reg-method");
+        if (methodIn) methodIn.value = "email";
+        $$("[data-method-tab]").forEach(function (b) { b.classList.toggle("active", b.getAttribute("data-method-tab") === "email"); });
       }
+
+      /* ============================================
+         الملف الشخصي: عرض البيانات والحصص + الخروج
+         ============================================ */
+      function refreshNavUser() {
+        var u = currentUser();
+        var pf = $("#profileBtn");
+        var lo = $("#logoutBtn");
+        if (pf) pf.style.display = u ? "" : "none";
+        if (lo) lo.style.display = u ? "" : "none";
+      }
+      function renderProfileBody() {
+        var u = currentUser();
+        var body = $("#profileBody");
+        if (!body) return;
+        if (!u) { toast("سجّل الدخول أولاً لعرض ملفك", "error"); return; }
+        var mine = getBookings().filter(function (b) {
+          return b.email && u.email && b.email.toLowerCase() === u.email.toLowerCase();
+        });
+        var rows = mine.length
+          ? mine.map(function (b, i) {
+              var d = new Date(b.at);
+              return "<tr><td>" + (i + 1) + "</td><td>" + esc(b.subject) + "</td><td>" + esc(b.grade) + "</td><td>" + esc(b.teacher) + "</td><td>" + esc(b.time) + "</td><td>" + esc(b.plan) + "</td><td>" + (b.paid ? "مدفوع 💳" : "مجاني 🎁") + "</td><td>" + d.toLocaleDateString("ar-SA") + "</td></tr>";
+            }).join("")
+          : '<tr><td colspan="8" style="text-align:center;color:var(--text-muted);padding:18px;">لا توجد حصص مسجلة بعد — احجز حصتك الأولى.</td></tr>';
+        body.innerHTML =
+          '<div class="profile-id">' +
+            '<span class="tr-avatar">' + esc((u.name || "م").charAt(0)) + "</span>" +
+            '<div><b>' + esc(u.name) + "</b><small>" + esc(u.email) + "</small></div>" +
+          "</div>" +
+          '<p style="font-size:13px;color:var(--text-muted);margin:0 0 10px;">الدور: ' + (u.role === "teacher" ? "معلم 🧑‍🏫" : "طالب 🎓") + "</p>" +
+          '<h4 style="margin:4px 0 10px;">حصصي المسجلة (' + mine.length + ")</h4>" +
+          '<div class="profile-table-wrap"><table class="profile-table"><thead><tr><th>#</th><th>المادة</th><th>الصف</th><th>المعلم</th><th>الموعد</th><th>الباقة</th><th>الحالة</th><th>التاريخ</th></tr></thead><tbody>' + rows + "</tbody></table></div>";
+      }
+      function openProfile() {
+        var modal = $("#profileModal");
+        if (!modal) return;
+        if (!currentUser()) { toast("سجّل الدخول أولاً لعرض ملفك", "error"); return; }
+        renderProfileBody();
+        modal.classList.add("open");
+        var tok = null;
+        try { tok = localStorage.getItem("manara-token") || null; } catch (e) {}
+        if (!tok) return;
+        apiCall("me", { token: tok }).then(function (r) {
+          if (r && r.ok && r.user) {
+            try { localStorage.setItem("manara-user", JSON.stringify(r.user)); } catch (e) {}
+            if (r.bookings) { try { localStorage.setItem("manara-bookings", JSON.stringify(r.bookings)); } catch (e) {} }
+            renderProfileBody();
+          }
+        });
+      }
+      function closeProfile() {
+        $("#profileModal").classList.remove("open");
+      }
+      var profileModal = $("#profileModal");
+      if (profileModal) {
+        $$("[data-pclose]", profileModal).forEach(function (el) {
+          el.addEventListener("click", closeProfile);
+        });
+      }
+      var profileBtn = $("#profileBtn");
+      if (profileBtn) profileBtn.addEventListener("click", openProfile);
+      var logoutBtn = $("#logoutBtn");
+      if (logoutBtn) logoutBtn.addEventListener("click", function () {
+        var tok = null;
+        try { tok = localStorage.getItem("manara-token") || null; } catch (e) {}
+        if (tok) apiCall("logout", { token: tok });
+        try { localStorage.removeItem("manara-user"); localStorage.removeItem("manara-token"); } catch (e) {}
+        refreshNavUser();
+        toast("تم تسجيل الخروج — نراك قريباً 👋", "info");
+        goScreen("login");
+      });
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && profileModal && profileModal.classList.contains("open")) closeProfile();
+      });
 
       /* ============================================
          الصفوف والمواد حسب المرحلة (من الإعدادات)
@@ -1851,10 +2439,13 @@
           b.className = "plan" + (key === planKey ? " active" : "");
           b.setAttribute("data-plan", key);
           var per = p.duration ? p.duration : (p.sessions > 1 ? "اشتراك " + p.sessions + " حصص" : "لحصة واحدة");
+          var pr = planPrice(key);
           b.innerHTML =
             '<span class="plan-ico">' + planIcons[key] + "</span>" +
-            '<span class="plan-info"><b>' + p.name + "</b><small>" + p.desc + "</small></span>" +
-            '<span class="plan-price">' + (p.price === 0 ? "مجاناً" : p.price + ' ر.س') + "<small>" + per + "</small></span>";
+            '<span class="plan-info"><b>' + p.name + "</b><small>" + p.desc + "</small>" + (pr.badge ? '<span class="plan-badge">' + pr.badge + "</span>" : "") + "</span>" +
+            '<span class="plan-price">' + (pr.price === 0 ? "مجاناً" : pr.price + ' ر.س') +
+            (pr.oldPrice ? ' <small class="plan-old">' + pr.oldPrice + ' ر.س</small>' : "") +
+            "<small>" + per + "</small></span>";
           b.addEventListener("click", function () {
             $$("#planList .plan").forEach(function (x) { x.classList.remove("active"); });
             b.classList.add("active");
@@ -1938,12 +2529,18 @@
 
       function updateSummary() {
         var plan = SETTINGS.plans[planKey];
+        var pr = planPrice(planKey);
         $("#sumGrade").textContent = $("#grade").value;
         $("#sumSubject").textContent = $("#subject").value;
         $("#sumTeacher").textContent = $("#teacher").value ? $("#teacher").value.split(" — ")[0] : "يُحدد لاحقاً";
         $("#sumTime").textContent = $("#time").value;
-        $("#sumPlan").textContent = plan.name + (plan.duration ? " (" + plan.duration + ")" : "");
-        $("#sumTotal").textContent = plan.price === 0 ? "مجاناً" : plan.price + " ر.س";
+        $("#sumPlan").textContent = plan.name + (plan.duration ? " (" + plan.duration + ")" : "") + (pr.badge ? " — " + pr.badge : "");
+        $("#sumTotal").textContent = pr.price === 0 ? "مجاناً" : pr.price + " ر.س";
+        var sumOld = $("#sumOld");
+        if (sumOld) {
+          sumOld.style.display = pr.oldPrice ? "" : "none";
+          if (pr.oldPrice) sumOld.textContent = "بدلاً من " + pr.oldPrice + " ر.س";
+        }
       }
 
       /* ============================================
@@ -2000,7 +2597,7 @@
       }
 
       function updatePayBtnLabel() {
-        $("#payBtn .pay-btn-label").textContent = "ادفع " + SETTINGS.plans[planKey].price + " ر.س";
+        $("#payBtn .pay-btn-label").textContent = "ادفع " + planPrice(planKey).price + " ر.س";
       }
 
       var moyasarScriptLoading = false;
@@ -2036,7 +2633,7 @@
           if (SETTINGS.methods.indexOf("visa") !== -1) networks.push("visa", "mastercard");
           Moyasar.init({
             element: host,
-            amount: SETTINGS.plans[planKey].price * 100,
+            amount: planPrice(planKey).price * 100,
             currency: "SAR",
             description: $("#subject").value + " — " + $("#grade").value + " (" + (classType === "group" ? "حصة جماعية — " : "حصة فردية — ") + SETTINGS.plans[planKey].name + ")",
             publishable_api_key: SETTINGS.gateway.moyasarKey,
@@ -2050,9 +2647,15 @@
 
       function openPay() {
         payDone = false;
+        var pr = planPrice(planKey);
         $("#payItemName").textContent = $("#subject").value + " — " + $("#grade").value;
-        $("#payItemType").textContent = (classType === "group" ? "حصة جماعية — " : "حصة فردية — ") + SETTINGS.plans[planKey].name;
-        $("#payPrice").textContent = SETTINGS.plans[planKey].price + " ر.س";
+        $("#payItemType").textContent = (classType === "group" ? "حصة جماعية — " : "حصة فردية — ") + SETTINGS.plans[planKey].name + (pr.badge ? " — " + pr.badge : "");
+        $("#payPrice").textContent = pr.price + " ر.س";
+        var payOld = $("#payOld");
+        if (payOld) {
+          payOld.style.display = pr.oldPrice ? "" : "none";
+          if (pr.oldPrice) payOld.textContent = "بدلاً من " + pr.oldPrice + " ر.س";
+        }
         var sim = $("#paySim"), host = $("#moyasarHost");
         if (SETTINGS.gateway.moyasarKey) {
           sim.style.display = "none";
@@ -2099,12 +2702,14 @@
           $("#payBtn").style.display = "none";
           $("#paySuccess").style.display = "";
           payDone = true;
+          saveBookingRecord();
         }, 1600);
       }
 
       $("#goPayBtn").addEventListener("click", function () {
-        if (SETTINGS.plans[planKey].price === 0) {
+        if (planPrice(planKey).price === 0) {
           toast("تم حجز حصتك الأولى المجانية 🎁 — نلتقي في القاعة", "success");
+          saveBookingRecord();
           startRoom();
           goScreen("room");
           return;
@@ -3132,6 +3737,14 @@
           $("#ownerForm").classList.remove("open");
           $("#ownerEmail").value = "";
           $("#ownerPassword").value = "";
+          apiCall("ownerLogin", { email: em, password: pw }).then(function (r) {
+            if (r && r.ok && r.ownerToken) {
+              try { localStorage.setItem("manara-owner-token", r.ownerToken); } catch (e) {}
+              renderUsersReport();
+            } else {
+              toast("لم نتمكن من الوصول للسجل المشترك — سيعرض السجل المحلي فقط", "info");
+            }
+          });
         } else {
           toast("بيانات المالك غير صحيحة", "error");
         }
@@ -3165,16 +3778,19 @@
         });
         $("#cfgMoyasarKey").value = SETTINGS.gateway.moyasarKey;
         $("#cfgCallbackUrl").value = SETTINGS.gateway.callbackUrl;
+        fillThemeFields();
+        renderOffers();
         renderTeacherRequests();
+        renderUsersReport();
       }
 
       /* ============================================
          طلبات المعلمين: العرض والاعتماد والرفض
          ============================================ */
-      function renderTeacherRequests() {
-        var list = getAccounts().filter(function (a) { return a.role === "teacher"; });
+      function renderTeacherRequestsFrom(list) {
         var wrap = $("#teacherReqList");
         if (!wrap) return;
+        list = list || [];
         if (!list.length) {
           wrap.innerHTML = '<p class="tr-empty">لا توجد طلبات معلمين حالياً.</p>';
           return;
@@ -3210,6 +3826,11 @@
         });
       }
 
+      function renderTeacherRequests() {
+        renderTeacherRequestsFrom(getAccounts().filter(function (a) { return a.role === "teacher"; }));
+        fetchServerReport();
+      }
+
       function setTeacherStatus(email, status) {
         var list = getAccounts();
         var acc = null;
@@ -3219,13 +3840,270 @@
         if (!acc) return;
         acc.status = status;
         saveAccounts(list);
+        var ot = null;
+        try { ot = localStorage.getItem("manara-owner-token") || null; } catch (e) {}
+        if (ot) apiCall("approveTeacher", { token: ot, email: email, status: status });
         toast(status === "approved" ? "تم اعتماد المعلم — أصبح بإمكانه الدخول ✅" : "تم رفض الطلب", status === "approved" ? "success" : "error");
         renderTeacherRequests();
+        renderUsersReport();
       }
 
       function esc(str) {
         return String(str == null ? "" : str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
       }
+
+      /* ============================================
+         سجل المستخدمين والحصص — منطقة مراجعة المالك
+         ============================================ */
+      var serverReport = null;
+      function renderStats(users, bookings) {
+        var wrap = $("#ownerStats");
+        if (!wrap) return;
+        users = users || [];
+        bookings = bookings || [];
+        var teachers = users.filter(function (u) { return u.role === "teacher"; });
+        var students = users.filter(function (u) { return u.role === "student"; });
+        var pending = teachers.filter(function (t) { return t.status === "pending"; });
+        var approved = teachers.filter(function (t) { return t.status === "approved" || t.status === "active"; });
+        var paid = bookings.filter(function (b) { return !!b.paid; }).length;
+        var plans = {};
+        bookings.forEach(function (b) {
+          var key = b.planKey || b.plan || "أخرى";
+          plans[key] = (plans[key] || 0) + 1;
+        });
+        var planHtml = Object.keys(plans).slice(0, 4).map(function (k) {
+          return '<div class="owner-stat"><b>' + plans[k] + "</b><span>" + esc(k) + "</span></div>";
+        }).join("");
+        function card(label, val) {
+          return '<div class="owner-stat"><b>' + val + "</b><span>" + label + "</span></div>";
+        }
+        wrap.innerHTML =
+          card("إجمالي المستخدمين", users.length) +
+          card("طلاب", students.length) +
+          card("معلمون معتمدون", approved.length) +
+          card("معلمون بانتظار الموافقة", pending.length) +
+          card("إجمالي الحجوزات", bookings.length) +
+          card("حصص مدفوعة", paid) +
+          planHtml;
+      }
+      function renderReportFrom(accounts, bookings) {
+        renderStats(accounts, bookings);
+        var wrap = $("#reportUsers");
+        if (!wrap) return;
+        accounts = accounts || [];
+        bookings = bookings || [];
+        if (!accounts.length && !bookings.length) {
+          wrap.innerHTML = '<p class="tr-empty">لا يوجد مستخدمون أو حصص بعد.</p>';
+          return;
+        }
+        var html = '<div class="report-users">';
+        accounts.forEach(function (acc) {
+          var mine = bookings.filter(function (b) { return b.email && (b.email || "").toLowerCase() === (acc.email || "").toLowerCase(); });
+          var when = acc.createdAt ? new Date(acc.createdAt).toLocaleDateString("ar-SA") : "—";
+          var badge = acc.status === "rejected" ? '<span class="tr-badge rejected">مرفوض</span>'
+            : acc.status === "pending" ? '<span class="tr-badge pending">بانتظار الموافقة</span>'
+            : '<span class="tr-badge approved">نشط</span>';
+          html += '<div class="report-user">' +
+            '<div class="report-user-head"><span class="tr-avatar">' + esc((acc.name || "م").charAt(0)) + "</span>" +
+            '<span class="tr-info"><b>' + esc(acc.name) + "</b><small>" + esc(acc.email) + " • " + (acc.role === "teacher" ? "معلم" : "طالب") + " • سجل في " + when + " • " + badge + "</small></span>" +
+            '<span class="report-count">' + mine.length + " حصة</span></div>";
+          if (mine.length) {
+            html += '<div class="profile-table-wrap"><table class="profile-table"><thead><tr><th>#</th><th>المادة</th><th>الصف</th><th>المعلم</th><th>الموعد</th><th>الباقة</th><th>الحالة</th><th>التاريخ</th></tr></thead><tbody>';
+            mine.forEach(function (b, i) {
+              var d = new Date(b.at);
+              html += "<tr><td>" + (i + 1) + "</td><td>" + esc(b.subject) + "</td><td>" + esc(b.grade) + "</td><td>" + esc(b.teacher) + "</td><td>" + esc(b.time) + "</td><td>" + esc(b.plan) + "</td><td>" + (b.paid ? "مدفوع" : "مجاني") + "</td><td>" + d.toLocaleDateString("ar-SA") + "</td></tr>";
+            });
+            html += "</tbody></table></div>";
+          } else {
+            html += '<p class="tr-empty" style="padding:8px 0;">لا توجد حصص محجوزة بعد.</p>';
+          }
+          html += "</div>";
+        });
+        html += "</div>";
+        wrap.innerHTML = html;
+      }
+      function renderUsersReport() {
+        renderReportFrom(getAccounts(), getBookings());
+        fetchServerReport();
+      }
+
+      function fetchServerReport() {
+        var ot = null;
+        try { ot = localStorage.getItem("manara-owner-token") || null; } catch (e) {}
+        if (!ot) return Promise.resolve(false);
+        return apiCall("ownerReport", { token: ot }).then(function (r) {
+          if (r && r.ok) {
+            var teachers = (r.users || []).filter(function (u) { return u.role === "teacher"; });
+            serverReport = { users: r.users || [], bookings: r.bookings || [], teachers: teachers };
+            renderReportFrom(serverReport.users, serverReport.bookings);
+            renderTeacherRequestsFrom(serverReport.teachers);
+            return true;
+          }
+          if (r && r.error === "غير مصرح — سجّل دخول المالك أولاً") {
+            try { localStorage.removeItem("manara-owner-token"); } catch (e) {}
+          }
+          return false;
+        }).catch(function () { return false; });
+      }
+
+      function buildReportDoc(accounts, bookings) {
+        accounts = accounts || [];
+        bookings = bookings || [];
+        var dateStr = new Date().toLocaleDateString("ar-SA");
+        var brandName = SETTINGS.brand.name;
+        var rows = "";
+        accounts.forEach(function (acc) {
+          var mine = bookings.filter(function (b) { return b.email && (b.email || "").toLowerCase() === (acc.email || "").toLowerCase(); });
+          var when = acc.createdAt ? new Date(acc.createdAt).toLocaleDateString("ar-SA") : "—";
+          rows += '<div class="u"><div class="uh"><strong>' + esc(acc.name) + "</strong><span>" + esc(acc.email) + " • " + (acc.role === "teacher" ? "معلم" : "طالب") + " • سجل في " + when + "</span></div>";
+          if (mine.length) {
+            rows += '<table><tr><th>#</th><th>المادة</th><th>الصف</th><th>المعلم</th><th>الموعد</th><th>الباقة</th><th>الحالة</th><th>التاريخ</th></tr>';
+            mine.forEach(function (b, i) {
+              rows += "<tr><td>" + (i + 1) + "</td><td>" + esc(b.subject) + "</td><td>" + esc(b.grade) + "</td><td>" + esc(b.teacher) + "</td><td>" + esc(b.time) + "</td><td>" + esc(b.plan) + "</td><td>" + (b.paid ? "مدفوع" : "مجاني") + "</td><td>" + new Date(b.at).toLocaleDateString("ar-SA") + "</td></tr>";
+            });
+            rows += "</table>";
+          } else {
+            rows += '<p class="none">لا توجد حصص محجوزة بعد.</p>';
+          }
+          rows += "</div>";
+        });
+        if (!accounts.length) rows = '<p class="none">لا يوجد مستخدمون بعد.</p>';
+        return '<!DOCTYPE html><html dir="rtl" lang="ar"><head><meta charset="utf-8"><title>مراجعة المستخدمين والحصص — ' + esc(brandName) + " — " + dateStr + '</title><style>body{font-family:"Segoe UI",Tahoma,Arial,sans-serif;background:#f4f6fb;margin:0;padding:24px;color:#1e293b}h1{font-size:22px;margin:0 0 4px}.meta{color:#64748b;font-size:13px;margin-bottom:20px}.u{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;margin-bottom:14px}.uh{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;margin-bottom:8px}.uh span{color:#64748b;font-size:13px}table{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}th,td{border:1px solid #e2e8f0;padding:6px 10px;text-align:right}th{background:#f1f5f9}.none{color:#94a3b8;font-size:13px}</style></head><body><h1>📁 ملف المراجعة — المستخدمون والحصص</h1><div class="meta">المنصة: ' + esc(brandName) + " • تاريخ التقرير: " + dateStr + " • إجمالي المستخدمين: " + accounts.length + " • إجمالي الحصص: " + bookings.length + "</div>" + rows + "</body></html>";
+      }
+
+      function downloadReport() {
+        var data = serverReport || { users: getAccounts(), bookings: getBookings() };
+        var blob = new Blob([buildReportDoc(data.users, data.bookings)], { type: "text/html;charset=utf-8" });
+        var a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "مراجعة-المستخدمين-والحصص-" + new Date().toISOString().slice(0, 10) + ".html";
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+        toast("تم إنشاء ملف المراجعة وتنزيله 📁", "success");
+      }
+
+      function bindReportButtons() {
+        var dl = $("#reportDownloadBtn");
+        if (dl) dl.addEventListener("click", downloadReport);
+        var rf = $("#reportRefreshBtn");
+        if (rf) rf.addEventListener("click", function () { renderUsersReport(); toast("تم تحديث سجل المراجعة", "success"); });
+      }
+
+      /* ============================================
+         المظهر في لوحة الإعدادات: الخطوط والألوان
+         ============================================ */
+      var FONT_OPTIONS = ["Cairo", "Tajawal", "Almarai", "Rubik", "Noto Kufi Arabic", "Amiri", "El Messiri", "Alexandria", "IBM Plex Sans Arabic", "Reem Kufi"];
+      var THEME_COLOR_FIELDS = [
+        ["cfgColorPrimary", "primary"],
+        ["cfgColorPrimaryDark", "primaryDark"],
+        ["cfgColorPrimaryDeeper", "primaryDeeper"],
+        ["cfgColorPrimaryLight", "primaryLight"],
+        ["cfgColorPrimarySoft", "primarySoft"],
+        ["cfgColorAccent", "accent"]
+      ];
+      function populateFontSelects() {
+        [["cfgFontBody", SETTINGS.theme.fonts.body], ["cfgFontHead", SETTINGS.theme.fonts.head]].forEach(function (pair) {
+          var s = $("#" + pair[0]);
+          s.innerHTML = '<option value="">الافتراضي</option>' + FONT_OPTIONS.map(function (f) { return '<option value="' + f + '">' + f + "</option>"; }).join("");
+          s.value = pair[1];
+        });
+      }
+      function bindColorInput(colorId, hexId) {
+        var c = $("#" + colorId), h = $("#" + hexId);
+        c.addEventListener("input", function () { h.value = c.value; });
+        h.addEventListener("input", function () {
+          var v = h.value.trim();
+          if (/^#([0-9a-f]{6})$/i.test(v)) c.value = v;
+        });
+      }
+      function fillThemeFields() {
+        var tc = (SETTINGS.theme && SETTINGS.theme.colors) || {};
+        THEME_COLOR_FIELDS.forEach(function (pair) {
+          $("#" + pair[0]).value = tc[pair[1]] || "#ffffff";
+          $("#" + pair[0] + "Hex").value = tc[pair[1]] || "";
+        });
+        populateFontSelects();
+      }
+      function collectThemeFromForm() {
+        var colors = {};
+        THEME_COLOR_FIELDS.forEach(function (pair) {
+          var v = $("#" + pair[0] + "Hex").value.trim();
+          colors[pair[1]] = /^#([0-9a-f]{6})$/i.test(v) ? v : "";
+        });
+        SETTINGS.theme = SETTINGS.theme || {};
+        SETTINGS.theme.colors = colors;
+        SETTINGS.theme.fonts = { body: $("#cfgFontBody").value, head: $("#cfgFontHead").value };
+      }
+      THEME_COLOR_FIELDS.forEach(function (pair) { bindColorInput(pair[0], pair[0] + "Hex"); });
+      $("#themeLiveBtn").addEventListener("click", function () {
+        collectThemeFromForm();
+        applyTheme(SETTINGS.themeDefault);
+        applyCustomTheme();
+        toast("معاينة مباشرة — احفظ الإعدادات لتثبيت التغيير", "info");
+      });
+      $("#themeResetBtn").addEventListener("click", function () {
+        SETTINGS.theme = { colors: {}, fonts: {} };
+        fillThemeFields();
+        applyTheme(SETTINGS.themeDefault);
+        applyCustomTheme();
+        toast("تمت إعادة المظهر للافتراضي", "success");
+      });
+
+      /* ============================================
+         العروض والتخفيضات في لوحة الإعدادات
+         ============================================ */
+      function renderOffers() {
+        var list = $("#offersList");
+        if (!list) return;
+        list.innerHTML = "";
+        (SETTINGS.offers || []).forEach(function (o, idx) {
+          var plans = (o.plans || []).join(",");
+          var row = document.createElement("div");
+          row.className = "offer-row";
+          row.innerHTML =
+            '<input type="text" class="offer-title" data-idx="' + idx + '" placeholder="اسم العرض (يظهر للمستفيدين)" value="' + esc(o.title || "") + '">' +
+            '<select class="offer-type" data-idx="' + idx + '">' +
+            '<option value="percent"' + (o.type === "percent" ? " selected" : "") + '>خصم نسبة %</option>' +
+            '<option value="fixed"' + (o.type === "fixed" ? " selected" : "") + '>خصم مبلغ (ر.س)</option>' +
+            "</select>" +
+            '<input type="number" class="offer-value" data-idx="' + idx + '" min="0" placeholder="القيمة" value="' + (o.value || 0) + '">' +
+            '<input type="text" class="offer-plans" data-idx="' + idx + '" placeholder="single,pack4,pack8" value="' + esc(plans) + '">' +
+            '<label class="form-check"><input type="checkbox" class="offer-active" data-idx="' + idx + '"' + (o.active === false ? "" : " checked") + '> فعال</label>' +
+            '<button type="button" class="offer-del" data-idx="' + idx + '" title="حذف العرض">✕</button>';
+          list.appendChild(row);
+        });
+        if (!(SETTINGS.offers || []).length) {
+          list.innerHTML = '<p class="offer-hint" style="margin:0;">لا توجد عروض حالياً. اضغط «+ إضافة عرض» لإنشاء تخفيض للمستفيدين.</p>';
+        }
+      }
+      $("#offersList").addEventListener("input", function (e) {
+        var t = e.target;
+        if (!t.dataset || !t.hasAttribute("data-idx")) return;
+        var o = SETTINGS.offers[Number(t.getAttribute("data-idx"))];
+        if (!o) return;
+        if (t.classList.contains("offer-title")) o.title = t.value;
+        else if (t.classList.contains("offer-value")) o.value = Number(t.value) || 0;
+        else if (t.classList.contains("offer-plans")) o.plans = t.value.split(",").map(function (s) { return s.trim(); }).filter(function (s) { return s.length; });
+        else if (t.classList.contains("offer-type")) o.type = t.value;
+      });
+      $("#offersList").addEventListener("change", function (e) {
+        var t = e.target;
+        if (t.classList.contains("offer-active")) {
+          var o = SETTINGS.offers[Number(t.getAttribute("data-idx"))];
+          if (o) o.active = t.checked;
+        }
+      });
+      $("#offersList").addEventListener("click", function (e) {
+        var del = e.target.closest ? e.target.closest(".offer-del") : null;
+        if (!del) return;
+        SETTINGS.offers.splice(Number(del.getAttribute("data-idx")), 1);
+        renderOffers();
+      });
+      $("#addOfferBtn").addEventListener("click", function () {
+        SETTINGS.offers.push({ title: "عرض جديد", type: "percent", value: 10, plans: ["single", "pack4", "pack8"], active: true });
+        renderOffers();
+      });
 
       /* الثيم الافتراضي في لوحة الإعدادات */
       $$("[data-theme-opt]").forEach(function (btn) {
@@ -3267,11 +4145,13 @@
         SETTINGS.methods = $$(".methods-cfg input[type=checkbox]").filter(function (c) { return c.checked; }).map(function (c) { return c.value; });
         SETTINGS.gateway.moyasarKey = $("#cfgMoyasarKey").value.trim();
         SETTINGS.gateway.callbackUrl = $("#cfgCallbackUrl").value.trim();
+        collectThemeFromForm();
 
         saveSettings();
         applyBrand();
         applyBookingData();
         applyTheme(SETTINGS.themeDefault);
+        applyCustomTheme();
         toast("تم حفظ الإعدادات بنجاح ✔", "success");
       }
 
@@ -3283,6 +4163,7 @@
         SETTINGS = loadSettings();
         applyBrand();
         applyBookingData();
+        applyCustomTheme();
         populateAdminForm();
         toast("تمت استعادة الإعدادات الافتراضية", "success");
       });
@@ -3326,6 +4207,7 @@
         setTimeout(function () {
           if (st === "paid") {
             toast("تم الدفع بنجاح ✔ — حظاً موفقاً في حصتك", "success");
+            saveBookingRecord();
             goScreen("booking");
           } else if (st === "failed") {
             toast("عذراً، فشلت عملية الدفع — حاول مرة أخرى", "error");
@@ -3338,6 +4220,10 @@
 
       /* تهيئة أولية للصفحة الثانية عند العرض */
       initBooking();
+      refreshNavUser();
+      bindReportButtons();
+      /* تطبيق مظهر المالك المخصص بعد اكتمال جميع التعريفات */
+      applyCustomTheme();
     })();
   </script>
 </body>
