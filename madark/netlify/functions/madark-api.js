@@ -134,6 +134,18 @@ async function userBookings(store, identity) {
 }
 
 exports.handler = async function (event) {
+  try {
+    return await route(event);
+  } catch (err) {
+    return fail("خطأ في الخادم: " + String((err && err.message) || err));
+  }
+};
+
+async function openStore() {
+  try { return await getStore({ name: STORE_NAME }); } catch (e) { return null; }
+}
+
+async function route(event) {
   if (event.httpMethod === "OPTIONS") return send(204, {});
   if (event.httpMethod !== "POST") return fail("Method not allowed");
 
@@ -142,8 +154,14 @@ exports.handler = async function (event) {
   const action = body.action;
   if (!action) return fail("Missing action");
 
-  const store = await getStore({ name: STORE_NAME });
+  const store = await openStore();
   const norm = (s) => String(s || "").trim().toLowerCase();
+
+  if (!store) {
+    return action === "ping"
+      ? ok({site: "madark", store: STORE_NAME, demo: true, error: "التخزين السحابي غير متاح في بيئة التشغيل — فعّل Netlify Blobs من إعدادات الموقع"})
+      : fail("التخزين السحابي غير متاح (Netlify Blobs) — فعّله من إعدادات الموقع ثم أعد الرفع");
+  }
 
   switch (action) {
 
@@ -335,4 +353,4 @@ exports.handler = async function (event) {
     default:
       return fail("إجراء غير معروف");
   }
-};
+}
