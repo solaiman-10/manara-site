@@ -4,6 +4,7 @@
   "private": true,
   "description": "منصتا المنارة ومدارك — مستودع مشترك",
   "dependencies": {
+    "@netlify/aws-lambda-compat": "^1.0.0",
     "@netlify/blobs": "^8.1.0"
   }
 }

@@ -14,12 +14,11 @@
    ============================================ */
 
 const crypto = require("crypto");
+const { withLambda } = require("@netlify/aws-lambda-compat");
 
 let getStore = null;
-let connectLambda = null;
 try {
   getStore = require("@netlify/blobs").getStore;
-  connectLambda = require("@netlify/blobs").connectLambda;
 } catch (e) {
   getStore = null;
 }
@@ -141,14 +140,13 @@ async function userBookings(store, identity) {
   return bookings.filter((b) => b.email === identity);
 }
 
-exports.handler = async function (event) {
+module.exports = withLambda(async function (event) {
   try {
-    if (connectLambda && event) connectLambda(event);
     return await route(event);
   } catch (err) {
     return fail("خطأ في الخادم: " + String((err && err.message) || err));
   }
-};
+});
 
 async function openStore() {
   try { return await getStore({ name: STORE_NAME, consistency: "strong" }); } catch (e) { return null; }
