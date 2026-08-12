@@ -150,6 +150,14 @@ exports.handler = async function (event) {
 async function openStore() {
   try { return await getStore({ name: STORE_NAME }); } catch (e) { return null; }
 }
+function storeErr() {
+  try {
+    getStore({ name: STORE_NAME });
+  } catch (e) {
+    return String((e && e.message) || e);
+  }
+  return "";
+}
 
 async function route(event) {
   if (event.httpMethod === "OPTIONS") return send(204, {});
@@ -165,7 +173,7 @@ async function route(event) {
 
   if (!store) {
     return action === "ping"
-      ? ok({site: "madark", store: STORE_NAME, demo: true, error: "التخزين السحابي غير متاح في بيئة التشغيل — فعّل Netlify Blobs من إعدادات الموقع"})
+      ? ok({site: "madark", store: STORE_NAME, demo: true, error: "التخزين السحابي غير متاح", detail: storeErr()})
       : fail("التخزين السحابي غير متاح (Netlify Blobs) — فعّله من إعدادات الموقع ثم أعد الرفع");
   }
 
