@@ -13,15 +13,9 @@
      التجريبي: يظهر الرمز في استجابة sendOtp.
    ============================================ */
 
-const crypto = require("crypto");
-const { withLambda } = require("@netlify/aws-lambda-compat");
-
-let getStore = null;
-try {
-  getStore = require("@netlify/blobs").getStore;
-} catch (e) {
-  getStore = null;
-}
+import crypto from "crypto";
+import { withLambda } from "@netlify/aws-lambda-compat";
+import { getStore } from "@netlify/blobs";
 
 const STORE_NAME = "madark-data";
 const OWNER_EMAIL = process.env.MADARK_OWNER_EMAIL || "admin@madark.edu";
@@ -140,7 +134,7 @@ async function userBookings(store, identity) {
   return bookings.filter((b) => b.email === identity);
 }
 
-module.exports = withLambda(async function (event) {
+export default withLambda(async function (event) {
   try {
     return await route(event);
   } catch (err) {
