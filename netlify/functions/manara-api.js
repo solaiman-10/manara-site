@@ -151,11 +151,11 @@ exports.handler = async function (event) {
 };
 
 async function openStore() {
-  try { return await getStore({ name: STORE_NAME }); } catch (e) { return null; }
+  try { return await getStore({ name: STORE_NAME, consistency: "strong" }); } catch (e) { return null; }
 }
 function storeErr() {
   try {
-    getStore({ name: STORE_NAME });
+    getStore({ name: STORE_NAME, consistency: "strong" });
   } catch (e) {
     return String((e && e.message) || e);
   }
