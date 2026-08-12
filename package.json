@@ -1,0 +1,9 @@
+{
+  "name": "manara-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "منصتا المنارة ومدارك — مستودع مشترك",
+  "dependencies": {
+    "@netlify/blobs": "^8.1.0"
+  }
+}
