@@ -16,8 +16,10 @@
 const crypto = require("crypto");
 
 let getStore = null;
+let connectLambda = null;
 try {
   getStore = require("@netlify/blobs").getStore;
+  connectLambda = require("@netlify/blobs").connectLambda;
 } catch (e) {
   getStore = null;
 }
@@ -141,6 +143,7 @@ async function userBookings(store, identity) {
 
 exports.handler = async function (event) {
   try {
+    if (connectLambda && event) connectLambda(event);
     return await route(event);
   } catch (err) {
     return fail("خطأ في الخادم: " + String((err && err.message) || err));
