@@ -1911,6 +1911,11 @@
         $$(".screen").forEach(function (s) { s.classList.remove("active"); });
         $("#screen-" + name).classList.add("active");
         window.scrollTo({ top: 0, behavior: "smooth" });
+        if (name === "admin") {
+          var ot = null;
+          try { ot = localStorage.getItem("manara-owner-token") || null; } catch (e) {}
+          if (ot) { renderTeacherRequests(); renderUsersReport(); }
+        }
       };
 
       /* ============================================
@@ -3742,6 +3747,7 @@
             if (r && r.ok && r.ownerToken) {
               try { localStorage.setItem("manara-owner-token", r.ownerToken); } catch (e) {}
               renderUsersReport();
+              renderTeacherRequests();
             } else {
               toast("لم نتمكن من الوصول للسجل المشترك — سيعرض السجل المحلي فقط", "info");
             }
@@ -3833,21 +3839,30 @@
       }
 
       function setTeacherStatus(identity, status) {
-        var list = getAccounts();
-        var acc = null;
-        for (var i = 0; i < list.length; i++) {
-          if (list[i].email && String(list[i].email).toLowerCase() === String(identity).toLowerCase()) { acc = list[i]; break; }
-          if (list[i].phone && String(list[i].phone) === String(identity)) { acc = list[i]; break; }
-        }
-        if (!acc) return;
-        acc.status = status;
-        saveAccounts(list);
         var ot = null;
         try { ot = localStorage.getItem("manara-owner-token") || null; } catch (e) {}
-        if (ot) apiCall("approveTeacher", { token: ot, email: acc.email || "", phone: acc.phone || "", status: status });
-        toast(status === "approved" ? "تم اعتماد المعلم — أصبح بإمكانه الدخول ✅" : "تم رفض الطلب", status === "approved" ? "success" : "error");
-        renderTeacherRequests();
-        renderUsersReport();
+        var email = String(identity || "");
+        var phone = "";
+        var list = getAccounts();
+        for (var i = 0; i < list.length; i++) {
+          if (list[i].email && String(list[i].email).toLowerCase() === String(identity).toLowerCase()) { email = list[i].email; phone = list[i].phone || ""; break; }
+          if (list[i].phone && String(list[i].phone) === String(identity)) { phone = list[i].phone; email = list[i].email || ""; break; }
+        }
+        var done = function (ok) {
+          if (ok === false) { toast("لم نتمكن من اعتماد الطلب على الخادم — أعد المحاولة", "error"); return; }
+          toast(status === "approved" ? "تم اعتماد المعلم — أصبح بإمكانه الدخول ✅" : "تم رفض الطلب", status === "approved" ? "success" : "error");
+          renderTeacherRequests();
+          renderUsersReport();
+        };
+        if (!ot) { done(false); return; }
+        apiCall("approveTeacher", { token: ot, email: email, phone: phone, status: status }).then(function (r) {
+          if (!r || !r.ok) { done(false); return; }
+          list.forEach(function (a) {
+            if ((a.email && a.email === r.user.email) || (a.phone && r.user.phone && a.phone === r.user.phone)) a.status = status;
+          });
+          saveAccounts(list);
+          done(true);
+        }).catch(function () { done(false); });
       }
 
       function esc(str) {

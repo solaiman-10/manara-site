@@ -496,15 +496,26 @@
   }
   function setTeacherStatus(email, status) {
     var list = getAccounts();
+    var phone = "";
     list.forEach(function (a) {
-      if (teacherIdOf(a) === String(email || "").toLowerCase()) a.status = status;
+      if (teacherIdOf(a) === String(email || "").toLowerCase()) { a.status = status; phone = a.phone || ""; }
     });
     try { localStorage.setItem("madark-accounts", JSON.stringify(list)); } catch (e) {}
     if (window.MadarkApi) {
       var ot = window.MadarkApi.getOwnerToken();
       if (ot) {
-        window.MadarkApi.call("approveTeacher", { token: ot, email: email, status: status }).then(function (r) {
-          if (r && r.error === "غير مصرح — سجّل دخول المالك أولاً") window.MadarkApi.clearOwnerToken();
+        window.MadarkApi.call("approveTeacher", { token: ot, email: email, phone: phone, status: status }).then(function (r) {
+          if (r && r.ok) {
+            list.forEach(function (a) {
+              if (teacherIdOf(a) === String((r.user && (r.user.email || r.user.phone)) || email || "").toLowerCase()) a.status = status;
+            });
+            try { localStorage.setItem("madark-accounts", JSON.stringify(list)); } catch (e) {}
+            renderUsersReport();
+          } else if (r && r.error === "غير مصرح — سجّل دخول المالك أولاً") {
+            window.MadarkApi.clearOwnerToken();
+          } else {
+            toast((r && r.error) || "تعذر اعتماد المعلم على الخادم", "error");
+          }
         });
       }
     }
