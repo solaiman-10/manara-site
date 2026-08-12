@@ -256,7 +256,7 @@ async function route(event) {
         hash: hashPassword(password, s),
         role,
         status: role === "teacher" ? "pending" : "active",
-        provider: "email",
+        provider: phone ? "phone" : "email",
         certName,
         certData: role === "teacher" ? certData : "",
         createdAt: new Date().toISOString()
@@ -278,6 +278,8 @@ async function route(event) {
       const accounts = await readJSON(store, "accounts.json", []);
       const acc = accounts.find((a) => (byEmail && a.email === byEmail) || (byPhone && a.phone === byPhone));
       if (!acc || !verifyPassword(password, acc.salt, acc.hash)) return fail("بيانات الدخول غير صحيحة");
+      if (acc.role === "teacher" && acc.status === "pending") return fail("حسابك قيد المراجعة — بانتظار موافقة إدارة المنصة");
+      if (acc.role === "teacher" && acc.status === "rejected") return fail("عذراً، تم رفض طلبك من قبل الإدارة");
       const t = newToken();
       const sessions = await readJSON(store, "sessions.json", {});
       sessions[t] = { identity: acc.email || acc.phone, createdAt: Date.now() };
@@ -344,7 +346,7 @@ async function route(event) {
     case "approveTeacher": {
       if (!(await ownerTokenOk(store, body.token))) return fail("غير مصرح — سجّل دخول المالك أولاً");
       const email = norm(body.email);
-      const phone = normalizePhone(body.email);
+      const phone = normalizePhone(body.phone || body.email);
       const status = body.status === "approved" ? "approved" : body.status === "rejected" ? "rejected" : null;
       if (!email && !phone) return fail("بيانات غير صحيحة");
       if (!status) return fail("بيانات غير صحيحة");

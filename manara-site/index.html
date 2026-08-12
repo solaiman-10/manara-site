@@ -2107,9 +2107,6 @@
               toast("يرجى إدخال بريد إلكتروني صحيح أو رقم جوال سعودي", "error"); idInput.focus(); return;
             }
             var acc = findAccount(idVal);
-            if (isPhone && !acc) {
-              toast("لا يوجد حساب بهذا الرقم — أنشئ حساباً جديداً أولاً", "error"); idInput.focus(); return;
-            }
             var doLocal = function (local) {
               if (!local) {
                 toast("لا يوجد حساب بهذه البيانات — أنشئ حساباً جديداً أولاً", "error"); idInput.focus(); return;
@@ -2140,6 +2137,10 @@
                   toast("عذراً، تم رفض طلبك من قبل الإدارة", "error"); return;
                 }
                 loginSuccess(u.name, idVal, u.role);
+                return;
+              }
+              if (isPhone && r && r.error === "network") {
+                doLocal(acc);
                 return;
               }
               if (isPhone) {
@@ -2256,7 +2257,7 @@
                 }
                 return;
               }
-              if (r && r.error === "هذا البريد مسجل مسبقاً") {
+              if (r && r.error && String(r.error).indexOf("مسجل مسبقاً") !== -1) {
                 apiCall("login", { identifier: emailVal, password: pass.value }).then(function (lr) {
                   if (lr && lr.ok && lr.token) {
                     try {
@@ -3815,11 +3816,11 @@
           var when = acc.createdAt ? new Date(acc.createdAt).toLocaleDateString("ar-SA") : "";
           row.innerHTML =
             '<span class="tr-avatar">م</span>' +
-            '<span class="tr-info"><b>' + esc(acc.name) + '</b><small>' + esc(acc.email) + (when ? " • " + when : "") + " • " + badge + "</small></span>" +
+            '<span class="tr-info"><b>' + esc(acc.name) + '</b><small>' + esc(acc.email || acc.phone || "") + (when ? " • " + when : "") + " • " + badge + "</small></span>" +
             '<span class="tr-actions">' + certLink + actions + "</span>";
           row.querySelectorAll("[data-acc]").forEach(function (btn) {
             btn.addEventListener("click", function () {
-              setTeacherStatus(acc.email, btn.getAttribute("data-acc") === "approve" ? "approved" : "rejected");
+              setTeacherStatus(acc.email || acc.phone || "", btn.getAttribute("data-acc") === "approve" ? "approved" : "rejected");
             });
           });
           wrap.appendChild(row);
@@ -3831,18 +3832,19 @@
         fetchServerReport();
       }
 
-      function setTeacherStatus(email, status) {
+      function setTeacherStatus(identity, status) {
         var list = getAccounts();
         var acc = null;
         for (var i = 0; i < list.length; i++) {
-          if ((list[i].email || "").toLowerCase() === email.toLowerCase()) { acc = list[i]; break; }
+          if (list[i].email && String(list[i].email).toLowerCase() === String(identity).toLowerCase()) { acc = list[i]; break; }
+          if (list[i].phone && String(list[i].phone) === String(identity)) { acc = list[i]; break; }
         }
         if (!acc) return;
         acc.status = status;
         saveAccounts(list);
         var ot = null;
         try { ot = localStorage.getItem("manara-owner-token") || null; } catch (e) {}
-        if (ot) apiCall("approveTeacher", { token: ot, email: email, status: status });
+        if (ot) apiCall("approveTeacher", { token: ot, email: acc.email || "", phone: acc.phone || "", status: status });
         toast(status === "approved" ? "تم اعتماد المعلم — أصبح بإمكانه الدخول ✅" : "تم رفض الطلب", status === "approved" ? "success" : "error");
         renderTeacherRequests();
         renderUsersReport();

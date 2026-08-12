@@ -569,7 +569,7 @@
                 setTimeout(() => { window.location.href = "dashboard.html"; }, 450);
                 return;
               }
-              if (r && r.error === "هذا البريد مسجل مسبقاً") {
+              if (r && r.error && String(r.error).indexOf("مسجل مسبقاً") !== -1) {
                 window.MadarkApi.call("login", { email: emailClean, password: pass.value }).then(function (lr) {
                   if (lr && lr.ok) {
                     if (lr.user && lr.user.role === "teacher" && lr.user.status === "pending") {

@@ -263,7 +263,7 @@
           date: date,
           time: time,
           type: document.getElementById("bookType").value,
-          by: user.email || "",
+          by: user.email || user.phone || "",
           at: Date.now()
         };
         var bookings = [];
@@ -282,15 +282,15 @@
               var all = [];
               try { all = JSON.parse(localStorage.getItem("madark-bookings") || "[]"); } catch (err2) {}
               all = all.filter(function (b) {
-                return !(b.teacher === r.booking.teacher && b.date === r.booking.date && b.time === r.booking.time && b._id !== r.booking.id);
+                return !(b.teacher === r.booking.teacher && b.date === r.booking.date && b.time === r.booking.time && b.id !== r.booking.id);
               });
               all.push({
-                _id: r.booking.id,
+                id: r.booking.id,
                 teacher: r.booking.teacher,
                 date: r.booking.date,
                 time: r.booking.time,
                 type: r.booking.type,
-                by: user.email || "",
+                by: user.email || user.phone || "",
                 at: r.booking.at || Date.now()
               });
               try { localStorage.setItem("madark-bookings", JSON.stringify(all)); } catch (err2) {}

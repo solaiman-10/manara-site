@@ -311,7 +311,7 @@
         setText("as-name", user ? user.name : "—");
         setText("as-id", ident || "—");
         setText("as-role", user ? (user.role === "teacher" ? "معلّم" : "طالب") : "—");
-        setText("as-status", user ? (user.status === "pending" ? "قيد المراجعة" : "مفعل") : "—");
+        setText("as-status", user ? (user.status === "pending" ? "قيد المراجعة" : user.status === "rejected" ? "مرفوض" : "مفعل") : "—");
         setText("as-joined", user && user.createdAt ? new Date(user.createdAt).toLocaleDateString("ar-SA") : "—");
         if (!user) {
           body.innerHTML = '<p style="color:var(--text-muted);margin:0;">لم تسجّل دخولك بعد — <a href="auth.html" style="color:var(--primary);font-weight:800;">سجّل دخولك</a> لعرض ملفك وحصصك.</p>';
