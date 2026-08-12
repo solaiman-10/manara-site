@@ -365,6 +365,40 @@ async function route(event) {
       return ok({ user: publicUser(acc) });
     }
 
+    case "deleteUser": {
+      if (!(await ownerTokenOk(store, body.token))) return fail("غير مصرح — سجّل دخول المالك أولاً");
+      const id = String(body.id || "");
+      const email = norm(body.email);
+      const phone = normalizePhone(body.phone || "");
+      let accounts = await readJSON(store, "accounts.json", []);
+      const before = accounts.length;
+      accounts = accounts.filter((a) => {
+        if (id && a.id === id) return false;
+        if (email && norm(a.email) === email) return false;
+        if (phone && a.phone === phone) return false;
+        return true;
+      });
+      if (accounts.length === before) return fail("الحساب غير موجود");
+      await store.set("accounts.json", JSON.stringify(accounts));
+      let bookings = await readJSON(store, "bookings.json", []);
+      const removed = accounts; /* students deleted */
+      const bookBefore = bookings.length;
+      bookings = bookings.filter((b) => !(b.email && removed.some((r) => r.email === b.email)));
+      if (bookings.length !== bookBefore) await store.set("bookings.json", JSON.stringify(bookings));
+      return ok({});
+    }
+
+    case "deleteBooking": {
+      if (!(await ownerTokenOk(store, body.token))) return fail("غير مصرح — سجّل دخول المالك أولاً");
+      const id = String(body.id || "");
+      let bookings = await readJSON(store, "bookings.json", []);
+      const before = bookings.length;
+      bookings = bookings.filter((b) => b.id !== id);
+      if (bookings.length === before) return fail("الحصة غير موجودة");
+      await store.set("bookings.json", JSON.stringify(bookings));
+      return ok({});
+    }
+
     default:
       return fail("إجراء غير معروف");
   }

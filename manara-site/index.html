@@ -1562,6 +1562,7 @@
             طلبات المعلمين
           </h3>
           <p style="font-size:13px;color:var(--text-muted);margin:0 0 14px;">المعلمون المتقدمون بانتظار الموافقة — راجع شهادة التخصص ثم اعتمد أو ارفض.</p>
+          <button type="button" class="btn btn-outline btn-sm" id="teacherRefreshBtn" style="margin-bottom:14px;">↻ تحديث طلبات المعلمين</button>
           <div id="teacherReqList"></div>
         </div>
 
@@ -3748,6 +3749,7 @@
               try { localStorage.setItem("manara-owner-token", r.ownerToken); } catch (e) {}
               renderUsersReport();
               renderTeacherRequests();
+              fetchServerReport();
             } else {
               toast("لم نتمكن من الوصول للسجل المشترك — سيعرض السجل المحلي فقط", "info");
             }
@@ -4005,6 +4007,8 @@
         if (dl) dl.addEventListener("click", downloadReport);
         var rf = $("#reportRefreshBtn");
         if (rf) rf.addEventListener("click", function () { renderUsersReport(); toast("تم تحديث سجل المراجعة", "success"); });
+        var tf = $("#teacherRefreshBtn");
+        if (tf) tf.addEventListener("click", function () { fetchServerReport().then(function (ok) { toast(ok ? "تم تحديث طلبات المعلمين ✅" : "تعذر التحديث — تحقق من دخول المالك للخادم", ok ? "success" : "error"); }); });
       }
 
       /* ============================================
